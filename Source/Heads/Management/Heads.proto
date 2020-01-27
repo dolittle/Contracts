@@ -1,0 +1,28 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Heads/Management/HeadInfo.proto";
+
+package dolittle.runtime.heads.management;
+
+option csharp_namespace = "Dolittle.Runtime.Heads.Management";
+
+
+message ConnectedHeadsRequest {
+}
+
+message ConnectedHead {
+    HeadInfo Head = 1;
+    int64 ConnectionTime = 2;
+}
+
+message ConnectedHeadsResponse {
+    repeated ConnectedHead Heads = 1;
+}
+
+// Represents the Head service
+service Heads {
+    rpc GetConnectedHeads(ConnectedHeadsRequest) returns(ConnectedHeadsResponse) {}
+}

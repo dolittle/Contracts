@@ -1,0 +1,26 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+package dolittle.dependencyinversion;
+
+option csharp_namespace = "Dolittle.Runtime.DependencyInversion";
+
+message GetBindingsRequest {}
+
+message Binding {
+    string Service = 1;
+    string Strategy = 2;
+    string StrategyData = 3;
+    string Scope = 4;
+}
+
+message Bindings {
+    repeated Binding Bindings = 1;
+}
+
+// Represents the IoC container
+service Container {
+    rpc GetBindings(GetBindingsRequest) returns(Bindings) {}
+}

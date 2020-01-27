@@ -1,0 +1,25 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "TimeSeries/DataTypes/Single.proto";
+import "TimeSeries/DataTypes/Vector2.proto";
+import "TimeSeries/DataTypes/Vector3.proto";
+
+package dolittle.runtime.timeseries.datatypes;
+
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataTypes";
+
+message DataPoint {
+    bytes timeSeries = 1;
+
+    oneof measurement {
+        Single single_value = 2;
+        Vector2 vector2_value = 3;
+        Vector3 vector3_value = 4;
+    }
+    
+    google.protobuf.Timestamp timestamp = 5;
+}

@@ -1,0 +1,26 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "TimeSeries/Connectors/PullConnector.proto";
+import "TimeSeries/DataPoints/TagDataPoint.proto";
+
+package dolittle.runtime.timeseries.connectors;
+
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors";
+
+message WriteMessage {
+    bytes connectorId = 1;
+    repeated dolittle.runtime.timeseries.datapoints.TagDataPoint Data = 2;
+}
+
+message PullRequest {
+}
+
+// Represents the service for working with connectors that are pull based
+service PullConnectors {
+    rpc Connect(PullConnector) returns(stream PullRequest) {}
+    rpc Write(WriteMessage) returns(google.protobuf.Empty) {}
+}

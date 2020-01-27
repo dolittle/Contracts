@@ -1,0 +1,22 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "TimeSeries/DataTypes/Single.proto";
+import "TimeSeries/DataTypes/Vector2.proto";
+import "TimeSeries/DataTypes/Vector3.proto";
+
+package dolittle.runtime.timeseries.datapoints;
+
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataPoints";
+
+message TagDataPoint {
+    string tag = 1;
+
+    oneof measurement {
+        dolittle.runtime.timeseries.datatypes.Single single_value = 2;
+        dolittle.runtime.timeseries.datatypes.Vector2 vector2_value = 3;
+        dolittle.runtime.timeseries.datatypes.Vector3 vector3_value = 4;
+    }
+}
