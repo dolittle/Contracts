@@ -13,3 +13,4 @@ option csharp_namespace = "Dolittle.Runtime.TimeSeries.Identity";
 service TimeSeriesMapIdentifier {
     rpc Register(TimeSeriesMap) returns(google.protobuf.Empty);
 }
+
