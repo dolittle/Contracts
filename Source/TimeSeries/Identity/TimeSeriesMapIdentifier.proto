@@ -4,7 +4,7 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "Timeseries/Identity/TimeSeriesMap.proto";
+import "TimeSeries/Identity/TimeSeriesMap.proto";
 
 package dolittle.runtime.timeseries.identity;
 
