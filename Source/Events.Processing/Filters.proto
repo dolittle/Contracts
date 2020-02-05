@@ -17,7 +17,7 @@ message FilterRuntimeToClientRequest {
 message FilterClientToRuntimeResponse {
     bytes requestId = 1;
     bool isIncluded = 2;
-    int32 partition = 3;
+    bytes partition = 3;
     bool succeeded = 4;
     bool retry = 5;
 }
@@ -25,3 +25,5 @@ message FilterClientToRuntimeResponse {
 service Filters {
     rpc Connect(stream FilterClientToRuntimeResponse) returns(stream FilterRuntimeToClientRequest);
 }
+
+
