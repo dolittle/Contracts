@@ -1,0 +1,35 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Artifacts/Artifact.proto";
+import "Events/CommittedEvent.proto";
+
+package dolittle.runtime.events.processing;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+
+message EventHandlerRuntimeToClientRequest {
+    uint64 callNumber = 1;
+    CommittedEvent event = 2;
+    bytes executionContext = 3;
+}
+
+message EventHandlerClientToRuntimeResponse {
+    uint64 callNumber = 1;
+    bool succeeded = 2;
+    bool retry = 3;
+    bytes executionContext = 4;
+}
+
+message EventHandlerArguments {
+    bytes eventHandlerId = 1;
+    bytes streamId = 2;
+    repeated dolittle.runtime.artifacts.Artifact types = 3;
+    bool partitioned = 4;    
+}
+
+service EventHandlers {
+    rpc Connect(stream EventHandlerClientToRuntimeResponse) returns(stream EventHandlerRuntimeToClientRequest);
+}
