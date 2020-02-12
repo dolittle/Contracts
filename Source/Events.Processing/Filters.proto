@@ -10,20 +10,25 @@ package dolittle.runtime.events.processing;
 option csharp_namespace = "Dolittle.Runtime.Events.Processing";
 
 message FilterRuntimeToClientRequest {
-    bytes requestId = 1;
-    dolittle.runtime.events.CommittedEvent event = 2;
+    uint64 callNumber = 1;
+    CommittedEvent event = 2;
+    bytes executionContext = 3;
+}
+
+message FilterArguments {
+    bytes filterId = 1;
+    bytes streamId = 2;
 }
 
 message FilterClientToRuntimeResponse {
-    bytes requestId = 1;
+    uint64 callNumber = 1;
     bool isIncluded = 2;
     bytes partition = 3;
     bool succeeded = 4;
     bool retry = 5;
+    bytes executionContext = 6;
 }
 
 service Filters {
     rpc Connect(stream FilterClientToRuntimeResponse) returns(stream FilterRuntimeToClientRequest);
 }
-
-
