@@ -13,5 +13,5 @@ option csharp_namespace = "Dolittle.Runtime.Events";
 message UncommittedEvent {
     dolittle.runtime.artifacts.Artifact artifact = 1;
     google.protobuf.Timestamp occurred = 2;
-    string data = 3;
+    string content = 3;
 }
