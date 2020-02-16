@@ -26,7 +26,7 @@ message FilterClientToRuntimeResponse {
     bytes partition = 3;
     bool succeeded = 4;
     bool retry = 5;
-    uint64 retryTimeout = 6;
+    uint32 retryTimeout = 6;
     string failureReason = 7;
     bytes executionContext = 8;
 }

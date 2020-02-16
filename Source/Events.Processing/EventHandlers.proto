@@ -20,7 +20,7 @@ message EventHandlerClientToRuntimeResponse {
     uint64 callNumber = 1;
     bool succeeded = 2;
     bool retry = 3;
-    uint64 retryTimeout = 4;
+    uint32 retryTimeout = 4;
     string failureReason = 5;
     bytes executionContext = 6;
 }
