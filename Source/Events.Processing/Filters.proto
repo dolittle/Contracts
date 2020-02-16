@@ -26,7 +26,8 @@ message FilterClientToRuntimeResponse {
     bytes partition = 3;
     bool succeeded = 4;
     bool retry = 5;
-    bytes executionContext = 6;
+    string failureReason = 6;
+    bytes executionContext = 7;
 }
 
 service Filters {
