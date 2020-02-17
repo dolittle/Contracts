@@ -11,6 +11,6 @@ option csharp_namespace = "Dolittle.Runtime.Events";
 
 message CommittedAggregateEvents {
     bytes aggregateId = 1;
-    int32 version = 2;
-    repeated CommittedEvent Events=3;
+    uint32 version = 2;
+    repeated CommittedEvent Events = 3;
 }

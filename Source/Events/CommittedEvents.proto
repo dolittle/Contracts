@@ -10,5 +10,5 @@ package dolittle.runtime.events;
 option csharp_namespace = "Dolittle.Runtime.Events";
 
 message CommittedEvents {
-    repeated CommittedEvent Events=1;
+    repeated CommittedEvent Events = 1;
 }

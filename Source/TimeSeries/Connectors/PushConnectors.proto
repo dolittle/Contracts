@@ -11,7 +11,7 @@ package dolittle.runtime.timeseries.connectors;
 option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors";
 
 message PushTagDataPoints {
-    repeated dolittle.runtime.timeseries.datapoints.TagDataPoint DataPoints=1;
+    repeated dolittle.runtime.timeseries.datapoints.TagDataPoint DataPoints = 1;
 }
 
 // Represents the service for working with connectors that are stream based
