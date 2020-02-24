@@ -18,6 +18,7 @@ message ProcessorClientToRuntimeResponse {
     bytes requestId = 1;
     bool succeeded = 2;
     bool retry = 3;
+    string failureReason = 4;
 }
 
 
