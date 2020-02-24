@@ -4,10 +4,11 @@
 syntax = "proto3";
 
 import "Events/Aggregate.proto";
+import "Events/AggregateEventCommitResponse.proto";
 import "Events/EventCommitResponse.proto";
+import "Events/FetchForAggregateResponse.proto";
 import "Events/UncommittedEvents.proto";
 import "Events/UncommittedAggregateEvents.proto";
-import "Events/CommittedAggregateEvents.proto";
 
 package dolittle.runtime.events;
 
@@ -16,6 +17,6 @@ option csharp_namespace = "Dolittle.Runtime.Events";
 // Represents the Event Store service
 service EventStore {
     rpc Commit(UncommittedEvents) returns(EventCommitResponse);
-    rpc CommitForAggregate(UncommittedAggregateEvents) returns(EventCommitResponse);
-    rpc FetchForAggregate(Aggregate) returns(CommittedAggregateEvents);
+    rpc CommitForAggregate(UncommittedAggregateEvents) returns(AggregateEventCommitResponse);
+    rpc FetchForAggregate(Aggregate) returns(FetchForAggregateResponse);
 }
