@@ -9,5 +9,5 @@ option csharp_namespace = "Dolittle.Runtime.Events";
 
 message ExecutionContext {
     bytes tenant = 1;
-    bytes correlationId = 2;    
+    bytes correlation = 2;    
 }
