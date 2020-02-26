@@ -21,4 +21,5 @@ message CommittedEvent {
     Cause cause = 7;
     dolittle.runtime.artifacts.Artifact type = 8;
     string content = 9;
+    bool public = 10;
 }

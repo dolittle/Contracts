@@ -14,4 +14,5 @@ message UncommittedEvent {
     dolittle.runtime.artifacts.Artifact artifact = 1;
     google.protobuf.Timestamp occurred = 2;
     string content = 3;
+    bool public = 4;
 }
