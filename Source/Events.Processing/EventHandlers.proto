@@ -26,8 +26,8 @@ message EventHandlerClientToRuntimeResponse {
 }
 
 message EventHandlerArguments {
-    bytes eventHandlerId = 1;
-    bytes streamId = 2;
+    bytes eventHandler = 1;
+    bytes stream = 2;
     repeated dolittle.runtime.artifacts.Artifact types = 3;
     bool partitioned = 4;    
 }

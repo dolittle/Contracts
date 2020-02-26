@@ -16,8 +16,8 @@ message FilterRuntimeToClientRequest {
 }
 
 message FilterArguments {
-    bytes filterId = 1;
-    bytes streamId = 2;
+    bytes filter = 1;
+    bytes stream = 2;
 }
 
 message FilterClientToRuntimeResponse {

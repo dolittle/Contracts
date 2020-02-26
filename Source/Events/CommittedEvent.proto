@@ -12,10 +12,10 @@ package dolittle.runtime.events;
 option csharp_namespace = "Dolittle.Runtime.Events";
 
 message CommittedEvent {
-    uint32 eventLogVersion = 1; 
+    uint32 eventLogSequenceNumber = 1; 
     google.protobuf.Timestamp occurred = 2;
-    bytes eventSourceId = 3;
-    bytes correlationId = 4;
+    bytes eventSource = 3;
+    bytes correlation = 4;
     bytes microservice = 5;
     bytes tenant = 6;
     Cause cause = 7;
