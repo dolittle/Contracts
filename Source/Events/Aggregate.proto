@@ -8,5 +8,6 @@ package dolittle.runtime.events;
 option csharp_namespace = "Dolittle.Runtime.Events";
 
 message Aggregate {
-    bytes id = 1;
+    bytes eventSource = 1;
+    bytes aggregateRoot = 2;
 }
