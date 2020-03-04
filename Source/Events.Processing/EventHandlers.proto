@@ -13,7 +13,8 @@ option csharp_namespace = "Dolittle.Runtime.Events.Processing";
 message EventHandlerRuntimeToClientRequest {
     uint64 callNumber = 1;
     CommittedEvent event = 2;
-    bytes executionContext = 3;
+    bytes partition = 3;
+    bytes executionContext = 4;
 }
 
 message EventHandlerClientToRuntimeResponse {
