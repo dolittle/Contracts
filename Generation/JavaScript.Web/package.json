@@ -33,6 +33,7 @@
         "prepublish": "yarn build"
     },
     "dependencies": {
-        "google-protobuf": "^3.6.1"
+        "google-protobuf": "^3.11.4",
+        "grpc-web": "^1.0.7"
     }
 }
