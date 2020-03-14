@@ -1,4 +1,0 @@
-"use strict";
-// package: dolittle.runtime.events
-// file: Events/Cause.proto
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2F1c2VfcGJfc2VydmljZS5qcyIsInNvdXJjZVJvb3QiOiIuLyIsInNvdXJjZXMiOlsiRXZlbnRzL0NhdXNlX3BiX3NlcnZpY2UuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLG1DQUFtQztBQUNuQywyQkFBMkIiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBwYWNrYWdlOiBkb2xpdHRsZS5ydW50aW1lLmV2ZW50c1xuLy8gZmlsZTogRXZlbnRzL0NhdXNlLnByb3RvXG5cbiJdfQ==

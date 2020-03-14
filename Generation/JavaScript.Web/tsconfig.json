@@ -6,7 +6,7 @@
       "baseUrl": "./",
       
       "paths": {
-          "@dolittle/runtime.contracts": ["index.ts"]
+          "@dolittle/runtime.contracts.web": ["index.ts"]
       },
       "sourceRoot": "./"
     },
