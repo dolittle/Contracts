@@ -1,7 +1,7 @@
 {
     "name": "@dolittle/runtime.contracts.web",
     "description": "Grpc services for Dolittle Runtime for grpc-web",
-    "version": "5.0.7",
+    "version": "5.0.8",
     "homepage": "https://dolittle.io",
     "author": "Dolittle",
     "license": "MIT",
