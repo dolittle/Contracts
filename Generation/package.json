@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "workspaces": [
+      "*"
+    ],
+    "devDependencies": {
+      "@dolittle/protobuf.build": "1.*",
+      "typescript": "^3.8.3"
+  }
+}

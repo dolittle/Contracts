@@ -1,0 +1,4 @@
+"use strict";
+// package: dolittle.runtime.heads
+// file: Heads/HeadInfo.proto
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSGVhZEluZm9fcGJfc2VydmljZS5qcyIsInNvdXJjZVJvb3QiOiIuLyIsInNvdXJjZXMiOlsiSGVhZHMvSGVhZEluZm9fcGJfc2VydmljZS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUEsa0NBQWtDO0FBQ2xDLDZCQUE2QiIsInNvdXJjZXNDb250ZW50IjpbIi8vIHBhY2thZ2U6IGRvbGl0dGxlLnJ1bnRpbWUuaGVhZHNcbi8vIGZpbGU6IEhlYWRzL0hlYWRJbmZvLnByb3RvXG5cbiJdfQ==
