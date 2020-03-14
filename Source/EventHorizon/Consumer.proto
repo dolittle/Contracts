@@ -3,11 +3,20 @@
 
 syntax = "proto3";
 
-import "EventHorizon/PublicEvent.proto";
+import "EventHorizon/EventHorizonEvent.proto";
 
 package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon";
+
+message AcknowledgeRequest {
+    bytes microservice = 1;
+    bytes tenant = 2;
+}
+
+message AcknowledgeResponse {
+    bool acknowledged = 1;
+}
 
 message ConsumerSubscription {
     bytes tenant = 1;
@@ -15,5 +24,6 @@ message ConsumerSubscription {
 }
 
 service Consumer {
-    rpc Subscribe(ConsumerSubscription) returns(stream PublicEvent);
+    rpc AcknowledgeConsent(AcknowledgeRequest) returns (AcknowledgeResponse);
+    rpc Subscribe(ConsumerSubscription) returns(stream EventHorizonEvent);
 }
