@@ -22,7 +22,8 @@
     "files": [
         "lib",
         "package.json",
-        "**/*.d.ts"
+        "**/*.d.ts",
+        "**/*.js"
     ],
     "main": "lib/index.js",
     "types": "index.d.ts",
