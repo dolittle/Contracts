@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-package dolittle.runtime.tenants.management;
+package dolittle.runtime.tenancy.management;
 
-option csharp_namespace = "Dolittle.Runtime.Tenants.Management";
+option csharp_namespace = "Dolittle.Runtime.Tenancy.Management";
 
 message TenantsRequest {
 }
