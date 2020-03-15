@@ -9,5 +9,7 @@ option csharp_namespace = "Dolittle.Runtime.Heads";
 
 message HeadInfo {
     bytes headId = 1;
-    string runtime = 4;
+    string host = 2;
+    string runtime = 3;
+    string version = 4;
 }

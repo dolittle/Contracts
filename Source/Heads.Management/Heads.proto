@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-import "Heads.Management/HeadInfo.proto";
+import "Heads/HeadInfo.proto";
 
 package dolittle.runtime.heads.management;
 
