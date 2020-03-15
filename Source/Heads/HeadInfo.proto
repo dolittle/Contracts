@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 package dolittle.runtime.heads;
 
 option csharp_namespace = "Dolittle.Runtime.Heads";
@@ -12,4 +14,5 @@ message HeadInfo {
     string host = 2;
     string runtime = 3;
     string version = 4;
+    google.protobuf.Timestamp connectionTime = 5;
 }
