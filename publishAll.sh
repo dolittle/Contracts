@@ -30,3 +30,11 @@ for f in Generation/*; do
     yarn publish --new-version $PACKAGE_VERSION --no-git-tag-version
     popd > /dev/null
 done
+
+echo "Committing changed files"
+git add .
+git commit -m "Publishing version $1"
+
+echo "Adding tag for the version"
+
+git tag $1
