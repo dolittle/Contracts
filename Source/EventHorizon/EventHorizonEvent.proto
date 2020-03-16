@@ -1,0 +1,24 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Artifacts/Artifact.proto";
+import "google/protobuf/timestamp.proto";
+
+package dolittle.runtime.eventhorizon;
+
+option csharp_namespace = "Dolittle.Runtime.EventHorizon";
+
+message EventHorizonEvent {
+    uint32 eventLogSequenceNumber = 1; 
+    google.protobuf.Timestamp occurred = 2;
+    bytes eventSource = 3;
+    bytes correlation = 4;
+    bytes producerMicroservice = 5;
+    bytes consumerMicroservice = 6;
+    bytes producerTenant = 7;
+    bytes consumerTenant = 8;
+    dolittle.runtime.artifacts.Artifact type = 9;
+    string content = 10;
+}
