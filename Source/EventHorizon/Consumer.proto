@@ -16,6 +16,11 @@ message ConsumerSubscription {
     uint32 publicEventsPosition = 4;
 }
 
+message ConsumerResponse {
+    EventHorizonEvent event = 1;
+    uint32 nextPublicEventsPosition = 2;
+}
+
 service Consumer {
-    rpc Subscribe(ConsumerSubscription) returns(stream EventHorizonEvent);
+    rpc Subscribe(ConsumerSubscription) returns(stream ConsumerResponse);
 }
