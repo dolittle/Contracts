@@ -18,7 +18,7 @@ message ExternalFilterRuntimeToClientRequest {
 
 message ExternalFilterArguments {
     bytes filter = 1;
-    bytes microservice = 2;
+    bytes scope = 2;
 }
 
 message ExternalFilterClientToRuntimeResponse {

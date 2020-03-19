@@ -19,7 +19,7 @@ message ExternalEventHandlerRuntimeToClientRequest {
 
 message ExternalEventHandlerArguments {
     bytes eventHandler = 1;
-    bytes microservice = 2;
+    bytes scope = 2;
     repeated dolittle.runtime.artifacts.Artifact types = 3;
     bool partitioned = 4;
 }
