@@ -12,7 +12,7 @@ option csharp_namespace = "Dolittle.Runtime.EventHorizon";
 message ConsumerSubscription {
     bytes tenant = 1;
     bytes publicStream = 2;
-    byes partition = 3;
+    bytes partition = 3;
     uint32 publicEventsPosition = 4;
 }
 

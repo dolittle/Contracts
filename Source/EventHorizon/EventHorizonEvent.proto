@@ -20,6 +20,6 @@ message EventHorizonEvent {
     bytes producerTenant = 7;
     bytes consumerTenant = 8;
     dolittle.runtime.artifacts.Artifact type = 9;
-    byes partition = 10;
+    bytes partition = 10;
     string content = 11;
 }

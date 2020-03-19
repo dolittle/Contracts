@@ -31,6 +31,6 @@ message PublicFilterClientToRuntimeResponse {
     bytes executionContext = 8;
 }
 
-service Filters {
+service PublicFilters {
     rpc Connect(stream PublicFilterClientToRuntimeResponse) returns(stream PublicFilterRuntimeToClientRequest);
 }
