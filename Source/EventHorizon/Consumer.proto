@@ -9,21 +9,13 @@ package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon";
 
-message AcknowledgeRequest {
-    bytes microservice = 1;
-    bytes tenant = 2;
-}
-
-message AcknowledgeResponse {
-    bool acknowledged = 1;
-}
-
 message ConsumerSubscription {
     bytes tenant = 1;
-    uint32 publicEventsPosition = 2;
+    bytes publicStream = 2;
+    byes partition = 3;
+    uint32 publicEventsPosition = 4;
 }
 
 service Consumer {
-    rpc AcknowledgeConsent(AcknowledgeRequest) returns (AcknowledgeResponse);
     rpc Subscribe(ConsumerSubscription) returns(stream EventHorizonEvent);
 }
