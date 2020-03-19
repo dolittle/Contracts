@@ -18,7 +18,7 @@ message ConsumerSubscription {
 
 message ConsumerResponse {
     EventHorizonEvent event = 1;
-    uint32 nextPublicEventsPosition = 2;
+    uint32 eventStreamPosition = 2;
 }
 
 service Consumer {
