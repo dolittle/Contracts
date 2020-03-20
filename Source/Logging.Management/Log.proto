@@ -8,7 +8,7 @@ import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.logging.management;
 
-option csharp_namespace = "Dolittle.Runtime.Metrics.Management";
+option csharp_namespace = "Dolittle.Runtime.Logging.Management";
 
 message LogMessage {
     bytes application = 1;
