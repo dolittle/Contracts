@@ -17,8 +17,8 @@ message ConsumerSubscription {
 }
 
 message ConsumerResponse {
-    repeated EventHorizonEvent events = 1;
-    uint32 lastEventPublicStreamPosition = 2;
+    EventHorizonEvent event = 1;
+    uint32 eventStreamPosition = 2;
 }
 
 service Consumer {

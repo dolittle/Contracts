@@ -11,15 +11,14 @@ package dolittle.runtime.eventhorizon;
 option csharp_namespace = "Dolittle.Runtime.EventHorizon";
 
 message EventHorizonEvent {
-    uint32 eventLogSequenceNumber = 1;
-    google.protobuf.Timestamp occurred = 2;
-    bytes eventSource = 3;
-    bytes correlation = 4;
-    bytes producerMicroservice = 5;
-    bytes consumerMicroservice = 6;
-    bytes producerTenant = 7;
-    bytes consumerTenant = 8;
-    dolittle.runtime.artifacts.Artifact type = 9;
-    string content = 10;
-    uint32 publicStreamPosition = 11;
+    // uint32 eventLogSequenceNumber = 1;
+    google.protobuf.Timestamp occurred = 1;
+    bytes eventSource = 2;
+    bytes correlation = 3;
+    bytes producerMicroservice = 4;
+    bytes consumerMicroservice = 5;
+    bytes producerTenant = 6;
+    bytes consumerTenant = 7;
+    dolittle.runtime.artifacts.Artifact type = 8;
+    string content = 9;
 }
