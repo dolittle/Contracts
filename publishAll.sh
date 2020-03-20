@@ -34,7 +34,3 @@ done
 echo "Committing changed files"
 git add .
 git commit -m "Publishing version $1"
-
-echo "Adding tag for the version"
-
-git tag $1
