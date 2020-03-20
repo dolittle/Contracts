@@ -1,0 +1,31 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+package dolittle.runtime.logging.management;
+
+option csharp_namespace = "Dolittle.Runtime.Metrics.Management";
+
+message LogMessage {
+    bytes application = 1;
+    bytes microservice = 2;
+    bytes tenant = 3;
+    bytes correlationId = 4;
+    string environment = 5;
+    google.protobuf.Timestamp Timestamp = 6;
+    string LogLevel = 7;
+    string FilePath = 8;
+    string LineNumber = 9;
+    string Member = 10;
+    string Message = 11;
+    string StackTerace = 12;
+}
+
+// Represents the Log service
+service Log {
+    rpc Write(LogMessage) returns(google.protobuf.Empty) {}
+}
