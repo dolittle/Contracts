@@ -27,5 +27,5 @@ message LogMessage {
 
 // Represents the Log service
 service Log {
-    rpc Write(LogMessage) returns(google.protobuf.Empty) {}
+    rpc Listen(google.protobuf.Empty) returns(stream LogMessage) {}
 }
