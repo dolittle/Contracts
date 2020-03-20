@@ -22,7 +22,7 @@ message LogMessage {
     int32 LineNumber = 9;
     string Member = 10;
     string Message = 11;
-    string StackTerace = 12;
+    string StackTrace = 12;
 }
 
 message LogMessages {
