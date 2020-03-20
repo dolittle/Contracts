@@ -12,10 +12,11 @@ message Subscription {
     bytes tenant = 2;
     bytes publicStream = 3;
     bytes partition = 4;
-
+    bytes scope = 5;
 }
+
 message SubscriptionResponse {
-    bool success = 1;
+
 }
 service Subscriptions {
     rpc Subscribe(Subscription) returns(SubscriptionResponse);
