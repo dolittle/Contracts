@@ -9,19 +9,19 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing";
 
-message ExternalFilterRuntimeToClientRequest {
+message ScopedFilterRuntimeToClientRequest {
     uint64 callNumber = 1;
     CommittedEvent event = 2;
     bytes partition = 3;
     bytes executionContext = 4;
 }
 
-message ExternalFilterArguments {
+message ScopedFilterArguments {
     bytes filter = 1;
     bytes scope = 2;
 }
 
-message ExternalFilterClientToRuntimeResponse {
+message ScopedFilterClientToRuntimeResponse {
     uint64 callNumber = 1;
     bool isIncluded = 2;
     bytes partition = 3;
@@ -32,6 +32,6 @@ message ExternalFilterClientToRuntimeResponse {
     bytes executionContext = 8;
 }
 
-service ExternalFilters {
-    rpc Connect(stream ExternalFilterClientToRuntimeResponse) returns(stream ExternalFilterRuntimeToClientRequest);
+service ScopedFilters {
+    rpc Connect(stream ScopedFilterClientToRuntimeResponse) returns(stream ScopedFilterRuntimeToClientRequest);
 }

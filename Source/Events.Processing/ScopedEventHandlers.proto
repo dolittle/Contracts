@@ -10,21 +10,21 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing";
 
-message ExternalEventHandlerRuntimeToClientRequest {
+message ScopedEventHandlerRuntimeToClientRequest {
     uint64 callNumber = 1;
     CommittedEvent event = 2;
     bytes partition = 3;
     bytes executionContext = 4;
 }
 
-message ExternalEventHandlerArguments {
+message ScopedEventHandlerArguments {
     bytes eventHandler = 1;
     bytes scope = 2;
     repeated dolittle.runtime.artifacts.Artifact types = 3;
     bool partitioned = 4;
 }
 
-message ExternalEventHandlerClientToRuntimeResponse {
+message ScopedEventHandlerClientToRuntimeResponse {
     uint64 callNumber = 1;
     bool succeeded = 2;
     bool retry = 3;
@@ -33,6 +33,6 @@ message ExternalEventHandlerClientToRuntimeResponse {
     bytes executionContext = 6;
 }
 
-service ExternalEventHandlers {
-    rpc Connect(stream ExternalEventHandlerClientToRuntimeResponse) returns(stream ExternalEventHandlerRuntimeToClientRequest);
+service ScopedEventHandlers {
+    rpc Connect(stream ScopedEventHandlerClientToRuntimeResponse) returns(stream ScopedEventHandlerRuntimeToClientRequest);
 }

@@ -22,7 +22,6 @@ message ProcessorClientToRuntimeResponse {
     string failureReason = 5;
 }
 
-
 service Processors {
     rpc Connect(stream ProcessorClientToRuntimeResponse) returns(stream ProcessorRuntimeToClientRequest);
 }
