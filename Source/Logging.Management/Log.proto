@@ -25,7 +25,11 @@ message LogMessage {
     string StackTerace = 12;
 }
 
+message LogMessages {
+    repeated LogMessage = 1;
+}
+
 // Represents the Log service
 service Log {
-    rpc Listen(google.protobuf.Empty) returns(stream LogMessage) {}
+    rpc Listen(google.protobuf.Empty) returns(stream LogMessages) {}
 }
