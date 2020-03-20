@@ -19,7 +19,7 @@ message LogMessage {
     google.protobuf.Timestamp Timestamp = 6;
     string LogLevel = 7;
     string FilePath = 8;
-    string LineNumber = 9;
+    int32 LineNumber = 9;
     string Member = 10;
     string Message = 11;
     string StackTerace = 12;
