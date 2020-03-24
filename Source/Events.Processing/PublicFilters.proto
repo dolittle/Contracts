@@ -4,6 +4,8 @@
 syntax = "proto3";
 
 import "Events/CommittedEvent.proto";
+import "Events.Processing/ProcessorFailure.proto";
+import "Events.Processing/SuccessfulFilter.proto";
 
 package dolittle.runtime.events.processing;
 
@@ -22,13 +24,11 @@ message PublicFilterArguments {
 
 message PublicFilterClientToRuntimeResponse {
     uint64 callNumber = 1;
-    bool isIncluded = 2;
-    bytes partition = 3;
-    bool succeeded = 4;
-    bool retry = 5;
-    uint32 retryTimeout = 6;
-    string failureReason = 7;
-    bytes executionContext = 8;
+    oneof Result {
+        SuccessfulFilter success = 2;
+        ProcessorFailure failed = 3;
+    }
+    bytes executionContext = 4;
 }
 
 service PublicFilters {

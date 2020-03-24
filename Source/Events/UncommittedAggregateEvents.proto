@@ -12,6 +12,6 @@ option csharp_namespace = "Dolittle.Runtime.Events";
 message UncommittedAggregateEvents {
     bytes eventSource = 1;
     bytes aggregateRoot = 2;
-    uint32 aggregateRootVersion = 3;
-    repeated UncommittedEvent Events = 4;
+    uint64 expectedAggregateRootVersion = 3;
+    repeated UncommittedEvent events = 4;
 }

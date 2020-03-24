@@ -10,14 +10,16 @@ option csharp_namespace = "Dolittle.Runtime.EventHorizon";
 message Subscription {
     bytes microservice = 1;
     bytes tenant = 2;
-    bytes publicStream = 3;
+    bytes stream = 3;
     bytes partition = 4;
     bytes scope = 5;
 }
 
 message SubscriptionResponse {
-
+    bool success = 1;
+    string reason = 2;
 }
+
 service Subscriptions {
     rpc Subscribe(Subscription) returns(SubscriptionResponse);
 }

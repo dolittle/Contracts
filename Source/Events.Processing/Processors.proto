@@ -4,22 +4,28 @@
 syntax = "proto3";
 
 import "Events/CommittedEvent.proto";
+import "Events.Processing/ProcessorFailure.proto";
 
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing";
 
 message ProcessorRuntimeToClientRequest {
-    bytes requestId = 1;
+    uint64 callNumber = 1;
+    CommittedEvent event = 3;
     bytes partition = 2;
-    dolittle.runtime.events.CommittedEvent event = 3;
+    bytes executionContext = 4;
 }
+
+message ProcessorArguments {
+    bytes processor = 1;
+    bytes scope = 2;
+}
+
 message ProcessorClientToRuntimeResponse {
-    bytes requestId = 1;
-    bool succeeded = 2;
-    bool retry = 3;
-    uint32 retryTimeout = 4;
-    string failureReason = 5;
+    uint64 callNumber = 1;
+    ProcessorFailure failed = 2; // If not set/empty - no failure
+    bytes executionContext = 3;
 }
 
 service Processors {

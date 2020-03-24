@@ -5,6 +5,7 @@ syntax = "proto3";
 
 import "Artifacts/Artifact.proto";
 import "Events/CommittedEvent.proto";
+import "Events.Processing/ProcessorFailure.proto";
 
 package dolittle.runtime.events.processing;
 
@@ -20,16 +21,14 @@ message EventHandlerRuntimeToClientRequest {
 message EventHandlerArguments {
     bytes eventHandler = 1;
     repeated dolittle.runtime.artifacts.Artifact types = 2;
-    bool partitioned = 3;    
+    bool partitioned = 3;
+    bytes scope = 4;    
 }
 
 message EventHandlerClientToRuntimeResponse {
     uint64 callNumber = 1;
-    bool succeeded = 2;
-    bool retry = 3;
-    uint32 retryTimeout = 4;
-    string failureReason = 5;
-    bytes executionContext = 6;
+    ProcessorFailure failed = 2; // If not set/empty - no failure
+    bytes executionContext = 3;
 }
 
 service EventHandlers {

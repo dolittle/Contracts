@@ -11,16 +11,11 @@ option csharp_namespace = "Dolittle.Runtime.EventHorizon";
 
 message ConsumerSubscription {
     bytes tenant = 1;
-    bytes publicStream = 2;
+    bytes stream = 2;
     bytes partition = 3;
-    uint32 publicEventsPosition = 4;
-}
-
-message ConsumerResponse {
-    EventHorizonEvent event = 1;
-    uint32 eventStreamPosition = 2;
+    int64 lastReceived = 4; // -1 = Haven't received any
 }
 
 service Consumer {
-    rpc Subscribe(ConsumerSubscription) returns(stream ConsumerResponse);
+    rpc Subscribe(ConsumerSubscription) returns(stream EventHorizonEvent);
 }

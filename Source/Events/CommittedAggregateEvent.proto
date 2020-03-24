@@ -12,15 +12,12 @@ package dolittle.runtime.events;
 option csharp_namespace = "Dolittle.Runtime.Events";
 
 message CommittedAggregateEvent {
-    uint32 eventLogSequenceNumber = 1; 
+    uint64 eventLogSequenceNumber = 1; 
     google.protobuf.Timestamp occurred = 2;
-    uint32 aggregateRootVersion = 3;
-    bytes eventSource = 4;
-    bytes correlation = 5;
-    bytes microservice = 6;
-    bytes tenant = 7;
-    Cause cause = 8;
-    dolittle.runtime.artifacts.Artifact type = 9;
-    string content = 10;
-    bool public = 11;
+    uint64 aggregateRootVersion = 3;
+    bytes correlation = 4;
+    Cause cause = 5;
+    dolittle.runtime.artifacts.Artifact type = 6;
+    bool public = 7;
+    string content = 8;
 }
