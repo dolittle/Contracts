@@ -6,6 +6,7 @@ syntax = "proto3";
 import "Events/CommittedEvent.proto";
 import "Events.Processing/ProcessorFailure.proto";
 import "Events.Processing/SuccessfulFilter.proto";
+import "Events.Processing/RetryProcessingState.proto";
 
 package dolittle.runtime.events.processing;
 
@@ -15,7 +16,8 @@ message PublicFilterRuntimeToClientRequest {
     uint64 callNumber = 1;
     CommittedEvent event = 2;
     bytes partition = 3;
-    bytes executionContext = 4;
+    RetryProcessingState retryProcessingState = 4;
+    bytes executionContext = 5;
 }
 
 message PublicFilterArguments {
