@@ -16,8 +16,10 @@ message CommittedEvent {
     google.protobuf.Timestamp occurred = 2;
     bytes eventSource = 3;
     bytes correlation = 4;
-    Cause cause = 5;
-    dolittle.runtime.artifacts.Artifact type = 6;
-    bool public = 7;
-    string content = 8;
+    bytes microservice = 5;
+    bytes tenant = 6;
+    Cause cause = 7;
+    dolittle.runtime.artifacts.Artifact type = 8;
+    bool public = 9;
+    string content = 10;
 }
