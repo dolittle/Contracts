@@ -11,6 +11,7 @@ message RetryProcessingState {
     enum FailureType {
         UNKNOWN=0;
         TRANSIENT=1;
+        PERSISTENT=2;
     };
     FailureType failureType = 1;
     string failureReason = 2;
