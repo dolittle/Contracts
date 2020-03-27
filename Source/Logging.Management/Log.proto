@@ -16,13 +16,13 @@ message LogMessage {
     bytes tenant = 3;
     bytes correlationId = 4;
     string environment = 5;
-    google.protobuf.Timestamp Timestamp = 6;
-    string LogLevel = 7;
-    string FilePath = 8;
-    string LineNumber = 9;
-    string Member = 10;
-    string Message = 11;
-    string StackTerace = 12;
+    google.protobuf.Timestamp timestamp = 6;
+    string logLevel = 7;
+    string filePath = 8;
+    string lineNumber = 9;
+    string member = 10;
+    string message = 11;
+    string stackTrace = 12;
 }
 
 // Represents the Log service
