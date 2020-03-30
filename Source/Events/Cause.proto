@@ -8,6 +8,11 @@ package dolittle.runtime.events;
 option csharp_namespace = "Dolittle.Runtime.Events";
 
 message Cause {
-    int32 type = 1;
-    uint32 position = 2;
+    enum CauseType {
+        UNKNOWN=0;
+        COMMAND=1;
+        EVENT=2;
+    };
+    CauseType type = 1;   
+    uint64 sequenceNumber = 2;
 }
