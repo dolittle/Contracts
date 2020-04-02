@@ -3,6 +3,7 @@
 
 syntax = "proto3";
 
+import "EventHorizon/SubscriptionResponse.proto";
 import "EventHorizon/EventHorizonEvent.proto";
 
 package dolittle.runtime.eventhorizon;
@@ -16,6 +17,12 @@ message ConsumerSubscription {
     int64 lastReceived = 4; // -1 = Haven't received any
 }
 
+message SubscriptionStreamMessage {
+    oneof Message {
+        SubscriptionResponse subscriptionResponse = 1;
+        EventHorizonEvent event = 2;
+    }
+}
 service Consumer {
-    rpc Subscribe(ConsumerSubscription) returns(stream EventHorizonEvent);
+    rpc Subscribe(ConsumerSubscription) returns(stream SubscriptionStreamMessage);
 }
