@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+import "EventHorizon/SubscriptionResponse.proto";
+
 package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon";
@@ -13,11 +15,6 @@ message Subscription {
     bytes stream = 3;
     bytes partition = 4;
     bytes scope = 5;
-}
-
-message SubscriptionResponse {
-    bool success = 1;
-    string reason = 2;
 }
 
 service Subscriptions {
