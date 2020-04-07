@@ -1,0 +1,31 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Events/CommittedEvent.proto";
+import "Events.Processing/Failure.proto";
+import "Events.Processing/RetryProcessingState.proto";
+
+package dolittle.runtime.events.processing;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+
+message FilterRegistrationResponse {
+    Failure failure = 1;
+}
+
+message FilterEventRequest {
+    dolittle.runtime.events.CommittedEvent event = 1;
+    bytes partition = 2;
+    RetryProcessingState retryProcessingState = 3;
+}
+
+message FilterRuntimeToClientStreamMessage {
+    uint64 callNumber = 1;
+    oneof Message {
+        FilterRegistrationResponse registrationResponse = 2;
+        FilterEventRequest filterRequest = 3;
+    }
+    bytes executionContext = 4;
+}

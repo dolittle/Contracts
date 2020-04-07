@@ -3,14 +3,10 @@
 
 syntax = "proto3";
 
-import "google/protobuf/duration.proto";
-
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing";
 
-message ProcessorFailure {
+message Failure {
     string reason = 1;
-    bool retry = 2;
-    google.protobuf.Duration retryTimeout = 3;
 }
