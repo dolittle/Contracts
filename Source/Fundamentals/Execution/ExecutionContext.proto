@@ -4,14 +4,18 @@
 syntax = "proto3";
 
 import "Fundamentals/Security/Claim.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Versioning/Version.proto";
 
 package dolittle.execution;
 
 option csharp_namespace = "Dolittle.Execution.Contracts";
 
 message ExecutionContext {
-    bytes microservice = 1;
-    bytes tenant = 2;
-    bytes correlationId = 3;
+    dolittle.protobuf.Uuid microservice = 1;
+    dolittle.protobuf.Uuid tenant = 2;
+    dolittle.protobuf.Uuid correlationId = 3;
     repeated dolittle.security.Claim claims = 4;
+    dolittle.versioning.Version version = 5;
+    string environment = 6;
 }

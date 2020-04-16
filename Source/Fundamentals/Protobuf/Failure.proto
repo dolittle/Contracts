@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-package dolittle.runtime.eventhorizon;
+package dolittle.protobuf.execution;
 
-option csharp_namespace = "Dolittle.Runtime.EventHorizon";
+option csharp_namespace = "Dolittle.Protobuf.Contracts";
 
 message Failure {
     string reason = 1;
