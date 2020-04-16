@@ -1,0 +1,16 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Execution/ExecutionContext.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+
+package dolittle.services;
+
+option csharp_namespace = "Dolittle.Services.Contracts";
+
+message ReverseCallContext {
+    dolittle.protobuf.Uuid call = 1;
+    dolittle.execution.ExecutionContext executionContext = 2;
+}

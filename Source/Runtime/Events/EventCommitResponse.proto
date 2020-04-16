@@ -3,14 +3,14 @@
 
 syntax = "proto3";
 
-import "Events/CommittedEvents.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+import "Runtime/Events/CommittedEvents.proto";
 
 package dolittle.runtime.events;
 
-option csharp_namespace = "Dolittle.Runtime.Events";
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 
 message EventCommitResponse {
-    bool success = 1;
-    string reason = 2;
-    CommittedEvents events = 3;
+    dolittle.protobuf.Failure failure = 1; // not set if not failed
+    dolittle.runtime.events.CommittedEvents events = 2;
 }

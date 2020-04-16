@@ -3,14 +3,15 @@
 
 syntax = "proto3";
 
-import "Events/CommittedAggregateEvent.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Runtime/Events/CommittedAggregateEvent.proto";
 
 package dolittle.runtime.events;
 
-option csharp_namespace = "Dolittle.Runtime.Events";
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 
 message CommittedAggregateEvents {
-    bytes eventSource = 1;
-    bytes aggregateRoot = 2;
-    repeated CommittedAggregateEvent events = 3;
+    dolittle.protobuf.Uuid eventSource = 1;
+    dolittle.protobuf.Uuid aggregateRoot = 2;
+    repeated dolittle.runtime.events.CommittedAggregateEvent events = 3;
 }

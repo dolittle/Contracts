@@ -3,23 +3,22 @@
 
 syntax = "proto3";
 
-import "Artifacts/Artifact.proto";
-import "Events/Cause.proto";
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Runtime/Events/Cause.proto";
 import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.events;
 
-option csharp_namespace = "Dolittle.Runtime.Events";
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 
 message CommittedEvent {
     uint64 eventLogSequenceNumber = 1; 
     google.protobuf.Timestamp occurred = 2;
-    bytes eventSource = 3;
-    bytes correlation = 4;
-    bytes microservice = 5;
-    bytes tenant = 6;
-    Cause cause = 7;
-    dolittle.runtime.artifacts.Artifact type = 8;
-    bool public = 9;
-    string content = 10;
+    dolittle.protobuf.Uuid eventSource = 3;
+    dolittle.execution.ExecutionContext executionContext = 4;
+    dolittle.runtime.events.Cause cause = 5;
+    dolittle.artifacts.Artifact type = 6;
+    bool public = 7;
+    string content = 8;
 }

@@ -3,36 +3,26 @@
 
 syntax = "proto3";
 
-import "Events/CommittedEvent.proto";
-import "Events.Processing/ProcessorFailure.proto";
-import "Events.Processing/SuccessfulFilter.proto";
-import "Events.Processing/RetryProcessingState.proto";
+import "Events.Processing/FilterResponse.proto";
+import "Events.Processing/FilterRuntimeToClientStreamMessage.proto";
 
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing";
 
-message PublicFilterRuntimeToClientRequest {
-    uint64 callNumber = 1;
-    CommittedEvent event = 2;
-    bytes partition = 3;
-    RetryProcessingState retryProcessingState = 4;
-    bytes executionContext = 5;
-}
-
-message PublicFilterArguments {
+message PublicFiltersRegistrationRequest {
     bytes filter = 1;
 }
 
-message PublicFilterClientToRuntimeResponse {
+message PublicFiltersClientToRuntimeStreamMessage {
     uint64 callNumber = 1;
-    oneof Result {
-        SuccessfulFilter success = 2;
-        ProcessorFailure failed = 3;
+    oneof Message {
+        PublicFiltersRegistrationRequest registrationRequest = 2;
+        FilterResponse filterResult = 3;
     }
     bytes executionContext = 4;
 }
 
 service PublicFilters {
-    rpc Connect(stream PublicFilterClientToRuntimeResponse) returns(stream PublicFilterRuntimeToClientRequest);
+    rpc Connect(stream PublicFiltersClientToRuntimeStreamMessage) returns(stream FilterRuntimeToClientStreamMessage);
 }

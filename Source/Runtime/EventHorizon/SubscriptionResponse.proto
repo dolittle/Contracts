@@ -3,12 +3,12 @@
 
 syntax = "proto3";
 
-import "EventHorizon/Failure.proto";
+import "Fundamentals/Protobuf/Failure.proto";
 
 package dolittle.runtime.eventhorizon;
 
-option csharp_namespace = "Dolittle.Runtime.EventHorizon";
+option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
 
 message SubscriptionResponse {
-    Failure failure = 1;
+    dolittle.protobuf.Failure failure = 1;
 }

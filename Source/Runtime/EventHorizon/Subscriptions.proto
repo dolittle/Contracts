@@ -3,18 +3,22 @@
 
 syntax = "proto3";
 
-import "EventHorizon/SubscriptionResponse.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Execution/ExecutionContext.proto";
+import "Runtime/EventHorizon/SubscriptionResponse.proto";
 
 package dolittle.runtime.eventhorizon;
 
-option csharp_namespace = "Dolittle.Runtime.EventHorizon";
+option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
 
 message Subscription {
-    bytes microservice = 1;
-    bytes tenant = 2;
-    bytes stream = 3;
-    bytes partition = 4;
-    bytes scope = 5;
+    dolittle.protobuf.Uuid microservice = 1;
+    dolittle.protobuf.Uuid tenant = 2;
+    dolittle.protobuf.Uuid stream = 3;
+    dolittle.protobuf.Uuid partition = 4;
+    dolittle.protobuf.Uuid scope = 5;
+    dolittle.execution.ExecutionContext executionContext = 6;
+
 }
 
 service Subscriptions {

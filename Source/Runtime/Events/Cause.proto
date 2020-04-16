@@ -5,7 +5,7 @@ syntax = "proto3";
 
 package dolittle.runtime.events;
 
-option csharp_namespace = "Dolittle.Runtime.Events";
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 
 message Cause {
     enum CauseType {

@@ -3,18 +3,19 @@
 
 syntax = "proto3";
 
-import "Artifacts/Artifact.proto";
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
 import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.eventhorizon;
 
-option csharp_namespace = "Dolittle.Runtime.EventHorizon";
+option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
 
 message EventHorizonEvent {
     uint64 streamSequenceNumber = 1;
     google.protobuf.Timestamp occurred = 2;
-    bytes eventSource = 3;
-    bytes correlation = 4;
-    dolittle.runtime.artifacts.Artifact type = 5;
+    dolittle.protobuf.Uuid eventSource = 3;
+    dolittle.protobuf.Uuid correlation = 4;
+    dolittle.artifacts.Artifact type = 5;
     string content = 6;
 }
