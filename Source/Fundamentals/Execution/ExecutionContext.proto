@@ -3,8 +3,8 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Security/Claim.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Security/Claim.proto";
 import "Fundamentals/Versioning/Version.proto";
 
 package dolittle.execution;

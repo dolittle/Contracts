@@ -4,7 +4,6 @@
 syntax = "proto3";
 
 import "Runtime/Heads/HeadInfo.proto";
-import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.heads.management;
 

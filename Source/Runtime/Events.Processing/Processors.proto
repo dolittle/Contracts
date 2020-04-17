@@ -3,7 +3,6 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
 import "Runtime/Events.Processing/ProcessorResponse.proto";

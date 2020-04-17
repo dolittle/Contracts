@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/UUid.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
 import "Runtime/Events.Processing/FilterResponse.proto";
 import "Runtime/Events.Processing/FilterRuntimeToClientStreamMessage.proto";

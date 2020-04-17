@@ -3,8 +3,8 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Failure.proto";
 import "Runtime/Heads/HeadInfo.proto";
-import "google/protobuf/empty.proto";
 
 package dolittle.runtime.heads;
 
