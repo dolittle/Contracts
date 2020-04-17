@@ -3,28 +3,62 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
-import "Runtime/Events.Processing/ProcessorResponse.proto";
-import "Runtime/Events.Processing/ProcessorRuntimeToClientStreamMessage.proto";
+import "Runtime/Events/Committed.proto";
+import "google/protobuf/duration.proto";
 
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
-message ProcessorsRegistrationRequest {
-    dolittle.protobuf.Uuid processor = 1;
-    dolittle.protobuf.Uuid scope = 2;
+message ProcessorFailure {
+    string reason = 1;
+    bool retry = 2;
+    google.protobuf.Duration retryTimeout = 3;
 }
 
-message ProcessorsClientToRuntimeStreamMessage {
-    dolittle.services.ReverseCallContext reverseCallContext = 1;
+message RetryProcessingState {
+    string failureReason = 1;
+    uint32 retryCount = 2;
+}
+
+message ProcessorsRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid processorId = 3;
+}
+
+message ProcessorResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    ProcessorFailure failed = 2; // If not set/empty - no failure
+}
+
+message ProcessorsClientToRuntimeMessage {
     oneof Message {
-        ProcessorsRegistrationRequest registrationRequest = 2;
-        ProcessorResponse processingResult = 3;
+        ProcessorsRegistrationRequest registrationRequest = 1;
+        ProcessorResponse processingResult = 2;
+    }
+}
+message ProcessorRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+message ProcessEventRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    runtime.events.CommittedEvent event = 2;
+    protobuf.Uuid partitionId = 3;
+    RetryProcessingState retryProcessingState = 4;
+}
+
+message ProcessorRuntimeToClientMessage {
+    oneof Message {
+        ProcessorRegistrationResponse registrationResponse = 1;
+        ProcessEventRequest handleRequest = 2;
     }
 }
 
 service Processors {
-    rpc Connect(stream ProcessorsClientToRuntimeStreamMessage) returns(stream ProcessorRuntimeToClientStreamMessage);
+    rpc Connect(stream ProcessorsClientToRuntimeMessage) returns(stream ProcessorRuntimeToClientMessage);
 }

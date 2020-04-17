@@ -5,25 +5,24 @@ syntax = "proto3";
 
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
-import "Runtime/Events.Processing/FilterResponse.proto";
-import "Runtime/Events.Processing/FilterRuntimeToClientStreamMessage.proto";
+import "Runtime/Events.Processing/Filters.proto";
 
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
 message PublicFiltersRegistrationRequest {
-    dolittle.protobuf.Uuid filter = 1;
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid filterId = 2;
 }
 
-message PublicFiltersClientToRuntimeStreamMessage {
-    dolittle.services.ReverseCallContext reverseCallContext = 1;
+message PublicFiltersClientToRuntimeMessage {
     oneof Message {
-        PublicFiltersRegistrationRequest registrationRequest = 2;
-        FilterResponse filterResult = 3;
+        PublicFiltersRegistrationRequest registrationRequest = 1;
+        FilterResponse filterResult = 2;
     }
 }
 
 service PublicFilters {
-    rpc Connect(stream PublicFiltersClientToRuntimeStreamMessage) returns(stream FilterRuntimeToClientStreamMessage);
+    rpc Connect(stream PublicFiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
 }
