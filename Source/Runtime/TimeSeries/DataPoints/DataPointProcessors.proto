@@ -3,12 +3,12 @@
 
 syntax = "proto3";
 
-import "TimeSeries/DataTypes/DataPoint.proto";
-import "TimeSeries/DataPoints/DataPointProcessor.proto";
+import "Runtime/TimeSeries/DataTypes/DataPoint.proto";
+import "Runtime/TimeSeries/DataPoints/DataPointProcessor.proto";
 
 package dolittle.runtime.timeseries.datapoints;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataPoints";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataPoints.Contracts";
 
 message DataPoints {
     repeated dolittle.runtime.timeseries.datatypes.DataPoint dataPoints = 1;

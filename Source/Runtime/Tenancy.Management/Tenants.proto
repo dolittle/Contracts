@@ -3,20 +3,22 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
+
 package dolittle.runtime.tenancy.management;
 
-option csharp_namespace = "Dolittle.Runtime.Tenancy.Management";
+option csharp_namespace = "Dolittle.Runtime.Tenancy.Management.Contracts";
 
 message TenantsRequest {
 }
 
 message Tenant {
-    bytes id = 1;
+    dolittle.protobuf.Uuid id = 1;
     string name = 2;
 }
 
 message TenantsResponse {
-    repeated Tenant Tenants = 1;
+    repeated Tenant tenants = 1;
 }
 
 // Represents the Head service

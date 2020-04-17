@@ -3,14 +3,14 @@
 
 syntax = "proto3";
 
+import "Runtime/TimeSeries/DataTypes/Single.proto";
+import "Runtime/TimeSeries/DataTypes/Vector2.proto";
+import "Runtime/TimeSeries/DataTypes/Vector3.proto";
 import "google/protobuf/timestamp.proto";
-import "TimeSeries/DataTypes/Single.proto";
-import "TimeSeries/DataTypes/Vector2.proto";
-import "TimeSeries/DataTypes/Vector3.proto";
 
 package dolittle.runtime.timeseries.datatypes;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataTypes";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataTypes.Contracts";
 
 message DataPoint {
     bytes timeSeries = 1;

@@ -16,7 +16,7 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 
 // Represents the Event Store service
 service EventStore {
-    rpc Commit(dolittle.runtime.events.UncommittedEvents) returns(dolittle.runtime.events.EventCommitResponse);
-    rpc CommitForAggregate(dolittle.runtime.events.UncommittedAggregateEvents) returns(dolittle.runtime.events.AggregateEventCommitResponse);
-    rpc FetchForAggregate(dolittle.runtime.events.Aggregate) returns(dolittle.runtime.events.FetchForAggregateResponse);
+    rpc Commit(UncommittedEvents) returns(EventCommitResponse);
+    rpc CommitForAggregate(UncommittedAggregateEvents) returns(AggregateEventCommitResponse);
+    rpc FetchForAggregate(Aggregate) returns(FetchForAggregateResponse);
 }

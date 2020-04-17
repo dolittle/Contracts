@@ -13,7 +13,7 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 
 message UncommittedEvents {
     dolittle.protobuf.Uuid eventSource = 1;
-    repeated dolittle.runtime.events.UncommittedEvent events = 2;
+    repeated UncommittedEvent events = 2;
     dolittle.execution.ExecutionContext executionContext = 3;
 
 }

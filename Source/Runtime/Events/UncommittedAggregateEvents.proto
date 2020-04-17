@@ -15,6 +15,6 @@ message UncommittedAggregateEvents {
     dolittle.protobuf.Uuid eventSource = 1;
     dolittle.protobuf.Uuid aggregateRoot = 2;
     uint64 expectedAggregateRootVersion = 3;
-    repeated dolittle.runtime.events.UncommittedEvent events = 4;
+    repeated UncommittedEvent events = 4;
     dolittle.execution.ExecutionContext executionContext = 5;
 }

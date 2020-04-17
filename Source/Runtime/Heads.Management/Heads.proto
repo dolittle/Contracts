@@ -3,23 +3,19 @@
 
 syntax = "proto3";
 
-import "Heads/HeadInfo.proto";
+import "Runtime/Heads/HeadInfo.proto";
+import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.heads.management;
 
-option csharp_namespace = "Dolittle.Runtime.Heads.Management";
+option csharp_namespace = "Dolittle.Runtime.Heads.Management.Contracts";
 
 
 message ConnectedHeadsRequest {
 }
 
-message ConnectedHead {
-    HeadInfo Head = 1;
-    int64 ConnectionTime = 2;
-}
-
 message ConnectedHeadsResponse {
-    repeated ConnectedHead Heads = 1;
+    repeated dolittle.runtime.heads.HeadInfo heads = 1;
 }
 
 // Represents the Head service

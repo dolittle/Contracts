@@ -5,7 +5,7 @@ syntax = "proto3";
 
 package dolittle.runtime.timeseries.datatypes;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataTypes";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataTypes.Contracts";
 
 message Single {
     double value = 1;

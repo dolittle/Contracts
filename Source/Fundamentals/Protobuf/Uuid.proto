@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-package dolittle.protobuf.execution;
+package dolittle.protobuf;
 
 option csharp_namespace = "Dolittle.Protobuf.Contracts";
 

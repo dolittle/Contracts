@@ -12,5 +12,5 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 
 message EventCommitResponse {
     dolittle.protobuf.Failure failure = 1; // not set if not failed
-    dolittle.runtime.events.CommittedEvents events = 2;
+    CommittedEvents events = 2;
 }

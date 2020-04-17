@@ -3,16 +3,18 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Versioning/Version.proto";
 import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.heads;
 
-option csharp_namespace = "Dolittle.Runtime.Heads";
+option csharp_namespace = "Dolittle.Runtime.Heads.Contracts";
 
 message HeadInfo {
-    bytes headId = 1;
+    dolittle.protobuf.Uuid headId = 1;
     string host = 2;
     string runtime = 3;
-    string version = 4;
+    dolittle.versioning.Version version = 4;
     google.protobuf.Timestamp connectionTime = 5;
 }

@@ -17,7 +17,7 @@ message CommittedAggregateEvent {
     google.protobuf.Timestamp occurred = 2;
     uint64 aggregateRootVersion = 3;
     dolittle.execution.ExecutionContext executionContext = 4;
-    dolittle.runtime.events.Cause cause = 5;
+    Cause cause = 5;
     dolittle.artifacts.Artifact type = 6;
     bool public = 7;
     string content = 8;

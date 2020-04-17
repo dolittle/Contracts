@@ -3,11 +3,11 @@
 
 syntax = "proto3";
 
-import "TimeSeries/DataTypes/Single.proto";
+import "Runtime/TimeSeries/DataTypes/Single.proto";
 
 package dolittle.runtime.timeseries.datatypes;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataTypes";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataTypes.Contracts";
 
 message Vector2 {
     Single x = 1;

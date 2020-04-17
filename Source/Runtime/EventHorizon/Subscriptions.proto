@@ -18,7 +18,6 @@ message Subscription {
     dolittle.protobuf.Uuid partition = 4;
     dolittle.protobuf.Uuid scope = 5;
     dolittle.execution.ExecutionContext executionContext = 6;
-
 }
 
 service Subscriptions {

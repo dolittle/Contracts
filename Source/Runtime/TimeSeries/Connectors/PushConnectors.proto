@@ -3,15 +3,15 @@
 
 syntax = "proto3";
 
+import "Runtime/TimeSeries/DataPoints/TagDataPoint.proto";
 import "google/protobuf/empty.proto";
-import "TimeSeries/DataPoints/TagDataPoint.proto";
 
 package dolittle.runtime.timeseries.connectors;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors.Contracts";
 
 message PushTagDataPoints {
-    repeated dolittle.runtime.timeseries.datapoints.TagDataPoint DataPoints = 1;
+    repeated dolittle.runtime.timeseries.datapoints.TagDataPoint dataPoints = 1;
 }
 
 // Represents the service for working with connectors that are stream based

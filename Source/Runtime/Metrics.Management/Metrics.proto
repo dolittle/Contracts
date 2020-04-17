@@ -5,20 +5,20 @@ syntax = "proto3";
 
 package dolittle.runtime.metrics.management;
 
-option csharp_namespace = "Dolittle.Runtime.Metrics.Management";
+option csharp_namespace = "Dolittle.Runtime.Metrics.Management.Contracts";
 
 message CollectorsRequest {
 }
 
 message Collector {
-    string Name = 1;
-    string Help = 2;
-    string Value = 3;
-    repeated string Labels = 4;
+    string name = 1;
+    string help = 2;
+    string value = 3;
+    repeated string labels = 4;
 }
 
 message CollectorsResponse {
-    repeated Collector Collectors = 1;
+    repeated Collector collectors = 1;
 }
 
 // Represents the Head service

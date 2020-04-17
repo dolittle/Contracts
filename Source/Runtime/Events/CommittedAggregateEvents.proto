@@ -13,5 +13,5 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 message CommittedAggregateEvents {
     dolittle.protobuf.Uuid eventSource = 1;
     dolittle.protobuf.Uuid aggregateRoot = 2;
-    repeated dolittle.runtime.events.CommittedAggregateEvent events = 3;
+    repeated CommittedAggregateEvent events = 3;
 }

@@ -3,10 +3,12 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
+
 package dolittle.runtime.timeseries.datapoints;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataPoints";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataPoints.Contracts";
 
 message DataPointProcessor {
-    bytes id = 1;
+    dolittle.protobuf.Uuid id = 1;
 }

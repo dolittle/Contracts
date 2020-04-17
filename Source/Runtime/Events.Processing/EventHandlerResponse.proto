@@ -3,11 +3,11 @@
 
 syntax = "proto3";
 
-import "Events.Processing/ProcessorFailure.proto";
+import "Runtime/Events.Processing/ProcessorFailure.proto";
 
 package dolittle.runtime.events.processing;
 
-option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
 message EventHandlerResponse {
     ProcessorFailure failed = 1; // If not set/empty - no failure

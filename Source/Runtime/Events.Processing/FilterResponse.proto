@@ -3,12 +3,12 @@
 
 syntax = "proto3";
 
-import "Events.Processing/ProcessorFailure.proto";
-import "Events.Processing/SuccessfulFilter.proto";
+import "Runtime/Events.Processing/ProcessorFailure.proto";
+import "Runtime/Events.Processing/SuccessfulFilter.proto";
 
 package dolittle.runtime.events.processing;
 
-option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
 message FilterResponse {
     oneof Result {

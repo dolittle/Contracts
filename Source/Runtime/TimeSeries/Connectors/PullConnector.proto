@@ -3,12 +3,14 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
+
 package dolittle.runtime.timeseries.connectors;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors.Contracts";
 
 message PullConnector {
-    bytes id = 1;
+    dolittle.protobuf.Uuid id = 1;
     string name = 2;
     int32 interval = 3;
 }

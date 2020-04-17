@@ -2,8 +2,8 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <AssemblyName>Dolittle.Contracts</AssemblyName>
-        <DolittleProtoProject>../../../Source</DolittleProtoProject>
-        <DolittleProtoRoot>../../../Source/Fundamentals</DolittleProtoRoot>
+        <DolittleProtoProject>../../../Source/Fundamentals</DolittleProtoProject>
+        <DolittleProtoRoot>../../../Source</DolittleProtoRoot>
     </PropertyGroup>
 
     <ItemGroup>

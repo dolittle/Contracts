@@ -4,6 +4,7 @@
 syntax = "proto3";
 
 import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Execution/ExecutionContext.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Runtime/Events/Cause.proto";
 import "google/protobuf/timestamp.proto";
@@ -17,7 +18,7 @@ message CommittedEvent {
     google.protobuf.Timestamp occurred = 2;
     dolittle.protobuf.Uuid eventSource = 3;
     dolittle.execution.ExecutionContext executionContext = 4;
-    dolittle.runtime.events.Cause cause = 5;
+    Cause cause = 5;
     dolittle.artifacts.Artifact type = 6;
     bool public = 7;
     string content = 8;

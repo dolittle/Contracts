@@ -3,31 +3,30 @@
 
 syntax = "proto3";
 
-import "Events/CommittedEvent.proto";
-import "Events.Processing/Failure.proto";
-import "Events.Processing/RetryProcessingState.proto";
-
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/ReverseCallContext.proto";
+import "Runtime/Events/CommittedEvent.proto";
+import "Runtime/Events.Processing/RetryProcessingState.proto";
 
 package dolittle.runtime.events.processing;
 
-option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
 message EventHandlerRegistrationResponse {
-    Failure failure = 1;
+    dolittle.protobuf.Failure failure = 1;
 }
 
 message HandleEventRequest {
     dolittle.runtime.events.CommittedEvent event = 1;
-    bytes partition = 2;
+    dolittle.protobuf.Uuid partition = 2;
     RetryProcessingState retryProcessingState = 3;
 }
 
 message EventHandlerRuntimeToClientStreamMessage {
-    uint64 callNumber = 1;
+    dolittle.services.ReverseCallContext reverseCallContext = 1;
     oneof Message {
         EventHandlerRegistrationResponse registrationResponse = 2;
         HandleEventRequest handleRequest = 3;
     }
-    bytes executionContext = 4;
-
 }

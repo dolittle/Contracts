@@ -3,13 +3,13 @@
 
 syntax = "proto3";
 
-import "TimeSeries/DataTypes/Single.proto";
-import "TimeSeries/DataTypes/Vector2.proto";
-import "TimeSeries/DataTypes/Vector3.proto";
+import "Runtime/TimeSeries/DataTypes/Single.proto";
+import "Runtime/TimeSeries/DataTypes/Vector2.proto";
+import "Runtime/TimeSeries/DataTypes/Vector3.proto";
 
 package dolittle.runtime.timeseries.datapoints;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataPoints";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.DataPoints.Contracts";
 
 message TagDataPoint {
     string tag = 1;

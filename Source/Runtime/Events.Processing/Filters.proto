@@ -3,25 +3,26 @@
 
 syntax = "proto3";
 
-import "Events.Processing/FilterResponse.proto";
-import "Events.Processing/FilterRuntimeToClientStreamMessage.proto";
+import "Fundamentals/Protobuf/UUid.proto";
+import "Fundamentals/Services/ReverseCallContext.proto";
+import "Runtime/Events.Processing/FilterResponse.proto";
+import "Runtime/Events.Processing/FilterRuntimeToClientStreamMessage.proto";
 
 package dolittle.runtime.events.processing;
 
-option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
 message FiltersRegistrationRequest {
-    bytes filter = 1;
-    bytes scope = 2;
+    dolittle.protobuf.Uuid filter = 1;
+    dolittle.protobuf.Uuid scope = 2;
 }
 
 message FiltersClientToRuntimeStreamMessage {
-    uint64 callNumber = 1;
+    dolittle.services.ReverseCallContext reverseCallContext = 1;
     oneof Message {
         FiltersRegistrationRequest registrationRequest = 2;
         FilterResponse filterResult = 3;
     }
-    bytes executionContext = 4;
 }
 
 service Filters {

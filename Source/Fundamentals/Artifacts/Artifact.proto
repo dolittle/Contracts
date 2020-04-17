@@ -5,11 +5,11 @@ syntax = "proto3";
 
 import "Fundamentals/Protobuf/Uuid.proto";
 
-package dolittle.runtime.artifacts;
+package dolittle.artifacts;
 
-option csharp_namespace = "Dolittle.Runtime.Artifacts";
+option csharp_namespace = "Dolittle.Artifacts.Contracts";
 
 message Artifact {
     dolittle.protobuf.Uuid id = 1;
-    int32 generation = 2;
+    uint32 generation = 2;
 }

@@ -3,28 +3,29 @@
 
 syntax = "proto3";
 
-import "Artifacts/Artifact.proto";
-import "Events.Processing/EventHandlerResponse.proto";
-import "Events.Processing/EventHandlerRuntimeToClientStreamMessage.proto";
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Services/ReverseCallContext.proto";
+import "Runtime/Events.Processing/EventHandlerResponse.proto";
+import "Runtime/Events.Processing/EventHandlerRuntimeToClientStreamMessage.proto";
 
 package dolittle.runtime.events.processing;
 
-option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
 message EventHandlersRegistrationRequest {
-    bytes eventHandler = 1;
-    repeated dolittle.runtime.artifacts.Artifact types = 2;
+    dolittle.protobuf.Uuid eventHandler = 1;
+    repeated dolittle.artifacts.Artifact types = 2;
     bool partitioned = 3;
-    bytes scope = 4;
+    dolittle.protobuf.Uuid scope = 4;
 }
 
 message EventHandlersClientToRuntimeStreamMessage {
-    uint64 callNumber = 1;
+    dolittle.services.ReverseCallContext reverseCallContext = 1;
     oneof Message {
         EventHandlersRegistrationRequest registrationRequest = 2;
         EventHandlerResponse handleResult = 3;
     }
-    bytes executionContext = 4;
 }
 
 service EventHandlers {

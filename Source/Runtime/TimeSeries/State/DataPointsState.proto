@@ -4,11 +4,11 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
-import "TimeSeries/DataTypes/DataPoint.proto";
+import "Runtime/TimeSeries/DataTypes/DataPoint.proto";
 
 package dolittle.runtime.timeseries.datapoints;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.State";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.State.Contracts";
 
 message DataPoints {
     repeated dolittle.runtime.timeseries.datatypes.DataPoint dataPoints = 1;

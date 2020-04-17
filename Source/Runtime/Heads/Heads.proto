@@ -3,18 +3,35 @@
 
 syntax = "proto3";
 
-import "Heads/HeadInfo.proto";
+import "Runtime/Heads/HeadInfo.proto";
 import "google/protobuf/empty.proto";
 
 package dolittle.runtime.heads;
 
-option csharp_namespace = "Dolittle.Runtime.Heads";
+option csharp_namespace = "Dolittle.Runtime.Heads.Contracts";
 
-message ConnectionResult {
-    string status = 1;
+message Ping {
+    uint32 pingTimeout = 1;
 }
 
-// Represents the Head service
+message HeadsClientToRuntimeStreamMessage {
+    oneof Message {
+        HeadInfo headInfo = 1;
+        Ping ping = 2;
+    }
+}
+
+message ConnectionResult {
+    dolittle.protobuf.Failure failure = 1; // Not set if not failed to connect
+}
+
+message HeadsRuntimeToClientStreamMessage {
+    oneof Message {
+        ConnectionResult connectionResult = 1;
+        Ping ping = 2;
+    }
+}
+
 service Heads {
-    rpc Connect(HeadInfo) returns(stream google.protobuf.Empty) {}
+    rpc Connect(stream HeadsClientToRuntimeStreamMessage) returns(stream HeadsRuntimeToClientStreamMessage) {}
 }

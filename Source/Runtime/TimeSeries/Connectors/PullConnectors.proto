@@ -3,17 +3,18 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Runtime/TimeSeries/Connectors/PullConnector.proto";
+import "Runtime/TimeSeries/DataPoints/TagDataPoint.proto";
 import "google/protobuf/empty.proto";
-import "TimeSeries/Connectors/PullConnector.proto";
-import "TimeSeries/DataPoints/TagDataPoint.proto";
 
 package dolittle.runtime.timeseries.connectors;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.Connectors.Contracts";
 
 message WriteMessage {
-    bytes connectorId = 1;
-    repeated dolittle.runtime.timeseries.datapoints.TagDataPoint Data = 2;
+    dolittle.protobuf.Uuid connectorId = 1;
+    repeated dolittle.runtime.timeseries.datapoints.TagDataPoint data = 2;
 }
 
 message PullRequest {

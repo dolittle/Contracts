@@ -3,11 +3,13 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
+
 package dolittle.runtime.events.processing;
 
-option csharp_namespace = "Dolittle.Runtime.Events.Processing";
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
 message SuccessfulFilter {
     bool isIncluded = 2;
-    bytes partition = 3;
+    dolittle.protobuf.Uuid partition = 3;
 }

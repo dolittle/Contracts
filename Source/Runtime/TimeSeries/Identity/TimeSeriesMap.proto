@@ -5,7 +5,7 @@ syntax = "proto3";
 
 package dolittle.runtime.timeseries.identity;
 
-option csharp_namespace = "Dolittle.Runtime.TimeSeries.Identity";
+option csharp_namespace = "Dolittle.Runtime.TimeSeries.Identity.Contracts";
 
 message TimeSeriesMap {
     string source = 1;

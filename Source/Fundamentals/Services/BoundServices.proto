@@ -3,22 +3,22 @@
 
 syntax = "proto3";
 
-package dolittle.runtime.services;
+package dolittle.services;
 
-option csharp_namespace = "Dolittle.Runtime.Services";
+option csharp_namespace = "Dolittle.Services.Contracts";
 
 message GetBindingsRequest {}
 
 message ServiceType {
-    string Name = 1;
+    string name = 1;
 }
 
 message Service {
-    string Name = 1;
+    string name = 1;
 }
 
 message Services {
-    repeated Service BoundServices = 1;
+    repeated Service boundServices = 1;
 }
 
 // Represents all the bound gRPC services in the system
