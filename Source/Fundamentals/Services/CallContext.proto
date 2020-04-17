@@ -5,7 +5,6 @@ syntax = "proto3";
 
 import "Fundamentals/Execution/ExecutionContext.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Services/HeadInfo.proto";
 
 package dolittle.services;
 
