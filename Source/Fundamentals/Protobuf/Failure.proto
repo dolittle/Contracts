@@ -3,10 +3,13 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
+
 package dolittle.protobuf;
 
 option csharp_namespace = "Dolittle.Protobuf.Contracts";
 
 message Failure {
-    string reason = 1;
+    Uuid id = 1;
+    string reason = 2;
 }

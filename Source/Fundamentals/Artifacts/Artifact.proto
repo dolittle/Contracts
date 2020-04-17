@@ -10,6 +10,6 @@ package dolittle.artifacts;
 option csharp_namespace = "Dolittle.Artifacts.Contracts";
 
 message Artifact {
-    dolittle.protobuf.Uuid id = 1;
+    protobuf.Uuid id = 1;
     uint32 generation = 2;
 }

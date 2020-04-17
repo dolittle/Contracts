@@ -12,10 +12,10 @@ package dolittle.execution;
 option csharp_namespace = "Dolittle.Execution.Contracts";
 
 message ExecutionContext {
-    dolittle.protobuf.Uuid microservice = 1;
-    dolittle.protobuf.Uuid tenant = 2;
-    dolittle.protobuf.Uuid correlationId = 3;
-    repeated dolittle.security.Claim claims = 4;
-    dolittle.versioning.Version version = 5;
+    protobuf.Uuid microserviceId = 1;
+    protobuf.Uuid tenantId = 2;
+    versioning.Version version = 3;
+    protobuf.Uuid correlationId = 4;
+    repeated security.Claim claims = 5;
     string environment = 6;
 }

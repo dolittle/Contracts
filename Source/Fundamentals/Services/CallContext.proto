@@ -11,16 +11,7 @@ package dolittle.services;
 
 option csharp_namespace = "Dolittle.Services.Contracts";
 
-message ReverseCallArgumentsContext {
+message CallRequestContext {
     execution.ExecutionContext executionContext = 1;
     protobuf.Uuid headId = 2;
-}
-
-message ReverseCallRequestContext {
-    protobuf.Uuid callId = 1;
-    execution.ExecutionContext executionContext = 2;
-}
-
-message ReverseCallResponseContext {
-    protobuf.Uuid callId = 1;
 }
