@@ -24,7 +24,7 @@ message EventHandlersRegistrationRequest {
 
 message EventHandlerResponse {
     services.ReverseCallResponseContext callContext = 1;
-    ProcessorFailure failed = 2; // If not set/empty - no failure
+    ProcessorFailure failure = 2; // If not set/empty - no failure
 }
 
 message EventHandlersClientToRuntimeMessage {

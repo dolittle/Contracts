@@ -13,11 +13,6 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
-message SuccessfulFilter {
-    bool isIncluded = 1;
-    protobuf.Uuid partitionId = 2;
-}
-
 message FiltersRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
@@ -26,10 +21,9 @@ message FiltersRegistrationRequest {
 
 message FilterResponse {
     services.ReverseCallResponseContext callContext = 1;
-    oneof Result {
-        SuccessfulFilter success = 2;
-        ProcessorFailure failed = 3;
-    }
+    bool isIncluded = 2;
+    protobuf.Uuid partitionId = 3;
+    ProcessorFailure failure = 4;
 }
 
 message FiltersClientToRuntimeMessage {

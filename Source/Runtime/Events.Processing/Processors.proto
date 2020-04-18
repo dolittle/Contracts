@@ -32,7 +32,7 @@ message ProcessorsRegistrationRequest {
 
 message ProcessorResponse {
     services.ReverseCallResponseContext callContext = 1;
-    ProcessorFailure failed = 2; // If not set/empty - no failure
+    ProcessorFailure failure = 2; // If not set/empty - no failure
 }
 
 message ProcessorsClientToRuntimeMessage {
