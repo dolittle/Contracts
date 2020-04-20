@@ -358,3 +358,5 @@ package-json.lock
 Generation/**/*.js
 Generation/**/*.ts
 Generation/**/*.d.ts
+
+!Source/**/Artifacts

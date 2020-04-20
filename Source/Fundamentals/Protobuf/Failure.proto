@@ -1,0 +1,15 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Protobuf/Uuid.proto";
+
+package dolittle.protobuf;
+
+option csharp_namespace = "Dolittle.Protobuf.Contracts";
+
+message Failure {
+    Uuid id = 1;
+    string reason = 2;
+}
