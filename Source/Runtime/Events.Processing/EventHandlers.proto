@@ -7,7 +7,7 @@ import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
-import "Runtime/Events/Committed.proto";
+import "Runtime/Events.Processing/StreamEvent.proto";
 import "Runtime/Events.Processing/Processors.proto";
 
 package dolittle.runtime.events.processing;
@@ -40,9 +40,8 @@ message EventHandlerRegistrationResponse {
 
 message HandleEventRequest {
     services.ReverseCallRequestContext callContext = 1;
-    runtime.events.CommittedEvent event = 2;
-    protobuf.Uuid partitionId = 3;
-    RetryProcessingState retryProcessingState = 4;
+    StreamEvent event = 2;
+    RetryProcessingState retryProcessingState = 3;
 }
 
 message EventHandlerRuntimeToClientMessage {
