@@ -24,7 +24,7 @@ message FilterResponse {
     bool isIncluded = 2;
     protobuf.Uuid partitionId = 3;
     bool partitioned = 4;
-    ProcessorFailure failure = 4;
+    ProcessorFailure failure = 5;
 }
 
 message FiltersClientToRuntimeMessage {
