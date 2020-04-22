@@ -23,8 +23,7 @@ message FilterResponse {
     services.ReverseCallResponseContext callContext = 1;
     bool isIncluded = 2;
     protobuf.Uuid partitionId = 3;
-    bool partitioned = 4;
-    ProcessorFailure failure = 5;
+    ProcessorFailure failure = 4;
 }
 
 message FiltersClientToRuntimeMessage {
