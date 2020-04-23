@@ -14,17 +14,15 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 message UncommittedEvent {
     artifacts.Artifact artifact = 1;
     protobuf.Uuid eventSourceId = 2;
-    google.protobuf.Timestamp occurred = 3;
-    bool public = 4;
-    string content = 5;
+    bool public = 3;
+    string content = 4;
 }
 
 message UncommittedAggregateEvents {
     message UncommittedAggregateEvent {
         artifacts.Artifact artifact = 1;
-        google.protobuf.Timestamp occurred = 2;
-        bool public = 3;
-        string content = 4;
+        bool public = 2;
+        string content = 3;
     }
     protobuf.Uuid aggregateRootId = 1;
     protobuf.Uuid eventSourceId = 2;
