@@ -6,32 +6,12 @@ syntax = "proto3";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
-import "Runtime/Events.Processing/StreamEvent.proto";
+import "Runtime/Events/Committed.proto";
 import "Runtime/Events.Processing/Processors.proto";
 
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
-
-message FiltersRegistrationRequest {
-    services.ReverseCallArgumentsContext callContext = 1;
-    protobuf.Uuid scopeId = 2;
-    protobuf.Uuid filterId = 3;
-}
-
-message FilterResponse {
-    services.ReverseCallResponseContext callContext = 1;
-    bool isIncluded = 2;
-    protobuf.Uuid partitionId = 3;
-    ProcessorFailure failure = 4;
-}
-
-message FiltersClientToRuntimeMessage {
-    oneof Message {
-        FiltersRegistrationRequest registrationRequest = 1;
-        FilterResponse filterResult = 2;
-    }
-}
 
 message FilterRegistrationResponse {
     protobuf.Failure failure = 1;
@@ -39,8 +19,9 @@ message FilterRegistrationResponse {
 
 message FilterEventRequest {
     services.ReverseCallRequestContext callContext = 1;
-    StreamEvent event = 2;
-    RetryProcessingState retryProcessingState = 3;
+    events.CommittedEvent event = 2;
+    protobuf.Uuid scope = 3;
+    RetryProcessingState retryProcessingState = 4;
 }
 
 message FilterRuntimeToClientMessage {
@@ -48,8 +29,4 @@ message FilterRuntimeToClientMessage {
         FilterRegistrationResponse registrationResponse = 1;
         FilterEventRequest filterRequest = 2;
     }
-}
-
-service Filters {
-    rpc Connect(stream FiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
 }
