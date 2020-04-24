@@ -12,25 +12,25 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
-message UnPartitionedFiltersRegistrationRequest {
+message UnpartitionedFiltersRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid filterId = 3;
 }
 
-message UnPartitionedFilterResponse {
+message UnpartitionedFilterResponse {
     services.ReverseCallResponseContext callContext = 1;
     bool isIncluded = 2;
     ProcessorFailure failure = 3;
 }
 
-message UnPartitionedFiltersClientToRuntimeMessage {
+message UnpartitionedFiltersClientToRuntimeMessage {
     oneof Message {
-        UnPartitionedFiltersRegistrationRequest registrationRequest = 1;
-        UnPartitionedFilterResponse filterResult = 2;
+        UnpartitionedFiltersRegistrationRequest registrationRequest = 1;
+        UnpartitionedFilterResponse filterResult = 2;
     }
 }
 
-service UnPartitionedFilters {
-    rpc Connect(stream UnPartitionedFiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
+service UnpartitionedFilters {
+    rpc Connect(stream UnpartitionedFiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
 }
