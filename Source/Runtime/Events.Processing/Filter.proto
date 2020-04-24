@@ -20,7 +20,7 @@ message FilterRegistrationResponse {
 message FilterEventRequest {
     services.ReverseCallRequestContext callContext = 1;
     events.CommittedEvent event = 2;
-    protobuf.Uuid scope = 3;
+    protobuf.Uuid scopeId = 3;
     RetryProcessingState retryProcessingState = 4;
 }
 
