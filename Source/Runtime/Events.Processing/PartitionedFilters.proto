@@ -5,7 +5,6 @@ syntax = "proto3";
 
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
-import "Runtime/Events.Processing/Filter.proto";
 import "Runtime/Events.Processing/Processors.proto";
 
 package dolittle.runtime.events.processing;
@@ -30,8 +29,4 @@ message PartitionedFiltersClientToRuntimeMessage {
         PartitionedFiltersRegistrationRequest registrationRequest = 1;
         PartitionedFilterResponse filterResult = 2;
     }
-}
-
-service PartitionedFilters {
-    rpc Connect(stream PartitionedFiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
 }

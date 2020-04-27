@@ -3,8 +3,8 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
 import "Runtime/Events/Committed.proto";
 import "Runtime/Events.Processing/Processors.proto";
@@ -29,4 +29,29 @@ message FilterRuntimeToClientMessage {
         FilterRegistrationResponse registrationResponse = 1;
         FilterEventRequest filterRequest = 2;
     }
+}
+
+message FiltersRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid filterId = 3;
+}
+
+message FilterResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    bool isIncluded = 2;
+    ProcessorFailure failure = 3;
+}
+
+message FiltersClientToRuntimeMessage {
+    oneof Message {
+        FiltersRegistrationRequest registrationRequest = 1;
+        FilterResponse filterResult = 2;
+    }
+}
+
+service Filters {
+    rpc Connect(stream FiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
+    rpc ConnectPartitioned(stream PartitionedFiltersClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
+    rpc ConnectPublic(stream PublicFiltersClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
 }
