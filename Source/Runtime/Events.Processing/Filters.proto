@@ -3,15 +3,35 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
-import "Runtime/Events.Processing/StreamEvent.proto";
+import "Runtime/Events/Committed.proto";
 import "Runtime/Events.Processing/Processors.proto";
+import "Runtime/Events.Processing/PartitionedFilters.proto";
+import "Runtime/Events.Processing/PublicFilters.proto";
 
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
+
+message FilterRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+message FilterEventRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    events.CommittedEvent event = 2;
+    protobuf.Uuid scopeId = 3;
+    RetryProcessingState retryProcessingState = 4;
+}
+
+message FilterRuntimeToClientMessage {
+    oneof Message {
+        FilterRegistrationResponse registrationResponse = 1;
+        FilterEventRequest filterRequest = 2;
+    }
+}
 
 message FiltersRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
@@ -22,8 +42,7 @@ message FiltersRegistrationRequest {
 message FilterResponse {
     services.ReverseCallResponseContext callContext = 1;
     bool isIncluded = 2;
-    protobuf.Uuid partitionId = 3;
-    ProcessorFailure failure = 4;
+    ProcessorFailure failure = 3;
 }
 
 message FiltersClientToRuntimeMessage {
@@ -33,23 +52,8 @@ message FiltersClientToRuntimeMessage {
     }
 }
 
-message FilterRegistrationResponse {
-    protobuf.Failure failure = 1;
-}
-
-message FilterEventRequest {
-    services.ReverseCallRequestContext callContext = 1;
-    StreamEvent event = 2;
-    RetryProcessingState retryProcessingState = 3;
-}
-
-message FilterRuntimeToClientMessage {
-    oneof Message {
-        FilterRegistrationResponse registrationResponse = 1;
-        FilterEventRequest filterRequest = 2;
-    }
-}
-
 service Filters {
     rpc Connect(stream FiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
+    rpc ConnectPartitioned(stream PartitionedFiltersClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
+    rpc ConnectPublic(stream PublicFiltersClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
 }
