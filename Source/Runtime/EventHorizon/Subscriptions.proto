@@ -12,7 +12,10 @@ package dolittle.runtime.eventhorizon;
 option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
 
 message SubscriptionResponse {
-    protobuf.Failure failure = 1; // set if failed
+    oneof Response {
+        protobuf.Failure failure = 1; // set if failed
+        protobuf.Uuid consentId = 2;
+    }
 }
 
 message Subscription {
