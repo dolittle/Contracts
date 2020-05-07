@@ -11,7 +11,7 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
-message PartitionedFiltersRegistrationRequest {
+message PartitionedFilterRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid filterId = 3;
@@ -24,9 +24,9 @@ message PartitionedFilterResponse {
     ProcessorFailure failure = 4;
 }
 
-message PartitionedFiltersClientToRuntimeMessage {
+message PartitionedFilterClientToRuntimeMessage {
     oneof Message {
-        PartitionedFiltersRegistrationRequest registrationRequest = 1;
+        PartitionedFilterRegistrationRequest registrationRequest = 1;
         PartitionedFilterResponse filterResult = 2;
     }
 }
