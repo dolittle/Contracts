@@ -28,6 +28,7 @@ message ProcessorRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid processorId = 3;
+    protobuf.Uuid sourceStreamId = 4;
 }
 
 message ProcessorResponse {
