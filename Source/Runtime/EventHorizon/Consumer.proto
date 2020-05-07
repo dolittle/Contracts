@@ -14,12 +14,13 @@ package dolittle.runtime.eventhorizon;
 option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
 
 message EventHorizonEvent {
-    uint64 streamSequenceNumber = 1;
-    google.protobuf.Timestamp occurred = 2;
-    protobuf.Uuid eventSourceId = 3;
-    protobuf.Uuid correlationId = 4;
-    artifacts.Artifact type = 5;
-    string content = 6;
+    uint64 eventLogSequenceNumber = 1; 
+    uint64 streamSequenceNumber = 2;
+    google.protobuf.Timestamp occurred = 3;
+    protobuf.Uuid eventSourceId = 4;
+    protobuf.Uuid correlationId = 5;
+    artifacts.Artifact type = 6;
+    string content = 7;
 }
 
 message ConsumerSubscription {
