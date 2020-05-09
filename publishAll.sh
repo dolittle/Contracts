@@ -23,7 +23,15 @@ VERSION=
 
 echo "Publishing $PACKAGE_VERSION"
 
-for f in Generation/*; do
+for f in Generation/Fundamentals/*; do
+    pushd $PWD > /dev/null
+    cd $f
+    echo "Publishing $f"
+    yarn publish --new-version $PACKAGE_VERSION --no-git-tag-version
+    popd > /dev/null
+done
+
+for f in Generation/Runtime/*; do
     pushd $PWD > /dev/null
     cd $f
     echo "Publishing $f"
