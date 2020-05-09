@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "*"
+    "Fundamentals/*",
+    "Runtime/*"
   ],
   "devDependencies": {
     "@dolittle/protobuf.build": "^1.1.2",
