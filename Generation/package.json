@@ -4,7 +4,7 @@
     "*"
   ],
   "devDependencies": {
-    "@dolittle/protobuf.build": "^1.1.0",
+    "@dolittle/protobuf.build": "^1.1.2",
     "typescript": "^3.8.3"
   }
 }
