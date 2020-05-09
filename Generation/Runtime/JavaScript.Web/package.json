@@ -30,7 +30,7 @@
     "types": "index.d.ts",
     "typings": "index.d.ts",
     "scripts": {
-        "build": "npx dolittle_proto_build grpc-web -I../../../Source  ../../../Source/Runtime && npx dolittle_proto_build grpc-web -I../../../Source  ../../../Source/Runtime",
+        "build": "npx dolittle_proto_build grpc-web -I../../../Source ../../../Source/Fundamentals ../../../Source/Runtime",
         "prepublish": "yarn build"
     },
     "dependencies": {
