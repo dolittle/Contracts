@@ -7,6 +7,7 @@ import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/CallContext.proto";
 import "Runtime/EventHorizon/Subscriptions.proto";
+import "Runtime/Events/Committed.proto";
 import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.eventhorizon;
