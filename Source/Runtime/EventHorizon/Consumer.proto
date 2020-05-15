@@ -3,11 +3,10 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/CallContext.proto";
 import "Runtime/EventHorizon/Subscriptions.proto";
-import "google/protobuf/timestamp.proto";
+import "Runtime/Events/Committed.proto";
 
 package dolittle.runtime.eventhorizon;
 
@@ -15,11 +14,7 @@ option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
 
 message EventHorizonEvent {
     uint64 streamSequenceNumber = 1;
-    google.protobuf.Timestamp occurred = 2;
-    protobuf.Uuid eventSourceId = 3;
-    protobuf.Uuid correlationId = 4;
-    artifacts.Artifact type = 5;
-    string content = 6;
+    events.CommittedEvent event = 2; 
 }
 
 message ConsumerSubscription {
@@ -27,7 +22,7 @@ message ConsumerSubscription {
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
     protobuf.Uuid partitionId = 4;
-    int64 lastReceived = 5; // -1 = Haven't received any
+    uint64 streamPosition = 5;
 }
 
 message SubscriptionMessage {
