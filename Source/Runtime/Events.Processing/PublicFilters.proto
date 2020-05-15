@@ -11,14 +11,14 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
-message PublicFiltersRegistrationRequest {
+message PublicFilterRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid filterId = 2;
 }
 
-message PublicFiltersClientToRuntimeMessage {
+message PublicFilterClientToRuntimeMessage {
     oneof Message {
-        PublicFiltersRegistrationRequest registrationRequest = 1;
+        PublicFilterRegistrationRequest registrationRequest = 1;
         PartitionedFilterResponse filterResult = 2;
     }
 }
