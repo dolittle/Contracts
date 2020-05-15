@@ -22,7 +22,7 @@ message ConsumerSubscription {
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
     protobuf.Uuid partitionId = 4;
-    int64 lastReceived = 5; // -1 = Haven't received any
+    uint64 streamPosition = 5;
 }
 
 message SubscriptionMessage {
