@@ -33,7 +33,7 @@ message FilterRuntimeToClientMessage {
     }
 }
 
-message FiltersRegistrationRequest {
+message FilterRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid filterId = 3;
@@ -45,15 +45,15 @@ message FilterResponse {
     ProcessorFailure failure = 3;
 }
 
-message FiltersClientToRuntimeMessage {
+message FilterClientToRuntimeMessage {
     oneof Message {
-        FiltersRegistrationRequest registrationRequest = 1;
+        FilterRegistrationRequest registrationRequest = 1;
         FilterResponse filterResult = 2;
     }
 }
 
 service Filters {
-    rpc Connect(stream FiltersClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
-    rpc ConnectPartitioned(stream PartitionedFiltersClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
-    rpc ConnectPublic(stream PublicFiltersClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
+    rpc Connect(stream FilterClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
+    rpc ConnectPartitioned(stream PartitionedFilterClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
+    rpc ConnectPublic(stream PublicFilterClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
 }
