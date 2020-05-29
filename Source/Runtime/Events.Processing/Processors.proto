@@ -24,10 +24,11 @@ message RetryProcessingState {
     uint32 retryCount = 2;
 }
 
-message ProcessorsRegistrationRequest {
+message ProcessorRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid processorId = 3;
+    protobuf.Uuid sourceStreamId = 4;
 }
 
 message ProcessorResponse {
@@ -35,9 +36,9 @@ message ProcessorResponse {
     ProcessorFailure failure = 2; // If not set/empty - no failure
 }
 
-message ProcessorsClientToRuntimeMessage {
+message ProcessorClientToRuntimeMessage {
     oneof Message {
-        ProcessorsRegistrationRequest registrationRequest = 1;
+        ProcessorRegistrationRequest registrationRequest = 1;
         ProcessorResponse processingResult = 2;
     }
 }
@@ -59,5 +60,5 @@ message ProcessorRuntimeToClientMessage {
 }
 
 service Processors {
-    rpc Connect(stream ProcessorsClientToRuntimeMessage) returns(stream ProcessorRuntimeToClientMessage);
+    rpc Connect(stream ProcessorClientToRuntimeMessage) returns(stream ProcessorRuntimeToClientMessage);
 }

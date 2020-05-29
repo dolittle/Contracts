@@ -5,7 +5,6 @@ syntax = "proto3";
 
 import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
-import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.events;
 

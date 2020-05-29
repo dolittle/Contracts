@@ -20,6 +20,9 @@ message CommittedEvent {
     artifacts.Artifact type = 5;
     bool public = 6;
     string content = 7;
+    bool external = 8;
+    uint64 externalEventLogSequenceNumber = 9;
+    google.protobuf.Timestamp externalEventReceived = 10;
 }
 
 message CommittedAggregateEvents {
