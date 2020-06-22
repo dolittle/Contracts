@@ -1,0 +1,41 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Execution/ExecutionContext.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "google/protobuf/timestamp.proto";
+
+package dolittle.runtime.events;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
+
+message CommittedEvent {
+    uint64 eventLogSequenceNumber = 1; 
+    google.protobuf.Timestamp occurred = 2;
+    protobuf.Uuid eventSourceId = 3;
+    execution.ExecutionContext executionContext = 4;
+    artifacts.Artifact type = 5;
+    bool public = 6;
+    string content = 7;
+    bool external = 8;
+    uint64 externalEventLogSequenceNumber = 9;
+    google.protobuf.Timestamp externalEventReceived = 10;
+}
+
+message CommittedAggregateEvents {
+    message CommittedAggregateEvent {
+        uint64 eventLogSequenceNumber = 1; 
+        google.protobuf.Timestamp occurred = 2;
+        execution.ExecutionContext executionContext = 3;
+        artifacts.Artifact type = 4;
+        bool public = 5;
+        string content = 6;
+    }
+    protobuf.Uuid eventSourceId = 1;
+    protobuf.Uuid aggregateRootId = 2;
+    uint64 aggregateRootVersion = 3;
+    repeated CommittedAggregateEvent events = 4;
+}

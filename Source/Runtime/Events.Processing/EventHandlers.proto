@@ -1,0 +1,56 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/ReverseCallContext.proto";
+import "Runtime/Events.Processing/StreamEvent.proto";
+import "Runtime/Events.Processing/Processors.proto";
+
+package dolittle.runtime.events.processing;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
+
+message EventHandlerRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid eventHandlerId = 3;
+    repeated artifacts.Artifact types = 4;
+    bool partitioned = 5;
+}
+
+message EventHandlerResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    ProcessorFailure failure = 2; // If not set/empty - no failure
+}
+
+message EventHandlerClientToRuntimeMessage {
+    oneof Message {
+        EventHandlerRegistrationRequest registrationRequest = 1;
+        EventHandlerResponse handleResult = 2;
+    }
+}
+
+message EventHandlerRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+message HandleEventRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    StreamEvent event = 2;
+    RetryProcessingState retryProcessingState = 3;
+}
+
+message EventHandlerRuntimeToClientMessage {
+    oneof Message {
+        EventHandlerRegistrationResponse registrationResponse = 1;
+        HandleEventRequest handleRequest = 2;
+    }
+}
+
+service EventHandlers {
+    rpc Connect(stream EventHandlerClientToRuntimeMessage) returns(stream EventHandlerRuntimeToClientMessage);
+}
