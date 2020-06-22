@@ -8,20 +8,18 @@ on:
     types: [closed]
 
 jobs:
-  build:
+  release-context:
     name: Continuous Integration
     runs-on: ubuntu-latest
+    outputs:
+      should-publish: ${{ steps.context.outputs.should-publish }}
+      version: ${{ steps.increment-version.outputs.next-version }}
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
-    - run: dotnet build
-
     - name: Establish context
       id: context
-      uses: ./ # Replace with ./ if used withing dolittle/establish-context-action
+      uses: dolittle/establish-context-action@v2 # Replace with ./ if used withing dolittle/establish-context-action
 
     - name: Increment version
       id: increment-version
@@ -31,9 +29,6 @@ jobs:
         version: ${{ steps.context.outputs.current-version }}
         release-type: ${{ steps.context.outputs.release-type }}
 
-    - name: Create packages
-      
-
     - name: Create GitHub Release
       if: ${{ steps.context.outputs.should-publish == 'true' }}
       uses: dolittle/github-release-action@v1 # Replace with ./ if used withing dolittle/github-release-action
@@ -41,3 +36,21 @@ jobs:
         token: ${{  secrets.BUILD_PAT  }}
         cascading-release: ${{ steps.context.outputs.cascading-release }}
         version: ${{ steps.increment-version.outputs.next-version }}
+
+  dot-net:
+    name: .Net
+    runs-on: ubuntu-latest
+    needs: release-context
+
+    steps:
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+      - run: dotnet build
+      - name: Create packages
+        if: ${{ needs.release-context.outputs.should-publish == 'true' }}
+        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ steps.increment-version.outputs.next-version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+      
+      - name: Push NuGet packages
+        run: dotnet nuget push Artifacts/NuGet/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
