@@ -1,0 +1,30 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+
+package dolittle.runtime.events;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
+
+message UncommittedEvent {
+    artifacts.Artifact artifact = 1;
+    protobuf.Uuid eventSourceId = 2;
+    bool public = 3;
+    string content = 4;
+}
+
+message UncommittedAggregateEvents {
+    message UncommittedAggregateEvent {
+        artifacts.Artifact artifact = 1;
+        bool public = 2;
+        string content = 3;
+    }
+    protobuf.Uuid aggregateRootId = 1;
+    protobuf.Uuid eventSourceId = 2;
+    uint64 expectedAggregateRootVersion = 3;
+    repeated UncommittedAggregateEvent events = 4;
+}

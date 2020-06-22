@@ -1,0 +1,16 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+package dolittle.versioning;
+
+option csharp_namespace = "Dolittle.Versioning.Contracts";
+
+message Version {
+    int32 major = 1;
+    int32 minor = 2;
+    int32 patch = 3;
+    int32 build = 4;
+    string preReleaseString = 5;
+}

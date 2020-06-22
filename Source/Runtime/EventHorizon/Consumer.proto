@@ -1,0 +1,36 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Services/CallContext.proto";
+import "Runtime/EventHorizon/Subscriptions.proto";
+import "Runtime/Events/Committed.proto";
+
+package dolittle.runtime.eventhorizon;
+
+option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
+
+message EventHorizonEvent {
+    uint64 streamSequenceNumber = 1;
+    events.CommittedEvent event = 2; 
+}
+
+message ConsumerSubscription {
+    services.CallRequestContext callContext = 1;
+    protobuf.Uuid tenantId = 2;
+    protobuf.Uuid streamId = 3;
+    protobuf.Uuid partitionId = 4;
+    uint64 streamPosition = 5;
+}
+
+message SubscriptionMessage {
+    oneof Message {
+        SubscriptionResponse subscriptionResponse = 1;
+        EventHorizonEvent event = 2;
+    }
+}
+service Consumer {
+    rpc Subscribe(ConsumerSubscription) returns(stream SubscriptionMessage);
+}

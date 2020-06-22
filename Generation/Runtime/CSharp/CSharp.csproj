@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Dolittle.Runtime.Contracts</AssemblyName>
+        <DolittleProtoProject>../../../Source/Runtime</DolittleProtoProject>
+        <DolittleProtoRoot>../../../Source</DolittleProtoRoot>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="../../Fundamentals\CSharp\CSharp.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Dolittle.Common" Version="2.*" PrivateAssets="All"/>
+        <PackageReference Include="Dolittle.Protobuf.MSBuild" Version="1.*"/>
+    </ItemGroup>
+    
+</Project>

@@ -1,0 +1,18 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Runtime/Events/Committed.proto";
+
+package dolittle.runtime.events.processing;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
+
+message StreamEvent {
+    runtime.events.CommittedEvent event = 1;
+    protobuf.Uuid partitionId = 2;
+    protobuf.Uuid scopeId = 3;
+    bool partitioned = 4;
+}

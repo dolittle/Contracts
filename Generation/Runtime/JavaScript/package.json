@@ -1,0 +1,41 @@
+{
+    "name": "@dolittle/runtime.contracts",
+    "description": "Grpc services for Dolittle Runtime",
+    "version": "5.1.16",
+    "homepage": "https://dolittle.io",
+    "author": "Dolittle",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dolittle-runtime/contracts.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle/home/issues"
+    },
+    "keywords": [
+        "dolittle",
+        "grpc"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "lib",
+        "package.json",
+        "**/*.d.ts",
+        "**/*.ts",
+        "**/*.js"
+    ],
+    "main": "lib/index.js",
+    "types": "index.d.ts",
+    "typings": "index.d.ts",
+    "scripts": {
+        "build": "npx dolittle_proto_build grpc-node -I../../../Source  ../../../Source/Fundamentals ../../../Source/Runtime",
+        "prepublish": "yarn build"
+    },
+    "dependencies": {
+        "@types/google-protobuf": "^3.2.7",
+        "google-protobuf": "^3.11.4",
+        "grpc": "^1.24.2"
+    }
+}
