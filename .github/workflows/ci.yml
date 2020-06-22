@@ -87,7 +87,7 @@ jobs:
       working-directory: ./Generation/Runtime/JavaScript.Web
       run: yarn build
     
-    - run: ll
+    - run: ls -l
       working-directory: ./Generation/node_modules/@dolittle/protobuf.build/grpc-web/macOS
 
     - name: Publish Fundamentals
