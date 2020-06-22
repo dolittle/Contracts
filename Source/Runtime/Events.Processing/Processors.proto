@@ -41,7 +41,7 @@ message ProcessorClientToRuntimeMessage {
     oneof Message {
         ProcessorRegistrationRequest registrationRequest = 1;
         ProcessorResponse processingResult = 2;
-        services.Ping ping = 3;
+        services.Pong pong = 3;
     }
 }
 message ProcessorRegistrationResponse {
@@ -58,7 +58,7 @@ message ProcessorRuntimeToClientMessage {
     oneof Message {
         ProcessorRegistrationResponse registrationResponse = 1;
         ProcessEventRequest handleRequest = 2;
-        services.Pong pong = 3;
+        services.Ping ping = 3;
     }
 }
 

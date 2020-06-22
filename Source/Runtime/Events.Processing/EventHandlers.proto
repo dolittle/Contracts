@@ -32,7 +32,7 @@ message EventHandlerClientToRuntimeMessage {
     oneof Message {
         EventHandlerRegistrationRequest registrationRequest = 1;
         EventHandlerResponse handleResult = 2;
-        services.Ping ping = 3;
+        services.Pong pong = 3;
     }
 }
 
@@ -50,7 +50,7 @@ message EventHandlerRuntimeToClientMessage {
     oneof Message {
         EventHandlerRegistrationResponse registrationResponse = 1;
         HandleEventRequest handleRequest = 2;
-        services.Pong pong = 3;
+        services.Ping ping = 3;
     }
 }
 

@@ -31,7 +31,7 @@ message FilterRuntimeToClientMessage {
     oneof Message {
         FilterRegistrationResponse registrationResponse = 1;
         FilterEventRequest filterRequest = 2;
-        services.Pong pong = 3;
+        services.Ping ping = 3;
     }
 }
 
@@ -51,7 +51,7 @@ message FilterClientToRuntimeMessage {
     oneof Message {
         FilterRegistrationRequest registrationRequest = 1;
         FilterResponse filterResult = 2;
-        services.Ping ping = 3;
+        services.Pong pong = 3;
     }
 }
 

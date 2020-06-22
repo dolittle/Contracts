@@ -29,6 +29,6 @@ message PartitionedFilterClientToRuntimeMessage {
     oneof Message {
         PartitionedFilterRegistrationRequest registrationRequest = 1;
         PartitionedFilterResponse filterResult = 2;
-        services.Ping ping = 3;
+        services.Pong pong = 3;
     }
 }

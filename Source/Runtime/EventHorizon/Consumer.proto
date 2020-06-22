@@ -36,7 +36,7 @@ message EventHorizonConsumerToProducerMessage {
     oneof Message {
         ConsumerSubscriptionRequest subscriptionRequest = 1;
         ConsumerResponse response = 2;
-        services.Ping ping = 3;
+        services.Pong pong = 3;
     }
 }
 message ConsumerRequest {
@@ -48,7 +48,7 @@ message EventHorizonProducerToConsumerMessage {
     oneof Message {
         SubscriptionResponse subscriptionResponse = 1;
         ConsumerRequest request = 2;
-        services.Pong pong = 3;
+        services.Ping ping = 3;
     }
 }
 service Consumer {
