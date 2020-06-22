@@ -87,6 +87,9 @@ jobs:
       working-directory: ./Generation/Runtime/JavaScript.Web
       run: yarn build
     
+    - run: ll
+      working-directory: ./Generation/node_modules/@dolittle/protobuf.build/grpc-web/macOS
+
     - name: Publish Fundamentals
       if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
       working-directory: ./Generation/Fundamentals/JavaScript
