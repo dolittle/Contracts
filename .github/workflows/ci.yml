@@ -89,6 +89,8 @@ jobs:
     
     - run: ls -l
       working-directory: ./Generation/node_modules/@dolittle/protobuf.build/grpc-web/macOS
+    - run: pwd
+      working-directory: ./Generation/node_modules/@dolittle/protobuf.build/grpc-web/macOS
 
     - name: Publish Fundamentals
       if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
