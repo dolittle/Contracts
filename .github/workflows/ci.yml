@@ -66,6 +66,9 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - uses: arduino/setup-protoc@master
+      with:
+        version: '3.11.2'
 
     - name: Install dependencies
       working-directory: ./Generation
