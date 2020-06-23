@@ -9,7 +9,7 @@ on:
 
 jobs:
   release-context:
-    name: Continuous Integration
+    name: Setup Context
     runs-on: ubuntu-latest
     outputs:
       should-publish: ${{ steps.context.outputs.should-publish }}
