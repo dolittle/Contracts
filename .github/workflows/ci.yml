@@ -56,56 +56,56 @@ jobs:
         if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
         run: dotnet nuget push Artifacts/NuGet/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
-  java-script:
-    name: JavaScript
-    runs-on: ubuntu-latest
-    needs: release-context
+  # java-script:
+  #   name: JavaScript
+  #   runs-on: ubuntu-latest
+  #   needs: release-context
 
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - uses: arduino/setup-protoc@master
-      with:
-        version: '3.11.2'
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 12.x
+  #   - uses: arduino/setup-protoc@master
+  #     with:
+  #       version: '3.11.2'
 
-    - name: Install dependencies
-      working-directory: ./Generation
-      run: yarn
+  #   - name: Install dependencies
+  #     working-directory: ./Generation
+  #     run: yarn
 
-    - name: Build Fundamentals
-      working-directory: ./Generation/Fundamentals/JavaScript
-      run: yarn build
-    - name: Build Fundamentals Web
-      working-directory: ./Generation/Fundamentals/JavaScript.Web
-      run: yarn build
-    - name: Build Runtime
-      working-directory: ./Generation/Runtime/JavaScript
-      run: yarn build
-    - name: Build Runtime Web
-      working-directory: ./Generation/Runtime/JavaScript.Web
-      run: yarn build
+  #   - name: Build Fundamentals
+  #     working-directory: ./Generation/Fundamentals/JavaScript
+  #     run: yarn build
+  #   - name: Build Fundamentals Web
+  #     working-directory: ./Generation/Fundamentals/JavaScript.Web
+  #     run: yarn build
+  #   - name: Build Runtime
+  #     working-directory: ./Generation/Runtime/JavaScript
+  #     run: yarn build
+  #   - name: Build Runtime Web
+  #     working-directory: ./Generation/Runtime/JavaScript.Web
+  #     run: yarn build
 
-    - name: Publish Fundamentals
-      if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
-      working-directory: ./Generation/Fundamentals/JavaScript
-      run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
-    - name: Publish Fundamentals Web
-      if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
-      working-directory: ./Generation/Fundamentals/JavaScript.Web
-      run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
-    - name: Publish Runtime
-      if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
-      working-directory: ./Generation/Runtime/JavaScript
-      run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
-    - name: Publish Runtime Web
-      if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
-      working-directory: ./Generation/Runtime/JavaScript.Web
-      run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #   - name: Publish Fundamentals
+  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     working-directory: ./Generation/Fundamentals/JavaScript
+  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #   - name: Publish Fundamentals Web
+  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     working-directory: ./Generation/Fundamentals/JavaScript.Web
+  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #   - name: Publish Runtime
+  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     working-directory: ./Generation/Runtime/JavaScript
+  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #   - name: Publish Runtime Web
+  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     working-directory: ./Generation/Runtime/JavaScript.Web
+  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
 
-    - name: Create Pull Request
-      if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
-      uses: peter-evans/create-pull-request@v2
-      with:
-        title: Bump package.json versions to ${{ needs.release-context.outputs.version }}
+  #   - name: Create Pull Request
+  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     uses: peter-evans/create-pull-request@v2
+  #     with:
+  #       title: Bump package.json versions to ${{ needs.release-context.outputs.version }}
