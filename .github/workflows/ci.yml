@@ -9,7 +9,7 @@ on:
 
 jobs:
   release-context:
-    name: Setup Context
+    name: Setup context for release
     runs-on: ubuntu-latest
     outputs:
       should-publish: ${{ steps.context.outputs.should-publish }}
@@ -29,16 +29,8 @@ jobs:
         version: ${{ steps.context.outputs.current-version }}
         release-type: ${{ steps.context.outputs.release-type }}
 
-    - name: Create GitHub Release
-      if: ${{ success() && steps.context.outputs.should-publish == 'true' }}
-      uses: dolittle/github-release-action@v1 # Replace with ./ if used withing dolittle/github-release-action
-      with:
-        token: ${{  secrets.BUILD_PAT  }}
-        cascading-release: ${{ steps.context.outputs.cascading-release }}
-        version: ${{ steps.increment-version.outputs.next-version }}
-
-  dot-net:
-    name: .Net
+  dot-net-build:
+    name: .Net Build
     runs-on: ubuntu-latest
     needs: release-context
 
@@ -48,12 +40,35 @@ jobs:
         with:
           dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
       - run: dotnet build
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [dot-net-build, release-context]
+    if: ${{ needs.release-context.outputs.should-publish == 'true' }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Create GitHub Release
+      uses: dolittle/github-release-action@v1 # Replace with ./ if used withing dolittle/github-release-action
+      with:
+        token: ${{  secrets.BUILD_PAT  }}
+        cascading-release: ${{ steps.context.outputs.cascading-release }}
+        version: ${{ steps.increment-version.outputs.next-version }}
+
+  dot-net-release:
+    name: .Net Release
+    runs-on: ubuntu-latest
+    needs: [release-context, dot-net-build]
+    if: ${{ needs.release-context.outputs.should-publish == 'true' }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
       - name: Create packages
-        if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
         run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ steps.increment-version.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-      
       - name: Push NuGet packages
-        if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
         run: dotnet nuget push Artifacts/NuGet/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
   # java-script:
