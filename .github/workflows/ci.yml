@@ -40,6 +40,19 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+      - name: Create packages
+        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=1.0.0 -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+      - name: Ls lR
+        working-directory: Artifacts/NuGet
+        run: ls -lR
+      - name: Unzip  
+        working-directory: Artifacts/NuGet
+        run: unzip Dolittle.Contracts.1.0.0.nupkg
+      - name: Ls lR
+        working-directory: Artifacts/NuGet
+        run: ls -lR
+      - name: Rm
+        run: rm -rf Artifacts/NuGet
       - run: dotnet build
       - name: Create packages
         run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=1.0.0 -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
@@ -48,7 +61,7 @@ jobs:
         run: ls -lR
       - name: Unzip  
         working-directory: Artifacts/NuGet
-        run: tar xvf Dolittle.Contracts.1.0.0.nupkg
+        run: unzip Dolittle.Contracts.1.0.0.nupkg
       - name: Ls lR
         working-directory: Artifacts/NuGet
         run: ls -lR
