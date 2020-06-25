@@ -8,92 +8,68 @@ on:
     types: [closed]
 
 jobs:
-  # release-context:
-  #   name: Setup context for release
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     should-publish: ${{ steps.context.outputs.should-publish }}
-  #     version: ${{ steps.increment-version.outputs.next-version }}
-  #     cascading-release: ${{ steps.context.outputs.cascading-release }}
+  release-context:
+    name: Setup context for release
+    runs-on: ubuntu-latest
+    outputs:
+      should-publish: ${{ steps.context.outputs.should-publish }}
+      version: ${{ steps.increment-version.outputs.next-version }}
+      cascading-release: ${{ steps.context.outputs.cascading-release }}
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Establish context
-  #     id: context
-  #     uses: dolittle/establish-context-action@v2 # Replace with ./ if used withing dolittle/establish-context-action
+    steps:
+    - uses: actions/checkout@v2
+    - name: Establish context
+      id: context
+      uses: dolittle/establish-context-action@v2 # Replace with ./ if used withing dolittle/establish-context-action
 
-  #   - name: Increment version
-  #     id: increment-version
-  #     if: ${{ steps.context.outputs.should-publish == 'true' }}
-  #     uses: dolittle/increment-version-action@v2 # Replace with ./ if used withing dolittle/increment-version-action
-  #     with:
-  #       version: ${{ steps.context.outputs.current-version }}
-  #       release-type: ${{ steps.context.outputs.release-type }}
+    - name: Increment version
+      id: increment-version
+      if: ${{ steps.context.outputs.should-publish == 'true' }}
+      uses: dolittle/increment-version-action@v2 # Replace with ./ if used withing dolittle/increment-version-action
+      with:
+        version: ${{ steps.context.outputs.current-version }}
+        release-type: ${{ steps.context.outputs.release-type }}
 
   dot-net-build:
     name: .Net Build
     runs-on: ubuntu-latest
-    # needs: release-context
+    needs: release-context
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
-      - name: Create packages
-        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=1.0.0 -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-      - name: Ls lR
-        working-directory: Artifacts/NuGet
-        run: ls -lR
-      - name: Unzip  
-        working-directory: Artifacts/NuGet
-        run: unzip Dolittle.Contracts.1.0.0.nupkg
-      - name: Ls lR
-        working-directory: Artifacts/NuGet
-        run: ls -lR
-      - name: Rm
-        run: rm -rf Artifacts/NuGet
+      - run: dotnet build
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [dot-net-build, release-context]
+    if: ${{ needs.release-context.outputs.should-publish == 'true' }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Create GitHub Release
+      uses: dolittle/github-release-action@v1 # Replace with ./ if used withing dolittle/github-release-action
+      with:
+        cascading-release: ${{ needs.release-context.outputs.cascading-release }}
+        version: ${{ needs.release-context.outputs.version }}
+
+  dot-net-release:
+    name: .Net Release
+    runs-on: ubuntu-latest
+    needs: [release-context, dot-net-build]
+    if: ${{ needs.release-context.outputs.should-publish == 'true' }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
       - run: dotnet build
       - name: Create packages
-        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=1.0.0 -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-      - name: Ls lR
-        working-directory: Artifacts/NuGet
-        run: ls -lR
-      - name: Unzip  
-        working-directory: Artifacts/NuGet
-        run: unzip Dolittle.Contracts.1.0.0.nupkg
-      - name: Ls lR
-        working-directory: Artifacts/NuGet
-        run: ls -lR
-
-
-  # release:
-  #   name: Release
-  #   runs-on: ubuntu-latest
-  #   needs: [dot-net-build, release-context]
-  #   if: ${{ needs.release-context.outputs.should-publish == 'true' }}
-
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Create GitHub Release
-  #     uses: dolittle/github-release-action@v1 # Replace with ./ if used withing dolittle/github-release-action
-  #     with:
-  #       cascading-release: ${{ needs.release-context.outputs.cascading-release }}
-  #       version: ${{ needs.release-context.outputs.version }}
-
-  # dot-net-release:
-  #   name: .Net Release
-  #   runs-on: ubuntu-latest
-  #   needs: [release-context, dot-net-build]
-  #   if: ${{ needs.release-context.outputs.should-publish == 'true' }}
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-dotnet@v1
-  #     - name: Create packages
-  #       run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.release-context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-  #     - name: Push NuGet packages
-  #       run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.release-context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+      - name: Push NuGet packages
+        run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
   # java-script:
   #   name: JavaScript
