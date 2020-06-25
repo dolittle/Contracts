@@ -69,7 +69,7 @@ jobs:
       - name: Create packages
         run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.release-context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
       - name: Push NuGet packages
-        run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
   # java-script:
   #   name: JavaScript
