@@ -65,6 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
+      - run: dotnet build
       - name: Create packages
         run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.release-context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
       - name: Push NuGet packages
