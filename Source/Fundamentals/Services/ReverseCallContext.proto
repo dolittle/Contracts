@@ -5,6 +5,7 @@ syntax = "proto3";
 
 import "Fundamentals/Execution/ExecutionContext.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
+import "google/protobuf/duration.proto";
 
 package dolittle.services;
 
@@ -13,6 +14,7 @@ option csharp_namespace = "Dolittle.Services.Contracts";
 message ReverseCallArgumentsContext {
     execution.ExecutionContext executionContext = 1;
     protobuf.Uuid headId = 2;
+    google.protobuf.Duration pingInterval = 3;
 }
 
 message ReverseCallRequestContext {

@@ -5,6 +5,7 @@ syntax = "proto3";
 
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
+import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events.Processing/PartitionedFilters.proto";
 
 package dolittle.runtime.events.processing;
@@ -20,5 +21,6 @@ message PublicFilterClientToRuntimeMessage {
     oneof Message {
         PublicFilterRegistrationRequest registrationRequest = 1;
         PartitionedFilterResponse filterResult = 2;
+        services.Pong pong = 3;
     }
 }

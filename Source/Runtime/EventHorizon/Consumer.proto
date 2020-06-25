@@ -3,8 +3,10 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Services/CallContext.proto";
+import "Fundamentals/Services/ReverseCallContext.proto";
+import "Fundamentals/Services/Ping.proto";
 import "Runtime/EventHorizon/Subscriptions.proto";
 import "Runtime/Events/Committed.proto";
 
@@ -17,20 +19,38 @@ message EventHorizonEvent {
     events.CommittedEvent event = 2; 
 }
 
-message ConsumerSubscription {
-    services.CallRequestContext callContext = 1;
+message ConsumerSubscriptionRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
     protobuf.Uuid partitionId = 4;
     uint64 streamPosition = 5;
 }
 
-message SubscriptionMessage {
+message ConsumerResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    protobuf.Failure failure = 2; // If not set/empty - no failure
+}
+
+message EventHorizonConsumerToProducerMessage {
+    oneof Message {
+        ConsumerSubscriptionRequest subscriptionRequest = 1;
+        ConsumerResponse response = 2;
+        services.Pong pong = 3;
+    }
+}
+message ConsumerRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    EventHorizonEvent event = 2;
+}
+
+message EventHorizonProducerToConsumerMessage {
     oneof Message {
         SubscriptionResponse subscriptionResponse = 1;
-        EventHorizonEvent event = 2;
+        ConsumerRequest request = 2;
+        services.Ping ping = 3;
     }
 }
 service Consumer {
-    rpc Subscribe(ConsumerSubscription) returns(stream SubscriptionMessage);
+    rpc Subscribe(stream EventHorizonConsumerToProducerMessage) returns(stream EventHorizonProducerToConsumerMessage);
 }

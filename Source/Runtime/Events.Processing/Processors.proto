@@ -6,6 +6,7 @@ syntax = "proto3";
 import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
+import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events.Processing/StreamEvent.proto";
 import "google/protobuf/duration.proto";
 
@@ -40,6 +41,7 @@ message ProcessorClientToRuntimeMessage {
     oneof Message {
         ProcessorRegistrationRequest registrationRequest = 1;
         ProcessorResponse processingResult = 2;
+        services.Pong pong = 3;
     }
 }
 message ProcessorRegistrationResponse {
@@ -56,6 +58,7 @@ message ProcessorRuntimeToClientMessage {
     oneof Message {
         ProcessorRegistrationResponse registrationResponse = 1;
         ProcessEventRequest handleRequest = 2;
+        services.Ping ping = 3;
     }
 }
 
