@@ -19,7 +19,7 @@ message EventHandlerRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid eventHandlerId = 3;
-    repeated artifacts.Artifact types = 4;
+    repeated artifacts.Artifact eventTypes = 4;
     bool partitioned = 5;
 }
 
