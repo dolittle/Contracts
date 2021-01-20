@@ -11,7 +11,7 @@ on:
     types: [closed]
 
 jobs:
-  release-context:
+  context:
     name: Setup context for release
     runs-on: ubuntu-latest
     outputs:
