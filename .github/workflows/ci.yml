@@ -71,7 +71,7 @@ jobs:
           dotnet-version: '3.1.x'
       - run: dotnet build
       - name: Create packages
-        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:NoDefaultExcludes=true
       - name: Push NuGet packages
         run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
