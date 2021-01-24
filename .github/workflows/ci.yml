@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       should-publish: ${{ steps.context.outputs.should-publish }}
+      pr-body: ${{ steps.context.outputs.pr-body }}
       version: ${{ steps.increment-version.outputs.next-version }}
 
     steps:
@@ -57,6 +58,7 @@ jobs:
       uses: dolittle/github-release-action@v2 # Replace with ./ if used withing dolittle/github-release-action
       with:
         version: ${{ needs.context.outputs.version }}
+        body: ${{ needs.context.outputs.pr-body }}
 
   dot-net-release:
     name: .Net Release
