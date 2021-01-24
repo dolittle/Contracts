@@ -1,5 +1,8 @@
 name: Contracts CI/CD
 
+env:
+  PRERELEASE_BRANCHES: alpha,beta,rc,updategrpc # Comma separated list of prerelease branch names. 'alpha,rc, ...'
+
 on:
   push:
     branches:
@@ -8,20 +11,20 @@ on:
     types: [closed]
 
 jobs:
-  release-context:
+  context:
     name: Setup context for release
     runs-on: ubuntu-latest
     outputs:
       should-publish: ${{ steps.context.outputs.should-publish }}
       version: ${{ steps.increment-version.outputs.next-version }}
-      cascading-release: ${{ steps.context.outputs.cascading-release }}
 
     steps:
     - uses: actions/checkout@v2
     - name: Establish context
       id: context
       uses: dolittle/establish-context-action@v2 # Replace with ./ if used withing dolittle/establish-context-action
-
+      with:
+        prerelease-branches: ${{ env.PRERELEASE_BRANCHES }}
     - name: Increment version
       id: increment-version
       if: ${{ steps.context.outputs.should-publish == 'true' }}
@@ -33,48 +36,49 @@ jobs:
   dot-net-build:
     name: .Net Build
     runs-on: ubuntu-latest
-    needs: release-context
+    needs: context
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
-      - run: dotnet build
+          dotnet-version: '3.1.x'
+      - run: dotnet build -c Release
 
   release:
     name: Release
     runs-on: ubuntu-latest
-    needs: [dot-net-build, release-context]
-    if: ${{ needs.release-context.outputs.should-publish == 'true' }}
+    needs: [dot-net-build, context]
+    if: ${{ needs.context.outputs.should-publish == 'true' }}
 
     steps:
     - uses: actions/checkout@v2
     - name: Create GitHub Release
-      uses: dolittle/github-release-action@v1 # Replace with ./ if used withing dolittle/github-release-action
+      uses: dolittle/github-release-action@v2 # Replace with ./ if used withing dolittle/github-release-action
       with:
-        cascading-release: ${{ needs.release-context.outputs.cascading-release }}
-        version: ${{ needs.release-context.outputs.version }}
+        version: ${{ needs.context.outputs.version }}
 
   dot-net-release:
     name: .Net Release
     runs-on: ubuntu-latest
-    needs: [release-context, dot-net-build]
-    if: ${{ needs.release-context.outputs.should-publish == 'true' }}
+    needs: [context, dot-net-build]
+    if: ${{ needs.context.outputs.should-publish == 'true' }}
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
       - run: dotnet build
       - name: Create packages
-        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.release-context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
+        run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:NoDefaultExcludes=true
       - name: Push NuGet packages
         run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
   # java-script:
   #   name: JavaScript
   #   runs-on: ubuntu-latest
-  #   needs: release-context
+  #   needs: context
 
   #   steps:
   #   - uses: actions/checkout@v2
@@ -103,24 +107,24 @@ jobs:
   #     run: yarn build
 
   #   - name: Publish Fundamentals
-  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
   #     working-directory: ./Generation/Fundamentals/JavaScript
-  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
   #   - name: Publish Fundamentals Web
-  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
   #     working-directory: ./Generation/Fundamentals/JavaScript.Web
-  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
   #   - name: Publish Runtime
-  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
   #     working-directory: ./Generation/Runtime/JavaScript
-  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
   #   - name: Publish Runtime Web
-  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
   #     working-directory: ./Generation/Runtime/JavaScript.Web
-  #     run: yarn publish --new-version ${{ needs.release-context.outputs.version }} --no-git-tag-version
+  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
 
   #   - name: Create Pull Request
-  #     if: ${{ success() && needs.release-context.outputs.should-publish == 'true' }}
+  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
   #     uses: peter-evans/create-pull-request@v2
   #     with:
-  #       title: Bump package.json versions to ${{ needs.release-context.outputs.version }}
+  #       title: Bump package.json versions to ${{ needs.context.outputs.version }}
