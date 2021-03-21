@@ -359,4 +359,6 @@ Generation/**/*.js
 Generation/**/*.ts
 Generation/**/*.d.ts
 
+build-go
+
 !Source/**/Artifacts
