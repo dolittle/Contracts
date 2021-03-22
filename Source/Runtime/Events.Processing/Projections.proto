@@ -15,11 +15,23 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
+enum ProjectEventKeySelectorType {
+    EVENT_SOURCE_ID = 0;
+    PARTITION_ID = 1;
+    PROPERTY = 2;
+}
+
+message ProjectionEventSpecification {
+    artifacts.Artifact eventType = 1;
+    ProjectEventKeySelectorType keySelectorType = 2;
+    string keySelectorExpression = 3;
+}
+
 message ProjectionRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2; // TODO: Should we have this?
     protobuf.Uuid projectionId = 3;
-    repeated artifacts.Artifact types = 4; // TODO: Change this to include key selector
+    repeated ProjectionEventSpecification events = 4;
 }
 
 message ProjectionResponse {
