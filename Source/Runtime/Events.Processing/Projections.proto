@@ -24,8 +24,8 @@ message ProjectionRegistrationRequest {
 
 message ProjectionResponse {
     services.ReverseCallResponseContext callContext = 1;
-    ProcessorFailure failure = 2; // If not set/empty - no failure
-    // TODO: Add projection state response here
+    string nextState = 2;
+    ProcessorFailure failure = 3; // If not set/empty - no failure
 }
 
 message ProjectionClientToRuntimeMessage {
@@ -42,9 +42,9 @@ message ProjectionRegistrationResponse {
 
 message ProjectionRequest {
     services.ReverseCallRequestContext callContext = 1;
-    StreamEvent event = 2;
-    RetryProcessingState retryProcessingState = 3;
-    // TODO: Add projection state here
+    string previousState = 2;
+    StreamEvent event = 3;
+    RetryProcessingState retryProcessingState = 4;
 }
 
 message ProjectionRuntimeToClientMessage {
