@@ -1,0 +1,60 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/ReverseCallContext.proto";
+import "Fundamentals/Services/Ping.proto";
+import "Runtime/Events.Processing/StreamEvent.proto";
+import "Runtime/Events.Processing/Processors.proto";
+
+package dolittle.runtime.events.processing;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
+
+message ProjectionRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid scopeId = 2; // TODO: Should we have this?
+    protobuf.Uuid projectionId = 3;
+    repeated artifacts.Artifact types = 4; // TODO: Change this to include key selector
+}
+
+message ProjectionResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    ProcessorFailure failure = 2; // If not set/empty - no failure
+    // TODO: Add projection state response here
+}
+
+message ProjectionClientToRuntimeMessage {
+    oneof Message {
+        ProjectionRegistrationRequest registrationRequest = 1;
+        ProjectionResponse handleResult = 2;
+        services.Pong pong = 3;
+    }
+}
+
+message ProjectionRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+message ProjectionRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    StreamEvent event = 2;
+    RetryProcessingState retryProcessingState = 3;
+    // TODO: Add projection state here
+}
+
+message ProjectionRuntimeToClientMessage {
+    oneof Message {
+        ProjectionRegistrationResponse registrationResponse = 1;
+        ProjectionRequest handleRequest = 2;
+        services.Ping ping = 3;
+    }
+}
+
+service Projections {
+    rpc Connect(stream ProjectionClientToRuntimeMessage) returns(stream ProjectionRuntimeToClientMessage);
+}
