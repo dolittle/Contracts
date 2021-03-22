@@ -29,7 +29,7 @@ message ProjectionEventSpecification {
 
 message ProjectionRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
-    protobuf.Uuid scopeId = 2; // TODO: Should we have this?
+    protobuf.Uuid scopeId = 2;
     protobuf.Uuid projectionId = 3;
     repeated ProjectionEventSpecification events = 4;
 }
