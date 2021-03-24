@@ -138,9 +138,9 @@ jobs:
     - name: Publish Fundamentals
       if: ${{ needs.context.outputs.should-publish == 'true' }}
       working-directory: ./Generation/Fundamentals/JavaScript
-      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && ${{ steps.semver_parser.outputs.prerelease }} || 'latest' }}
+      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.semver_parser.outputs.prerelease || 'latest' }}
     - name: Publish Runtime
       if: ${{ needs.context.outputs.should-publish == 'true' }}
       working-directory: ./Generation/Runtime/JavaScript
-      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && ${{ steps.semver_parser.outputs.prerelease }} || 'latest' }}
+      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.semver_parser.outputs.prerelease || 'latest' }}
 
