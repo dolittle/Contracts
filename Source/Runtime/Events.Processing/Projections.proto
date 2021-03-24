@@ -46,7 +46,7 @@ enum ProjectionNextStateType {
 
 message ProjectionNextState {
     ProjectionNextStateType type = 1;
-    string value = 1;
+    string value = 2;
 }
 
 message ProjectionResponse {
