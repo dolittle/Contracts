@@ -140,7 +140,6 @@ jobs:
 
     - name: Parse semver string
       uses: booxmedialtd/ws-action-parse-semver@v1
-      if: ${{ needs.context.outputs.should-publish == 'true' }}
       id: semver_parser
       with:
         input_string: ${{ needs.context.outputs.version }}
@@ -168,13 +167,11 @@ jobs:
     #   run: yarn build
 
     - name: Publish Fundamentals
-      if: ${{ needs.context.outputs.should-publish == 'true' }}
       working-directory: ./Generation/Fundamentals/JavaScript
       run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.semver_parser.outputs.prerelease || 'latest' }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Publish Runtime
-      if: ${{ needs.context.outputs.should-publish == 'true' }}
       working-directory: ./Generation/Runtime/JavaScript
       run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.semver_parser.outputs.prerelease || 'latest' }}
       env:
