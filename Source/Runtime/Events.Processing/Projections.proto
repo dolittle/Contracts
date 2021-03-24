@@ -21,10 +21,14 @@ enum ProjectEventKeySelectorType {
     PROPERTY = 2;
 }
 
+message ProjectionEventKeySelector {
+    ProjectEventKeySelectorType type = 1;
+    optional string expression = 2;
+}
+
 message ProjectionEventSpecification {
     artifacts.Artifact eventType = 1;
-    ProjectEventKeySelectorType keySelectorType = 2;
-    string keySelectorExpression = 3;
+    ProjectionEventKeySelector keySelector = 2;
 }
 
 message ProjectionRegistrationRequest {
