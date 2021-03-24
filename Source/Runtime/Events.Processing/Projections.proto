@@ -26,7 +26,7 @@ message ProjectionEventKeySelector {
     optional string expression = 2;
 }
 
-message ProjectionEventSpecification {
+message ProjectionEventSelector {
     artifacts.Artifact eventType = 1;
     ProjectionEventKeySelector keySelector = 2;
 }
@@ -35,7 +35,7 @@ message ProjectionRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid projectionId = 3;
-    repeated ProjectionEventSpecification events = 4;
+    repeated ProjectionEventSelector events = 4;
     string initialState = 5;
 }
 
