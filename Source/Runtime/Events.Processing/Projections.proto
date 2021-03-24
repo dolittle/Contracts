@@ -23,7 +23,7 @@ enum ProjectEventKeySelectorType {
 
 message ProjectionEventKeySelector {
     ProjectEventKeySelectorType type = 1;
-    optional string expression = 2;
+    string expression = 2;
 }
 
 message ProjectionEventSelector {
