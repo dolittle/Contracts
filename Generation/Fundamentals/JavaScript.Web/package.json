@@ -1,7 +1,7 @@
 {
     "name": "@dolittle/contracts.web",
     "description": "Grpc services for Dolittle Runtime for grpc-web",
-    "version": "5.1.20",
+    "version": "0.0.0",
     "homepage": "https://dolittle.io",
     "author": "Dolittle",
     "license": "MIT",
@@ -30,7 +30,7 @@
     "types": "index.d.ts",
     "typings": "index.d.ts",
     "scripts": {
-        "build": "npx dolittle_proto_build grpc-web -I../../../Source  ../../../Source/Fundamentals",
+        "build": "dolittle_proto_build grpc-web -I../../../Source  ../../../Source/Fundamentals",
         "prepublish": "yarn build"
     },
     "dependencies": {

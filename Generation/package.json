@@ -5,7 +5,7 @@
     "Runtime/*"
   ],
   "devDependencies": {
-    "@dolittle/protobuf.build": "2.0.1",
+    "@dolittle/protobuf.build": "2.0.6",
     "typescript": "^3.8.3"
   }
 }
