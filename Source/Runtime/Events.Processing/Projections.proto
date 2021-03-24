@@ -32,11 +32,22 @@ message ProjectionRegistrationRequest {
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid projectionId = 3;
     repeated ProjectionEventSpecification events = 4;
+    string initialState = 5;
+}
+
+enum ProjectionNextStateType {
+    REPLACE = 0;
+    DELETE = 1;
+}
+
+message ProjectionNextState {
+    ProjectionNextStateType type = 1;
+    string value = 1;
 }
 
 message ProjectionResponse {
     services.ReverseCallResponseContext callContext = 1;
-    string nextState = 2;
+    ProjectionNextState nextState = 2;
     ProcessorFailure failure = 3; // If not set/empty - no failure
 }
 
@@ -52,9 +63,19 @@ message ProjectionRegistrationResponse {
     protobuf.Failure failure = 1;
 }
 
+enum ProjectionCurrentStateType {
+    CREATED_FROM_INITIAL_STATE = 0;
+    PERSISTED = 1;
+}
+
+message ProjectionCurrentState {
+    ProjectionCurrentStateType type = 1;
+    string state = 2;
+}
+
 message ProjectionRequest {
     services.ReverseCallRequestContext callContext = 1;
-    string previousState = 2;
+    ProjectionCurrentState currentState = 2;
     StreamEvent event = 3;
     RetryProcessingState retryProcessingState = 4;
 }
