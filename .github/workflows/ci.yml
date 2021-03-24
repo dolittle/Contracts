@@ -108,8 +108,9 @@ jobs:
 
     
     - name: Parse semver string
-      id: semver_parser
       uses: booxmedialtd/ws-action-parse-semver@v1
+      if: ${{ needs.context.outputs.should-publish == 'true' }}
+      id: semver_parser
       with:
         input_string: ${{ needs.context.outputs.version }}
 
