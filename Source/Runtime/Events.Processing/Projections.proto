@@ -15,14 +15,14 @@ package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 
-enum ProjectEventKeySelectorType {
+enum ProjectionEventKeySelectorType {
     EVENT_SOURCE_ID = 0;
     PARTITION_ID = 1;
     PROPERTY = 2;
 }
 
 message ProjectionEventKeySelector {
-    ProjectEventKeySelectorType type = 1;
+    ProjectionEventKeySelectorType type = 1;
     string expression = 2;
 }
 
@@ -79,9 +79,10 @@ message ProjectionCurrentState {
 
 message ProjectionRequest {
     services.ReverseCallRequestContext callContext = 1;
-    ProjectionCurrentState currentState = 2;
-    StreamEvent event = 3;
-    RetryProcessingState retryProcessingState = 4;
+    string key = 2;
+    ProjectionCurrentState currentState = 3;
+    StreamEvent event = 4;
+    RetryProcessingState retryProcessingState = 5;
 }
 
 message ProjectionRuntimeToClientMessage {
