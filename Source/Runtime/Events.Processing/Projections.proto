@@ -79,9 +79,10 @@ message ProjectionCurrentState {
 
 message ProjectionRequest {
     services.ReverseCallRequestContext callContext = 1;
-    ProjectionCurrentState currentState = 2;
-    StreamEvent event = 3;
-    RetryProcessingState retryProcessingState = 4;
+    string key = 2;
+    ProjectionCurrentState currentState = 3;
+    StreamEvent event = 4;
+    RetryProcessingState retryProcessingState = 5;
 }
 
 message ProjectionRuntimeToClientMessage {
