@@ -192,6 +192,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         repository: dolittle/Go.Contracts
+        token: ${{ secrets.BUILD_PAT }}
         path: ./Generation/Go/output
     - name: Cleanout old released code
       working-directory: ./Generation/Go/output
