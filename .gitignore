@@ -355,8 +355,9 @@ package-json.lock
 *.cs
 *.ts
 
-Generation/**/*.js
-Generation/**/*.ts
-Generation/**/*.d.ts
+Generation/JavaScript/Fundamentals/**
+Generation/JavaScript/Runtime/**
+!Generation/JavaScript/**/package.json
+!Generation/JavaScript/**/tsconfig.json
 
 !Source/**/Artifacts

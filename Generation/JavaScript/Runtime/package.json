@@ -1,6 +1,6 @@
 {
-    "name": "@dolittle/contracts.web",
-    "description": "Grpc services for Dolittle Runtime for grpc-web",
+    "name": "@dolittle/runtime.contracts",
+    "description": "Grpc services for Dolittle Runtime",
     "version": "0.0.0",
     "homepage": "https://dolittle.io",
     "author": "Dolittle",
@@ -30,12 +30,12 @@
     "types": "index.d.ts",
     "typings": "index.d.ts",
     "scripts": {
-        "build": "dolittle_proto_build grpc-web -I../../../Source  ../../../Source/Fundamentals",
+        "build": "dolittle_proto_build grpc-node --skip-empty-files -O. -RFundamentals/:pkg=@dolittle/contracts/: -RRuntime/: -I../../../Source ../../../Source/Runtime",
         "prepublish": "yarn build"
     },
     "dependencies": {
+        "@grpc/grpc-js": "^1.2.0",
         "@types/google-protobuf": "^3.2.7",
-        "google-protobuf": "^3.11.4",
-        "grpc-web": "^1.0.7"
+        "google-protobuf": "^3.11.4"
     }
 }

@@ -4,7 +4,6 @@
       "rootDir": ".",
       "outDir": "lib",
       "baseUrl": "./",
-      
       "paths": {
           "@dolittle/runtime.contracts": ["index.ts"]
       },
