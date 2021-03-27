@@ -45,6 +45,7 @@ jobs:
         with:
           dotnet-version: "3.1.x"
       - run: dotnet build -c Release
+        working-directory: ./Generation/CSharp
 
   java-script-build:
     name: JavaScript Build
@@ -100,9 +101,12 @@ jobs:
         with:
           dotnet-version: "3.1.x"
       - run: dotnet build
+        working-directory: ./Generation/CSharp
       - name: Create packages
+        working-directory: ./Generation/CSharp
         run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:NoDefaultExcludes=true
       - name: Push NuGet packages
+        working-directory: ./Generation/CSharp
         run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
   java-script-release:
