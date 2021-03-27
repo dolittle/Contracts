@@ -76,7 +76,9 @@ jobs:
     - uses: actions/setup-go@v2
       with:
         go-version: '1.16.2'
-    - run: which sed
+    - name: Generate code
+      working-directory: ./Generation/Go
+      run: ./generate.sh
 
   release:
     name: Release
