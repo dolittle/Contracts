@@ -19,16 +19,6 @@
     "publishConfig": {
         "access": "public"
     },
-    "files": [
-        "lib",
-        "package.json",
-        "**/*.d.ts",
-        "**/*.ts",
-        "**/*.js"
-    ],
-    "main": "lib/index.js",
-    "types": "index.d.ts",
-    "typings": "index.d.ts",
     "scripts": {
         "build": "dolittle_proto_build grpc-node --skip-empty-files -O. -RFundamentals/:pkg=@dolittle/contracts/: -RRuntime/: -I../../../Source ../../../Source/Runtime",
         "prepublish": "yarn build"
