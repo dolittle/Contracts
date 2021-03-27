@@ -87,7 +87,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    needs: [dot-net-build, context]
+    needs: [context, dot-net-build, java-script-build, golang-build]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
     steps:
       - uses: actions/checkout@v2
@@ -110,7 +110,7 @@ jobs:
   dot-net-release:
     name: .Net Release
     runs-on: ubuntu-latest
-    needs: [context, dot-net-build]
+    needs: [context, release]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
     steps:
       - uses: actions/checkout@v2
@@ -129,7 +129,7 @@ jobs:
   java-script-release:
     name: JavaScript Release
     runs-on: ubuntu-latest
-    needs: [context, java-script-build]
+    needs: [context, release]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
     steps:
     - uses: actions/checkout@v2
@@ -175,7 +175,7 @@ jobs:
   golang-release:
     name: Go Release
     runs-on: ubuntu-latest
-    needs: [context, golang-build]
+    needs: [context, release]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
     steps:
     - uses: actions/checkout@v2
