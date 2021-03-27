@@ -1,11 +1,15 @@
 #!/bin/bash
 
 VERSION_PATTERN='^([0-9]+)\.[0-9]+\.[0-9]+(-[^\.]+\.[0-9]+)?$'
-if [[ ! "$1" =~ $VERSION_PATTERN ]]; then
+if [[ -z "$1" ]]; then
+    echo "Warning: version not provided - using v0 as major version. This code must not be published!"
+    MAJOR_VERSION="0"
+elif [[ ! "$1" =~ $VERSION_PATTERN ]]; then
     echo "Error: Could not parse $1 as a semantic version."
     exit 1
+else
+    MAJOR_VERSION="${BASH_REMATCH[1]}"
 fi
-MAJOR_VERSION="${BASH_REMATCH[1]}"
 
 clean_directory () {
     if [[ -e "$1" ]]; then
