@@ -162,12 +162,12 @@ jobs:
         text: ${{ needs.context.outputs.version }}
         regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
     - name: Publish Fundamentals
-      working-directory: ./Generation/Fundamentals/JavaScript
+      working-directory: ./Generation/JavaScript/Fundamentals
       run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Publish Runtime
-      working-directory: ./Generation/Runtime/JavaScript
+      working-directory: ./Generation/JavaScript/Runtime
       run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
