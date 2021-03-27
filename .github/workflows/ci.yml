@@ -196,7 +196,7 @@ jobs:
         path: ./Generation/Go/output
     - name: Cleanout old released code
       working-directory: ./Generation/Go/output
-      run: rm * && git checkout -- README.md LICENSE
+      run: rm -r * && git checkout -- README.md LICENSE
     - name: Copy new generated code
       working-directory: ./Generation/Go/
       run: cp -r generated/* output
