@@ -9,6 +9,7 @@ import "Runtime/Events/Committed.proto";
 package dolittle.runtime.events.processing;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/events/processing";
 
 message StreamEvent {
     runtime.events.CommittedEvent event = 1;

@@ -19,23 +19,13 @@
     "publishConfig": {
         "access": "public"
     },
-    "files": [
-        "lib",
-        "package.json",
-        "**/*.d.ts",
-        "**/*.ts",
-        "**/*.js"
-    ],
-    "main": "lib/index.js",
-    "types": "index.d.ts",
-    "typings": "index.d.ts",
     "scripts": {
-        "build": "dolittle_proto_build grpc-node -I../../../Source  ../../../Source/Fundamentals ../../../Source/Runtime",
+        "build": "dolittle_proto_build grpc-node --skip-empty-files -O. -RFundamentals/:pkg=@dolittle/contracts/: -RRuntime/: -I../../../Source ../../../Source/Runtime",
         "prepublish": "yarn build"
     },
     "dependencies": {
-        "@grpc/grpc-js": "^1.2.0",
-        "@types/google-protobuf": "^3.2.7",
-        "google-protobuf": "^3.11.4"
+        "@types/google-protobuf": "3.7.4",
+        "@grpc/grpc-js": "1.2.12",
+        "google-protobuf": "3.15.6"
     }
 }
