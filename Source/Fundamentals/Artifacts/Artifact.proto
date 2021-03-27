@@ -8,6 +8,7 @@ import "Fundamentals/Protobuf/Uuid.proto";
 package dolittle.artifacts;
 
 option csharp_namespace = "Dolittle.Artifacts.Contracts";
+option go_package = "go.dolittle.io/contracts/artifacts";
 
 message Artifact {
     protobuf.Uuid id = 1;
