@@ -83,6 +83,14 @@ jobs:
     - name: Generate code
       working-directory: ./Generation/Go
       run: ./generate.sh
+    - uses: actions/checkout@v2
+      with:
+        repository: dolittle/Go.Contracts
+        path: ./Generation/Go/output
+    - working-directory: ./Generation/Go/output
+      run: ls -l
+    - working-directory: ./Generation/Go/output
+      run: git log
 
   release:
     name: Release
