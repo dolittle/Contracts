@@ -1,13 +1,12 @@
 {
-    "extends": "../../tsconfig.settings.json",
+    "extends": "../tsconfig.settings.json",
     "compilerOptions": {
       "rootDir": ".",
       "outDir": "lib",
       "baseUrl": "./",
       "paths": {
           "@dolittle/runtime.contracts": ["index.ts"]
-      },
-      "sourceRoot": "./"
+      }
     },
     "exclude": ["**/*.d.ts", "node_modules"],
     "include": ["**/*.ts", "**/*.js"]
