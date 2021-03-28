@@ -206,7 +206,7 @@ jobs:
         git config user.name "Contracts Release GitHub Actions"
         git config user.email "contracts-release@dolittle.com"
         git add .
-        git commit -m "Generated code for ${{ needs.context.outputs.version }}"
+        git commit --allow-empty -m "Generated code for ${{ needs.context.outputs.version }}"
         git tag "v${{ needs.context.outputs.version }}"
         git push
         git push --tags
