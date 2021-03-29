@@ -4,6 +4,7 @@
 syntax = "proto3";
 
 import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/CallContext.proto";
 import "Runtime/Events.Processing/Projections.proto";
 
