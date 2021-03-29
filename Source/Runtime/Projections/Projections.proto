@@ -39,6 +39,6 @@ message GetAllResponse {
 
 // Represents the Projections service
 service Projections {
-    rpc Get(GetOneRequest) returns(GetOneResponse);
-    rpc All(GetAllRequest) returns(GetAllResponse);
+    rpc GetOne(GetOneRequest) returns(GetOneResponse);
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
 }
