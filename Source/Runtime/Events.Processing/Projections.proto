@@ -10,6 +10,7 @@ import "Fundamentals/Services/ReverseCallContext.proto";
 import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events.Processing/StreamEvent.proto";
 import "Runtime/Events.Processing/Processors.proto";
+import "Runtime/Projections/State.proto";
 
 package dolittle.runtime.events.processing;
 
@@ -68,20 +69,9 @@ message ProjectionRegistrationResponse {
     protobuf.Failure failure = 1;
 }
 
-enum ProjectionCurrentStateType {
-    CREATED_FROM_INITIAL_STATE = 0;
-    PERSISTED = 1;
-}
-
-message ProjectionCurrentState {
-    ProjectionCurrentStateType type = 1;
-    string key = 2;
-    string state = 3;
-}
-
 message ProjectionRequest {
     services.ReverseCallRequestContext callContext = 1;
-    ProjectionCurrentState currentState = 2;
+    projections.ProjectionCurrentState currentState = 2;
     StreamEvent event = 3;
     RetryProcessingState retryProcessingState = 4;
 }
