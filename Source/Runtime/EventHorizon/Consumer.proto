@@ -52,6 +52,7 @@ message EventHorizonProducerToConsumerMessage {
         services.Ping ping = 3;
     }
 }
+
 service Consumer {
     rpc Subscribe(stream EventHorizonConsumerToProducerMessage) returns(stream EventHorizonProducerToConsumerMessage);
 }
