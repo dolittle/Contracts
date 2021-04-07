@@ -27,13 +27,13 @@ message GetAllRequest {
 }
 
 message GetOneResponse {
-    protobuf.Failure failure = 1; // not set if not failed
-    events.processing.ProjectionCurrentState state = 2;
+    events.processing.ProjectionCurrentState state = 1;
+    protobuf.Failure failure = 2; // not set if not failed
 }
 
 message GetAllResponse {
-    protobuf.Failure failure = 1; // not set if not failed
-    repeated events.processing.ProjectionCurrentState states = 2;
+    repeated events.processing.ProjectionCurrentState states = 1;
+    protobuf.Failure failure = 2; // not set if not failed
 }
 
 
