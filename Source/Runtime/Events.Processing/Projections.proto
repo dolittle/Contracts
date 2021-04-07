@@ -75,15 +75,15 @@ enum ProjectionCurrentStateType {
 
 message ProjectionCurrentState {
     ProjectionCurrentStateType type = 1;
-    string state = 2;
+    string key = 2;
+    string state = 3;
 }
 
 message ProjectionRequest {
     services.ReverseCallRequestContext callContext = 1;
-    string key = 2;
-    ProjectionCurrentState currentState = 3;
-    StreamEvent event = 4;
-    RetryProcessingState retryProcessingState = 5;
+    ProjectionCurrentState currentState = 2;
+    StreamEvent event = 3;
+    RetryProcessingState retryProcessingState = 4;
 }
 
 message ProjectionRuntimeToClientMessage {
