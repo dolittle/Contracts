@@ -6,7 +6,7 @@ syntax = "proto3";
 import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/CallContext.proto";
-import "Runtime/Events.Processing/Projections.proto";
+import "Runtime/Projections/State.proto";
 
 package dolittle.runtime.projections;
 
@@ -27,13 +27,13 @@ message GetAllRequest {
 }
 
 message GetOneResponse {
-    protobuf.Failure failure = 1; // not set if not failed
-    events.processing.ProjectionCurrentState state = 2;
+    ProjectionCurrentState state = 1;
+    protobuf.Failure failure = 2; // not set if not failed
 }
 
 message GetAllResponse {
-    protobuf.Failure failure = 1; // not set if not failed
-    repeated events.processing.ProjectionCurrentState states = 2;
+    repeated ProjectionCurrentState states = 1;
+    protobuf.Failure failure = 2; // not set if not failed
 }
 
 
