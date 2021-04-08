@@ -17,20 +17,24 @@ package dolittle.runtime.events.processing;
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/events/processing";
 
-enum ProjectionEventKeySelectorType {
-    EVENT_SOURCE_ID = 0;
-    PARTITION_ID = 1;
-    PROPERTY = 2;
+
+message EventSourceIdKeySelector {
 }
 
-message ProjectionEventKeySelector {
-    ProjectionEventKeySelectorType type = 1;
-    string expression = 2;
+message PartitionIdKeySelector {
+}
+
+message EventPropertyKeySelector {
+    string propertyName = 1;
 }
 
 message ProjectionEventSelector {
     artifacts.Artifact eventType = 1;
-    ProjectionEventKeySelector keySelector = 2;
+    oneof Selector {
+        EventSourceIdKeySelector eventSourceKeySelector = 2;
+        PartitionIdKeySelector partitionKeySelector = 3;
+        EventPropertyKeySelector eventPropertyKeySelector = 4;
+    }
 }
 
 message ProjectionRegistrationRequest {
@@ -41,20 +45,20 @@ message ProjectionRegistrationRequest {
     string initialState = 5;
 }
 
-enum ProjectionNextStateType {
-    REPLACE = 0;
-    DELETE = 1;
+message ProjectionReplaceResponse {
+    string state = 1;
 }
 
-message ProjectionNextState {
-    ProjectionNextStateType type = 1;
-    string value = 2;
+message ProjectionDeleteResponse {
 }
 
 message ProjectionResponse {
     services.ReverseCallResponseContext callContext = 1;
-    ProjectionNextState nextState = 2;
-    ProcessorFailure failure = 3; // If not set/empty - no failure
+    oneof Response {
+        ProjectionReplaceResponse replace = 2;
+        ProjectionDeleteResponse delete = 3;
+    }
+    ProcessorFailure failure = 4; // If not set/empty - no failure
 }
 
 message ProjectionClientToRuntimeMessage {
