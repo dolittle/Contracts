@@ -6,11 +6,10 @@ syntax = "proto3";
 package dolittle.services;
 
 option csharp_namespace = "Dolittle.Services.Contracts";
+option go_package = "go.dolittle.io/contracts/services";
 
 message Ping {
-
 }
 
 message Pong {
-
 }

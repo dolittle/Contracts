@@ -10,6 +10,7 @@ import "Fundamentals/Protobuf/Failure.proto";
 package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/eventhorizon";
 
 message SubscriptionResponse {
     protobuf.Failure failure = 1;

@@ -6,6 +6,7 @@ syntax = "proto3";
 package dolittle.protobuf;
 
 option csharp_namespace = "Dolittle.Protobuf.Contracts";
+option go_package = "go.dolittle.io/contracts/protobuf";
 
 message Uuid {
     bytes value = 1;

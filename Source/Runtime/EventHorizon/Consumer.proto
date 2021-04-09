@@ -13,6 +13,7 @@ import "Runtime/Events/Committed.proto";
 package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/eventhorizon";
 
 message EventHorizonEvent {
     uint64 streamSequenceNumber = 1;
@@ -51,6 +52,7 @@ message EventHorizonProducerToConsumerMessage {
         services.Ping ping = 3;
     }
 }
+
 service Consumer {
     rpc Subscribe(stream EventHorizonConsumerToProducerMessage) returns(stream EventHorizonProducerToConsumerMessage);
 }

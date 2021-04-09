@@ -1,12 +1,12 @@
 name: Contracts CI/CD
 
 env:
-  PRERELEASE_BRANCHES: alpha,beta,rc,updategrpc # Comma separated list of prerelease branch names. 'alpha,rc, ...'
+  PRERELEASE_BRANCHES: alpha,beta,rc,projections # Comma separated list of prerelease branch names. 'alpha,rc, ...'
 
 on:
   push:
     branches:
-    - '**'
+      - "**"
   pull_request:
     types: [closed]
 
@@ -19,124 +19,194 @@ jobs:
       pr-body: ${{ steps.context.outputs.pr-body }}
       pr-url: ${{ steps.context.outputs.pr-url }}
       version: ${{ steps.increment-version.outputs.next-version }}
-
+      release-type: ${{ steps.context.outputs.release-type }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Establish context
-      id: context
-      uses: dolittle/establish-context-action@v2 # Replace with ./ if used withing dolittle/establish-context-action
-      with:
-        prerelease-branches: ${{ env.PRERELEASE_BRANCHES }}
-    - name: Increment version
-      id: increment-version
-      if: ${{ steps.context.outputs.should-publish == 'true' }}
-      uses: dolittle/increment-version-action@v2 # Replace with ./ if used withing dolittle/increment-version-action
-      with:
-        version: ${{ steps.context.outputs.current-version }}
-        release-type: ${{ steps.context.outputs.release-type }}
+      - uses: actions/checkout@v2
+      - name: Establish context
+        id: context
+        uses: dolittle/establish-context-action@v2
+        with:
+          prerelease-branches: ${{ env.PRERELEASE_BRANCHES }}
+      - name: Increment version
+        id: increment-version
+        if: ${{ steps.context.outputs.should-publish == 'true' }}
+        uses: dolittle/increment-version-action@v2
+        with:
+          version: ${{ steps.context.outputs.current-version }}
+          release-type: ${{ steps.context.outputs.release-type }}
 
   dot-net-build:
     name: .Net Build
     runs-on: ubuntu-latest
     needs: context
-
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
+          dotnet-version: "3.1.x"
       - run: dotnet build -c Release
+        working-directory: ./Generation/CSharp
+
+  java-script-build:
+    name: JavaScript Build
+    runs-on: ubuntu-latest
+    needs: context
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+        registry-url: 'https://registry.npmjs.org'
+    - name: Install dependencies
+      working-directory: ./Generation/JavaScript
+      run: yarn
+    - name: Build Fundamentals
+      working-directory: ./Generation/JavaScript/Fundamentals
+      run: yarn build
+    - name: Build Runtime
+      working-directory: ./Generation/JavaScript/Runtime
+      run: yarn build
+
+  golang-build:
+    name: Go Build
+    runs-on: ubuntu-latest
+    needs: context
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.16.2'
+    - uses: arduino/setup-protoc@v1
+      with:
+        version: '3.15.6'
+    - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
+    - name: Generate code
+      working-directory: ./Generation/Go
+      run: ./generate.sh ${{ needs.context.outputs.version }}
 
   release:
     name: Release
     runs-on: ubuntu-latest
-    needs: [dot-net-build, context]
+    needs: [context, dot-net-build, java-script-build, golang-build]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Prepend to Changelog
-      uses: dolittle/add-to-changelog-action@v2
-      with:
-        version: ${{ needs.context.outputs.version }}
-        body: ${{ needs.context.outputs.pr-body }}
-        pr-url: ${{ needs.context.outputs.pr-url }}
-        changelog-path: CHANGELOG.md
-        user-email: build@dolittle.com
-        user-name: dolittle-build
-    - name: Create GitHub Release
-      uses: dolittle/github-release-action@v2 # Replace with ./ if used withing dolittle/github-release-action
-      with:
-        version: ${{ needs.context.outputs.version }}
-        body: ${{ needs.context.outputs.pr-body }}
+      - uses: actions/checkout@v2
+      - name: Prepend to Changelog
+        if: ${{ needs.context.outputs.should-publish == 'true' && needs.context.outputs.release-type != 'prerelease' }}
+        uses: dolittle/add-to-changelog-action@v2
+        with:
+          version: ${{ needs.context.outputs.version }}
+          body: ${{ needs.context.outputs.pr-body }}
+          pr-url: ${{ needs.context.outputs.pr-url }}
+          changelog-path: CHANGELOG.md
+          user-email: build@dolittle.com
+          user-name: dolittle-build
+      - name: Create GitHub Release
+        uses: dolittle/github-release-action@v2
+        with:
+          version: ${{ needs.context.outputs.version }}
+          body: ${{ needs.context.outputs.pr-body }}
 
   dot-net-release:
     name: .Net Release
     runs-on: ubuntu-latest
-    needs: [context, dot-net-build]
+    needs: [context, release]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
-
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
+          dotnet-version: "3.1.x"
       - run: dotnet build
+        working-directory: ./Generation/CSharp
       - name: Create packages
+        working-directory: ./Generation/CSharp
         run: dotnet pack --configuration Release -o Artifacts/NuGet /p:PackageVersion=${{ needs.context.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -p:NoDefaultExcludes=true
       - name: Push NuGet packages
+        working-directory: ./Generation/CSharp
         run: dotnet nuget push 'Artifacts/NuGet/*.nupkg' --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
-  # java-script:
-  #   name: JavaScript
-  #   runs-on: ubuntu-latest
-  #   needs: context
+  java-script-release:
+    name: JavaScript Release
+    runs-on: ubuntu-latest
+    needs: [context, release]
+    if: ${{ needs.context.outputs.should-publish == 'true' }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+        registry-url: 'https://registry.npmjs.org'
+    - name: Install dependencies
+      working-directory: ./Generation/JavaScript
+      run: yarn
+    - name: Build Fundamentals
+      working-directory: ./Generation/JavaScript/Fundamentals
+      run: yarn build
+    - name: Update Fundamentals version
+      working-directory: ./Generation/JavaScript/Fundamentals
+      run: npm version ${{ needs.context.outputs.version }}
+    - name: Build Runtime
+      working-directory: ./Generation/JavaScript/Runtime
+      run: yarn build
+    - name: Add Fundamentals as dependency of Runtime
+      working-directory: ./Generation/JavaScript/Runtime
+      run: jq '.dependencies["@dolittle/contracts"] = "${{ needs.context.outputs.version }}"' package.json > package.json.tmp && mv package.json.tmp package.json
+    - name: Update Runtime version
+      working-directory: ./Generation/JavaScript/Runtime
+      run: npm version ${{ needs.context.outputs.version }}
+    - name: Extract tag from version
+      uses: actions-ecosystem/action-regex-match@v2
+      id: tag_regex
+      with:
+        text: ${{ needs.context.outputs.version }}
+        regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
+    - name: Publish Fundamentals
+      working-directory: ./Generation/JavaScript/Fundamentals
+      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Publish Runtime
+      working-directory: ./Generation/JavaScript/Runtime
+      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: actions/setup-node@v1
-  #     with:
-  #       node-version: 12.x
-  #   - uses: arduino/setup-protoc@master
-  #     with:
-  #       version: '3.11.2'
-
-  #   - name: Install dependencies
-  #     working-directory: ./Generation
-  #     run: yarn
-
-  #   - name: Build Fundamentals
-  #     working-directory: ./Generation/Fundamentals/JavaScript
-  #     run: yarn build
-  #   - name: Build Fundamentals Web
-  #     working-directory: ./Generation/Fundamentals/JavaScript.Web
-  #     run: yarn build
-  #   - name: Build Runtime
-  #     working-directory: ./Generation/Runtime/JavaScript
-  #     run: yarn build
-  #   - name: Build Runtime Web
-  #     working-directory: ./Generation/Runtime/JavaScript.Web
-  #     run: yarn build
-
-  #   - name: Publish Fundamentals
-  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
-  #     working-directory: ./Generation/Fundamentals/JavaScript
-  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
-  #   - name: Publish Fundamentals Web
-  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
-  #     working-directory: ./Generation/Fundamentals/JavaScript.Web
-  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
-  #   - name: Publish Runtime
-  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
-  #     working-directory: ./Generation/Runtime/JavaScript
-  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
-  #   - name: Publish Runtime Web
-  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
-  #     working-directory: ./Generation/Runtime/JavaScript.Web
-  #     run: yarn publish --new-version ${{ needs.context.outputs.version }} --no-git-tag-version
-
-  #   - name: Create Pull Request
-  #     if: ${{ success() && needs.context.outputs.should-publish == 'true' }}
-  #     uses: peter-evans/create-pull-request@v2
-  #     with:
-  #       title: Bump package.json versions to ${{ needs.context.outputs.version }}
+  golang-release:
+    name: Go Release
+    runs-on: ubuntu-latest
+    needs: [context, release]
+    if: ${{ needs.context.outputs.should-publish == 'true' }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.16.2'
+    - uses: arduino/setup-protoc@v1
+      with:
+        version: '3.15.6'
+    - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
+    - name: Generate code
+      working-directory: ./Generation/Go
+      run: ./generate.sh ${{ needs.context.outputs.version }}
+    - uses: actions/checkout@v2
+      with:
+        repository: dolittle/Go.Contracts
+        token: ${{ secrets.BUILD_PAT }}
+        path: ./Generation/Go/output
+    - name: Cleanout old released code
+      working-directory: ./Generation/Go/output
+      run: rm -r * && git checkout -- README.md LICENSE
+    - name: Copy new generated code
+      working-directory: ./Generation/Go/
+      run: cp -r generated/* output
+    - name: Commit new generated code and tag as release
+      working-directory: ./Generation/Go/output
+      run: |
+        git config user.name "Contracts Release GitHub Actions"
+        git config user.email "contracts-release@dolittle.com"
+        git add .
+        git commit --allow-empty -m "Generated code for ${{ needs.context.outputs.version }}"
+        git tag "v${{ needs.context.outputs.version }}"
+        git push
+        git push --tags
