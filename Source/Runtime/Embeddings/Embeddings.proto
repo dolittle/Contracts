@@ -5,6 +5,7 @@ syntax = "proto3";
 
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/CallContext.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
 import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events/Uncommitted.proto";
