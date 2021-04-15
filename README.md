@@ -48,5 +48,11 @@ yarn
 yarn build
 ```
 
+Go:
+```shell
+cd Generation/Go
+./generate.sh
+```
+
 # Issues and Contributing
 To learn how to contribute please read our [contributing](https://dolittle.io/contributing/) guide.
