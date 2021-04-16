@@ -34,6 +34,25 @@ The Runtime contracts are maintained independently from its runtime implementati
 | JavaScript | <a href="https://www.npmjs.com/package/@dolittle/contracts"><img src="https://img.shields.io/npm/v/@dolittle/contracts?label=@dolittle/contracts&logo=npm" alt="Latest NPM package"></a>      | <a href="https://www.npmjs.com/package/@dolittle/runtime.contracts"><img src="https://img.shields.io/npm/v/@dolittle/runtime.contracts?label=@dolittle/runtime.contracts&logo=npm" alt="Latest NPM package"></a> |
 | C#         | <a href="https://www.nuget.org/packages/Dolittle.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Contracts&logo=nuget" alt="Latest Nuget package"></a> | <a href="https://www.nuget.org/packages/Dolittle.Runtime.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Runtime.Contracts&logo=nuget" alt="Latest Nuget package"></a>    |
 
+# Build
+C#:
+```shell
+cd Generation/CSharp
+dotnet build
+```
+
+JavaScript (requires Node.JS>=14):
+```shell
+cd Generation/JavaScript
+yarn
+yarn build
+```
+
+Go:
+```shell
+cd Generation/Go
+./generate.sh
+```
 
 # Issues and Contributing
 To learn how to contribute please read our [contributing](https://dolittle.io/contributing/) guide.

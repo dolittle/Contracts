@@ -3,12 +3,15 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Services/CallContext.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
 import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events/Uncommitted.proto";
+import "Runtime/Events.Processing/StreamEvent.proto";
+import "Runtime/Events.Processing/Processors.proto";
 import "Runtime/Events.Processing/Projections.proto";
 import "Runtime/Projections/State.proto";
 
@@ -17,25 +20,41 @@ package dolittle.runtime.embeddings;
 option csharp_namespace = "Dolittle.Runtime.Embeddings.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/embeddings";
 
+
 message EmbeddingRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid embeddingId = 2;
-    repeated events.processing.ProjectionEventSelector events = 3;
+    repeated artifacts.Artifact events = 3;
     string initialState = 4;
+}
+
+message EmbeddingCompareResponse {
+    repeated events.UncommittedEvent events = 1;
+}
+
+message EmbeddingDeleteResponse {
+    repeated events.UncommittedEvent events = 1;
 }
 
 message EmbeddingResponse {
     services.ReverseCallResponseContext callContext = 1;
-    repeated events.UncommittedEvent events = 2;
-    protobuf.Failure failure = 3; // If not set/empty - no failure
+    oneof Response {
+        EmbeddingCompareResponse compare = 2;
+        EmbeddingDeleteResponse delete = 3;
+        events.processing.ProjectionReplaceResponse projectionReplace = 4;
+        events.processing.ProjectionDeleteResponse projectionDelete = 5;
+    }
+    oneof Failure {
+        events.processing.ProcessorFailure processorFailure = 6;
+        protobuf.Failure failure = 7;
+    }
 }
 
 message EmbeddingClientToRuntimeMessage {
     oneof Message {
         EmbeddingRegistrationRequest registrationRequest = 1;
-        EmbeddingResponse handleEmbeddingResult = 2;
-        events.processing.ProjectionResponse handleProjectionResult = 3;
-        services.Pong pong = 4;
+        EmbeddingResponse handleResult = 2;
+        services.Pong pong = 3;
     }
 }
 
@@ -44,8 +63,8 @@ message EmbeddingRegistrationResponse {
 }
 
 message EmbeddingCompareRequest {
-    string entityState = 1;
-    projections.ProjectionCurrentState projectionState = 2;
+    projections.ProjectionCurrentState projectionState = 1;
+    string entityState = 2;
 }
 
 message EmbeddingDeleteRequest {
@@ -53,19 +72,24 @@ message EmbeddingDeleteRequest {
 }
 
 message EmbeddingRequest {
+    message ProjectionRequest {
+        projections.ProjectionCurrentState currentState = 1;
+        events.processing.StreamEvent event = 2;
+        events.processing.RetryProcessingState retryProcessingState = 3;
+    }
     services.ReverseCallRequestContext callContext = 1;
     oneof Request {
         EmbeddingCompareRequest compare = 2;
         EmbeddingDeleteRequest delete = 3;
+        ProjectionRequest projection = 4;
     }
 }
 
 message EmbeddingRuntimeToClientMessage {
     oneof Message {
         EmbeddingRegistrationResponse registrationResponse = 1;
-        EmbeddingRequest handleEmbeddingRequest = 2;
-        events.processing.ProjectionRequest handleProjectionRequest = 3;
-        services.Ping ping = 4;
+        EmbeddingRequest handleRequest = 2;
+        services.Ping ping = 3;
     }
 }
 
