@@ -71,17 +71,17 @@ message EmbeddingDeleteRequest {
     projections.ProjectionCurrentState projectionState = 1;
 }
 
+message EmbeddingProjectRequest {
+    projections.ProjectionCurrentState currentState = 1;
+    events.UncommittedEvent event = 2;
+}
+
 message EmbeddingRequest {
-    message ProjectionRequest {
-        projections.ProjectionCurrentState currentState = 1;
-        events.processing.StreamEvent event = 2;
-        events.processing.RetryProcessingState retryProcessingState = 3;
-    }
     services.ReverseCallRequestContext callContext = 1;
     oneof Request {
         EmbeddingCompareRequest compare = 2;
         EmbeddingDeleteRequest delete = 3;
-        ProjectionRequest projection = 4;
+        EmbeddingProjectRequest projection = 4;
     }
 }
 
