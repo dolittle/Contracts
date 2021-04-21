@@ -34,8 +34,8 @@ message GetAllResponse {
     protobuf.Failure failure = 2; // not set if not failed
 }
 
-// Represents the Projections service
-service Projections {
+// Represents the Embeddings store service
+service Embeddings {
     rpc GetOne(GetOneRequest) returns(GetOneResponse);
     rpc GetAll(GetAllRequest) returns(GetAllResponse);
 }
