@@ -44,8 +44,8 @@ message GetAllResponse {
     protobuf.Failure failure = 2; // not set if not failed
 }
 
-// Represents the Embeddings store service
-service EmbeddingsStore {
+// Represents the Embedding Store service
+service EmbeddingStore {
     rpc GetOne(GetOneRequest) returns(GetOneResponse);
     rpc GetKeys(GetKeysRequest) returns(GetKeysResponse);
     rpc GetAll(GetAllRequest) returns(GetAllResponse);
