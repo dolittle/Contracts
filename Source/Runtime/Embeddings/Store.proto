@@ -35,7 +35,7 @@ message GetAllResponse {
 }
 
 // Represents the Embeddings store service
-service Embeddings {
+service EmbeddingsStore {
     rpc GetOne(GetOneRequest) returns(GetOneResponse);
     rpc GetAll(GetAllRequest) returns(GetAllResponse);
 }
