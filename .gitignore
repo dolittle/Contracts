@@ -364,3 +364,5 @@ Generation/JavaScript/Runtime/**
 
 Generation/Go/*
 !Generation/Go/generate.sh
+
+Generation/Artifacts
