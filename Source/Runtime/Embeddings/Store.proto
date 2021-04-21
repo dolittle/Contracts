@@ -8,31 +8,29 @@ import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Services/CallContext.proto";
 import "Runtime/Projections/State.proto";
 
-package dolittle.runtime.projections;
+package dolittle.runtime.embeddings;
 
-option csharp_namespace = "Dolittle.Runtime.Projections.Contracts";
-option go_package = "go.dolittle.io/contracts/runtime/projections";
+option csharp_namespace = "Dolittle.Runtime.Embeddings.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/embeddings";
 
 message GetOneRequest {
     services.CallRequestContext callContext = 1; 
-    protobuf.Uuid scopeId = 2;
-    protobuf.Uuid projectionId = 3;
-    string key = 4;
+    protobuf.Uuid embeddingId = 2;
+    string key = 3;
 }
 
 message GetAllRequest {
     services.CallRequestContext callContext = 1; 
-    protobuf.Uuid scopeId = 2;
-    protobuf.Uuid projectionId = 3;
+    protobuf.Uuid embeddingId = 2;
 }
 
 message GetOneResponse {
-    ProjectionCurrentState state = 1;
+    projections.ProjectionCurrentState state = 1;
     protobuf.Failure failure = 2; // not set if not failed
 }
 
 message GetAllResponse {
-    repeated ProjectionCurrentState states = 1;
+    repeated projections.ProjectionCurrentState states = 1;
     protobuf.Failure failure = 2; // not set if not failed
 }
 
