@@ -19,6 +19,11 @@ message GetOneRequest {
     string key = 3;
 }
 
+message GetKeysRequest {
+    services.CallRequestContext callContext = 1; 
+    protobuf.Uuid embeddingId = 2;
+}
+
 message GetAllRequest {
     services.CallRequestContext callContext = 1; 
     protobuf.Uuid embeddingId = 2;
@@ -29,13 +34,19 @@ message GetOneResponse {
     protobuf.Failure failure = 2; // not set if not failed
 }
 
+message GetKeysResponse {
+    repeated string keys = 1;
+    protobuf.Failure failure = 2; // not set if not failed
+}
+
 message GetAllResponse {
     repeated projections.ProjectionCurrentState states = 1;
     protobuf.Failure failure = 2; // not set if not failed
 }
 
-// Represents the Embeddings store service
-service EmbeddingsStore {
+// Represents the Embedding Store service
+service EmbeddingStore {
     rpc GetOne(GetOneRequest) returns(GetOneResponse);
+    rpc GetKeys(GetKeysRequest) returns(GetKeysResponse);
     rpc GetAll(GetAllRequest) returns(GetAllResponse);
 }
