@@ -1,3 +1,15 @@
+# [5.4.0] - 2021-6-28 [PR: #48](https://github.com/dolittle/Contracts/pull/48)
+## Summary
+
+Adds Embeddings services and messages
+
+### Added
+
+- Service and messages for registering, comparing and projecting Embeddings
+- Service and messages for getting Embeddings
+- Service and messages for updating and deleting Embeddings
+
+
 # [5.3.0] - 2021-4-9 [PR: #46](https://github.com/dolittle/Contracts/pull/46)
 ## Summary
 
