@@ -13,7 +13,7 @@ option go_package = "go.dolittle.io/contracts/runtime/events/processing";
 
 message StreamEvent {
     runtime.events.CommittedEvent event = 1;
-    protobuf.Uuid partitionId = 2;
+    string partitionId = 2;
     protobuf.Uuid scopeId = 3;
     bool partitioned = 4;
 }

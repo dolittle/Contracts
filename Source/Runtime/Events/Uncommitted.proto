@@ -13,7 +13,7 @@ option go_package = "go.dolittle.io/contracts/runtime/events";
 
 message UncommittedEvent {
     artifacts.Artifact artifact = 1;
-    protobuf.Uuid eventSourceId = 2;
+    string eventSourceId = 2;
     bool public = 3;
     string content = 4;
 }
@@ -25,7 +25,7 @@ message UncommittedAggregateEvents {
         string content = 3;
     }
     protobuf.Uuid aggregateRootId = 1;
-    protobuf.Uuid eventSourceId = 2;
+    string eventSourceId = 2;
     uint64 expectedAggregateRootVersion = 3;
     repeated UncommittedAggregateEvent events = 4;
 }
