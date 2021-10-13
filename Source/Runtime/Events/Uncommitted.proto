@@ -13,7 +13,6 @@ option go_package = "go.dolittle.io/contracts/runtime/events";
 
 message UncommittedEvent {
     artifacts.Artifact eventType = 1;
-    artifacts.Artifact artifact = 1;
     string eventSourceId = 2;
     bool public = 3;
     string content = 4;
