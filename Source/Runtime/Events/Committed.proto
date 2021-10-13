@@ -18,7 +18,7 @@ message CommittedEvent {
     google.protobuf.Timestamp occurred = 2;
     string eventSourceId = 3;
     execution.ExecutionContext executionContext = 4;
-    artifacts.Artifact type = 5;
+    artifacts.Artifact eventType = 5;
     bool public = 6;
     string content = 7;
     bool external = 8;
@@ -31,7 +31,7 @@ message CommittedAggregateEvents {
         uint64 eventLogSequenceNumber = 1; 
         google.protobuf.Timestamp occurred = 2;
         execution.ExecutionContext executionContext = 3;
-        artifacts.Artifact type = 4;
+        artifacts.Artifact eventType = 4;
         bool public = 5;
         string content = 6;
     }

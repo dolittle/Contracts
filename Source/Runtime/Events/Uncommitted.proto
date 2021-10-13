@@ -12,7 +12,7 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/events";
 
 message UncommittedEvent {
-    artifacts.Artifact artifact = 1;
+    artifacts.Artifact eventType = 1;
     string eventSourceId = 2;
     bool public = 3;
     string content = 4;
@@ -20,7 +20,7 @@ message UncommittedEvent {
 
 message UncommittedAggregateEvents {
     message UncommittedAggregateEvent {
-        artifacts.Artifact artifact = 1;
+        artifacts.Artifact eventType = 1;
         bool public = 2;
         string content = 3;
     }
