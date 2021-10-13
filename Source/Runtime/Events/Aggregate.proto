@@ -11,6 +11,6 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/events";
 
 message Aggregate {
-    protobuf.Uuid eventSourceId = 1;
+    string eventSourceId = 1;
     protobuf.Uuid aggregateRootId = 2;
 }

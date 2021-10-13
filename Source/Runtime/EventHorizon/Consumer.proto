@@ -24,7 +24,7 @@ message ConsumerSubscriptionRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
-    protobuf.Uuid partitionId = 4;
+    string partitionId = 4;
     uint64 streamPosition = 5;
 }
 

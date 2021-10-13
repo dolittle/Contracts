@@ -1,7 +1,7 @@
 name: Contracts CI/CD
 
 env:
-  PRERELEASE_BRANCHES: alpha,beta,rc,projections,embeddings # Comma separated list of prerelease branch names. 'alpha,rc, ...'
+  PRERELEASE_BRANCHES: alpha,beta,rc,eventsource # Comma separated list of prerelease branch names. 'alpha,rc, ...'
 
 on:
   push:
@@ -52,37 +52,37 @@ jobs:
     runs-on: ubuntu-latest
     needs: context
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-        registry-url: 'https://registry.npmjs.org'
-    - name: Install dependencies
-      working-directory: ./Generation/JavaScript
-      run: yarn
-    - name: Build Fundamentals
-      working-directory: ./Generation/JavaScript/Fundamentals
-      run: yarn build
-    - name: Build Runtime
-      working-directory: ./Generation/JavaScript/Runtime
-      run: yarn build
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies
+        working-directory: ./Generation/JavaScript
+        run: yarn
+      - name: Build Fundamentals
+        working-directory: ./Generation/JavaScript/Fundamentals
+        run: yarn build
+      - name: Build Runtime
+        working-directory: ./Generation/JavaScript/Runtime
+        run: yarn build
 
   golang-build:
     name: Go Build
     runs-on: ubuntu-latest
     needs: context
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-go@v2
-      with:
-        go-version: '1.16.2'
-    - uses: arduino/setup-protoc@v1
-      with:
-        version: '3.15.6'
-    - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
-    - name: Generate code
-      working-directory: ./Generation/Go
-      run: ./generate.sh ${{ needs.context.outputs.version }}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "1.16.2"
+      - uses: arduino/setup-protoc@v1
+        with:
+          version: "3.15.6"
+      - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
+      - name: Generate code
+        working-directory: ./Generation/Go
+        run: ./generate.sh ${{ needs.context.outputs.version }}
 
   release:
     name: Release
@@ -132,45 +132,45 @@ jobs:
     needs: [context, release]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-        registry-url: 'https://registry.npmjs.org'
-    - name: Install dependencies
-      working-directory: ./Generation/JavaScript
-      run: yarn
-    - name: Build Fundamentals
-      working-directory: ./Generation/JavaScript/Fundamentals
-      run: yarn build
-    - name: Update Fundamentals version
-      working-directory: ./Generation/JavaScript/Fundamentals
-      run: npm version ${{ needs.context.outputs.version }}
-    - name: Build Runtime
-      working-directory: ./Generation/JavaScript/Runtime
-      run: yarn build
-    - name: Add Fundamentals as dependency of Runtime
-      working-directory: ./Generation/JavaScript/Runtime
-      run: jq '.dependencies["@dolittle/contracts"] = "${{ needs.context.outputs.version }}"' package.json > package.json.tmp && mv package.json.tmp package.json
-    - name: Update Runtime version
-      working-directory: ./Generation/JavaScript/Runtime
-      run: npm version ${{ needs.context.outputs.version }}
-    - name: Extract tag from version
-      uses: actions-ecosystem/action-regex-match@v2
-      id: tag_regex
-      with:
-        text: ${{ needs.context.outputs.version }}
-        regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
-    - name: Publish Fundamentals
-      working-directory: ./Generation/JavaScript/Fundamentals
-      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - name: Publish Runtime
-      working-directory: ./Generation/JavaScript/Runtime
-      run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies
+        working-directory: ./Generation/JavaScript
+        run: yarn
+      - name: Build Fundamentals
+        working-directory: ./Generation/JavaScript/Fundamentals
+        run: yarn build
+      - name: Update Fundamentals version
+        working-directory: ./Generation/JavaScript/Fundamentals
+        run: npm version ${{ needs.context.outputs.version }}
+      - name: Build Runtime
+        working-directory: ./Generation/JavaScript/Runtime
+        run: yarn build
+      - name: Add Fundamentals as dependency of Runtime
+        working-directory: ./Generation/JavaScript/Runtime
+        run: jq '.dependencies["@dolittle/contracts"] = "${{ needs.context.outputs.version }}"' package.json > package.json.tmp && mv package.json.tmp package.json
+      - name: Update Runtime version
+        working-directory: ./Generation/JavaScript/Runtime
+        run: npm version ${{ needs.context.outputs.version }}
+      - name: Extract tag from version
+        uses: actions-ecosystem/action-regex-match@v2
+        id: tag_regex
+        with:
+          text: ${{ needs.context.outputs.version }}
+          regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
+      - name: Publish Fundamentals
+        working-directory: ./Generation/JavaScript/Fundamentals
+        run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish Runtime
+        working-directory: ./Generation/JavaScript/Runtime
+        run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   golang-release:
     name: Go Release
@@ -178,35 +178,35 @@ jobs:
     needs: [context, release]
     if: ${{ needs.context.outputs.should-publish == 'true' }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-go@v2
-      with:
-        go-version: '1.16.2'
-    - uses: arduino/setup-protoc@v1
-      with:
-        version: '3.15.6'
-    - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
-    - name: Generate code
-      working-directory: ./Generation/Go
-      run: ./generate.sh ${{ needs.context.outputs.version }}
-    - uses: actions/checkout@v2
-      with:
-        repository: dolittle/Go.Contracts
-        token: ${{ secrets.BUILD_PAT }}
-        path: ./Generation/Go/output
-    - name: Cleanout old released code
-      working-directory: ./Generation/Go/output
-      run: rm -r * && git checkout -- README.md LICENSE
-    - name: Copy new generated code
-      working-directory: ./Generation/Go/
-      run: cp -r generated/* output
-    - name: Commit new generated code and tag as release
-      working-directory: ./Generation/Go/output
-      run: |
-        git config user.name "Contracts Release GitHub Actions"
-        git config user.email "contracts-release@dolittle.com"
-        git add .
-        git commit --allow-empty -m "Generated code for ${{ needs.context.outputs.version }}"
-        git tag "v${{ needs.context.outputs.version }}"
-        git push
-        git push --tags
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "1.16.2"
+      - uses: arduino/setup-protoc@v1
+        with:
+          version: "3.15.6"
+      - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
+      - name: Generate code
+        working-directory: ./Generation/Go
+        run: ./generate.sh ${{ needs.context.outputs.version }}
+      - uses: actions/checkout@v2
+        with:
+          repository: dolittle/Go.Contracts
+          token: ${{ secrets.BUILD_PAT }}
+          path: ./Generation/Go/output
+      - name: Cleanout old released code
+        working-directory: ./Generation/Go/output
+        run: rm -r * && git checkout -- README.md LICENSE
+      - name: Copy new generated code
+        working-directory: ./Generation/Go/
+        run: cp -r generated/* output
+      - name: Commit new generated code and tag as release
+        working-directory: ./Generation/Go/output
+        run: |
+          git config user.name "Contracts Release GitHub Actions"
+          git config user.email "contracts-release@dolittle.com"
+          git add .
+          git commit --allow-empty -m "Generated code for ${{ needs.context.outputs.version }}"
+          git tag "v${{ needs.context.outputs.version }}"
+          git push
+          git push --tags
