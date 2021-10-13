@@ -1,0 +1,93 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/ReverseCallContext.proto";
+import "Fundamentals/Services/Ping.proto";
+import "Runtime/Events.Processing/StreamEvent.proto";
+import "Runtime/Events.Processing/Processors.proto";
+import "Runtime/Projections/State.proto";
+
+package dolittle.runtime.events.processing;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/events/processing";
+
+
+message EventSourceIdKeySelector {
+}
+
+message PartitionIdKeySelector {
+}
+
+message EventPropertyKeySelector {
+    string propertyName = 1;
+}
+
+message ProjectionEventSelector {
+    artifacts.Artifact eventType = 1;
+    oneof Selector {
+        EventSourceIdKeySelector eventSourceKeySelector = 2;
+        PartitionIdKeySelector partitionKeySelector = 3;
+        EventPropertyKeySelector eventPropertyKeySelector = 4;
+    }
+}
+
+message ProjectionRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid projectionId = 3;
+    repeated ProjectionEventSelector events = 4;
+    string initialState = 5;
+}
+
+message ProjectionReplaceResponse {
+    string state = 1;
+}
+
+message ProjectionDeleteResponse {
+}
+
+message ProjectionResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    oneof Response {
+        ProjectionReplaceResponse replace = 2;
+        ProjectionDeleteResponse delete = 3;
+    }
+    ProcessorFailure failure = 4; // If not set/empty - no failure
+}
+
+message ProjectionClientToRuntimeMessage {
+    oneof Message {
+        ProjectionRegistrationRequest registrationRequest = 1;
+        ProjectionResponse handleResult = 2;
+        services.Pong pong = 3;
+    }
+}
+
+message ProjectionRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+message ProjectionRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    projections.ProjectionCurrentState currentState = 2;
+    StreamEvent event = 3;
+    RetryProcessingState retryProcessingState = 4;
+}
+
+message ProjectionRuntimeToClientMessage {
+    oneof Message {
+        ProjectionRegistrationResponse registrationResponse = 1;
+        ProjectionRequest handleRequest = 2;
+        services.Ping ping = 3;
+    }
+}
+
+service Projections {
+    rpc Connect(stream ProjectionClientToRuntimeMessage) returns(stream ProjectionRuntimeToClientMessage);
+}

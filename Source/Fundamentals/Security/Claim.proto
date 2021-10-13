@@ -6,6 +6,7 @@ syntax = "proto3";
 package dolittle.security;
 
 option csharp_namespace = "Dolittle.Security.Contracts";
+option go_package = "go.dolittle.io/contracts/security";
 
 message Claim {
     string key = 1;

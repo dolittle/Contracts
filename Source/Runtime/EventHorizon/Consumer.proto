@@ -13,6 +13,7 @@ import "Runtime/Events/Committed.proto";
 package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/eventhorizon";
 
 message EventHorizonEvent {
     uint64 streamSequenceNumber = 1;
@@ -23,7 +24,7 @@ message ConsumerSubscriptionRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
-    protobuf.Uuid partitionId = 4;
+    string partitionId = 4;
     uint64 streamPosition = 5;
 }
 
@@ -51,6 +52,7 @@ message EventHorizonProducerToConsumerMessage {
         services.Ping ping = 3;
     }
 }
+
 service Consumer {
     rpc Subscribe(stream EventHorizonConsumerToProducerMessage) returns(stream EventHorizonProducerToConsumerMessage);
 }

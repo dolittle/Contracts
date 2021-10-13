@@ -11,11 +11,12 @@ import "google/protobuf/timestamp.proto";
 package dolittle.runtime.events;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/events";
 
 message CommittedEvent {
     uint64 eventLogSequenceNumber = 1; 
     google.protobuf.Timestamp occurred = 2;
-    protobuf.Uuid eventSourceId = 3;
+    string eventSourceId = 3;
     execution.ExecutionContext executionContext = 4;
     artifacts.Artifact eventType = 5;
     bool public = 6;
@@ -34,7 +35,7 @@ message CommittedAggregateEvents {
         bool public = 5;
         string content = 6;
     }
-    protobuf.Uuid eventSourceId = 1;
+    string eventSourceId = 1;
     protobuf.Uuid aggregateRootId = 2;
     uint64 aggregateRootVersion = 3;
     repeated CommittedAggregateEvent events = 4;

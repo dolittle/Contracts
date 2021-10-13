@@ -1,0 +1,43 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Services/CallContext.proto";
+import "Runtime/Projections/State.proto";
+
+package dolittle.runtime.projections;
+
+option csharp_namespace = "Dolittle.Runtime.Projections.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/projections";
+
+message GetOneRequest {
+    services.CallRequestContext callContext = 1; 
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid projectionId = 3;
+    string key = 4;
+}
+
+message GetAllRequest {
+    services.CallRequestContext callContext = 1; 
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid projectionId = 3;
+}
+
+message GetOneResponse {
+    ProjectionCurrentState state = 1;
+    protobuf.Failure failure = 2; // not set if not failed
+}
+
+message GetAllResponse {
+    repeated ProjectionCurrentState states = 1;
+    protobuf.Failure failure = 2; // not set if not failed
+}
+
+// Represents the Projections service
+service Projections {
+    rpc GetOne(GetOneRequest) returns(GetOneResponse);
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
+}

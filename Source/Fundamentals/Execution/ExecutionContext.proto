@@ -10,6 +10,7 @@ import "Fundamentals/Versioning/Version.proto";
 package dolittle.execution;
 
 option csharp_namespace = "Dolittle.Execution.Contracts";
+option go_package = "go.dolittle.io/contracts/execution";
 
 message ExecutionContext {
     protobuf.Uuid microserviceId = 1;

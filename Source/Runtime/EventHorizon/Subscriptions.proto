@@ -10,6 +10,7 @@ import "Fundamentals/Protobuf/Failure.proto";
 package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/eventhorizon";
 
 message SubscriptionResponse {
     protobuf.Failure failure = 1;
@@ -21,7 +22,7 @@ message Subscription {
     protobuf.Uuid microserviceId = 2;
     protobuf.Uuid tenantId = 3;
     protobuf.Uuid streamId = 4;
-    protobuf.Uuid partitionId = 5;
+    string partitionId = 5;
     protobuf.Uuid scopeId = 6;
 }
 
