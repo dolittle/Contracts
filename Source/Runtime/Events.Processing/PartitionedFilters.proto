@@ -22,7 +22,7 @@ message PartitionedFilterRegistrationRequest {
 message PartitionedFilterResponse {
     services.ReverseCallResponseContext callContext = 1;
     bool isIncluded = 2;
-    protobuf.Uuid partitionId = 3;
+    string partitionId = 3;
     ProcessorFailure failure = 4;
 }
 

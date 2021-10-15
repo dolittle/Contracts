@@ -1,3 +1,17 @@
+# [6.0.0] - 2021-10-13 [PR: #53](https://github.com/dolittle/Contracts/pull/53)
+## Summary
+
+Change from Event Source ID as a UUID to a string, this change is motivated by integrating and extracting events from existing systems - where the ID of the source might not be a UUID. Since the EventSourceID is commonly used as the partition key for streams, we also changed partitions to be strings at the same time.
+
+Also, renamed some fields in messages from _artifact_ to a more descriptive name.
+
+### Changed
+
+- EventSourceID is now a string instead of a UUID.
+- PartitionID is now also a string instead of a UUID. 
+- Aligned names of event type fields throughout messages.
+
+
 # [5.4.0] - 2021-6-28 [PR: #48](https://github.com/dolittle/Contracts/pull/48)
 ## Summary
 
