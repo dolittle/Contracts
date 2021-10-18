@@ -22,6 +22,7 @@ message EventHandlerRegistrationRequest {
     protobuf.Uuid eventHandlerId = 3;
     repeated artifacts.Artifact eventTypes = 4;
     bool partitioned = 5;
+    string alias = 6;
 }
 
 message EventHandlerResponse {

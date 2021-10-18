@@ -6,10 +6,7 @@ syntax = "proto3";
 import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Services/ReverseCallContext.proto";
-import "Fundamentals/Services/Ping.proto";
-import "Runtime/Events.Processing/StreamEvent.proto";
-import "Runtime/Events.Processing/Processors.proto";
+import "Runtime/Management/Events.Processing/StreamProcessors.proto";
 
 package dolittle.runtime.events.processing.management;
 
@@ -25,7 +22,7 @@ message ReprocessEventsFromRequest {
 }
 
 message ReprocessEventsFromResponse {
-    protobuf.Failure failure = 1;
+    protobuf.Failure failure = 1; // not set if not failed
 }
 
 message ReprocessAllEventsRequest {
@@ -35,10 +32,29 @@ message ReprocessAllEventsRequest {
 }
 
 message ReprocessAllEventsResponse {
-    protobuf.Failure failure = 1;
+    protobuf.Failure failure = 1; // not set if not failed
+}
+
+message GetAllRequest {
+    // TODO: Do we want another kind of execution context here?
+}
+
+message EventHandlerStatus {
+    protobuf.Uuid scopeId = 1;
+    protobuf.Uuid eventHandlerId = 2;
+    repeated artifacts.Artifact eventTypes = 3;
+    bool partitioned = 4;
+    string alias = 5;
+    repeated TenantScopedStreamProcessorStatus tenants = 6;
+}
+
+message GetAllResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    repeated EventHandlerStatus eventHandlers = 2;
 }
 
 service EventHandlers {
     rpc ReprocessEventsFrom(ReprocessEventsFromRequest) returns(ReprocessEventsFromResponse);
     rpc ReprocessAllEvents(ReprocessAllEventsRequest) returns(ReprocessAllEventsResponse);
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
 }
