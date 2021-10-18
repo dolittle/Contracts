@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 package dolittle.runtime.events.processing.management;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Management.Contracts";
