@@ -10,7 +10,6 @@ import "Fundamentals/Services/CallContext.proto";
 import "Fundamentals/Services/ReverseCallContext.proto";
 import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events/Uncommitted.proto";
-import "Runtime/Events.Processing/StreamEvent.proto";
 import "Runtime/Events.Processing/Processors.proto";
 import "Runtime/Events.Processing/Projections.proto";
 import "Runtime/Projections/State.proto";
