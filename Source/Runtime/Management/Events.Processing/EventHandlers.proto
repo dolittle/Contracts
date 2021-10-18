@@ -59,4 +59,5 @@ message GetAllResponse {
 service EventHandlers {
     rpc ReprocessEventsFrom(ReprocessEventsFromRequest) returns(ReprocessEventsFromResponse);
     rpc ReprocessAllEvents(ReprocessAllEventsRequest) returns(ReprocessAllEventsResponse);
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
 }
