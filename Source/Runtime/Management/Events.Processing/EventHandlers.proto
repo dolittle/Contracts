@@ -43,7 +43,7 @@ message EventHandlerStatus {
     protobuf.Uuid eventHandlerId = 2;
     repeated artifacts.Artifact eventTypes = 3;
     bool partitioned = 4;
-    optional string alias = 5;
+    string alias = 5;
     repeated TenantScopedEventHandlerStatus tenants = 6;
 }
 
