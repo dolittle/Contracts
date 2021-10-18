@@ -6,6 +6,7 @@ syntax = "proto3";
 import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
+import "Runtime/Management/Events.Processing/StreamProcessors.proto";
 
 package dolittle.runtime.events.processing.management;
 
