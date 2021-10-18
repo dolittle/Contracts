@@ -45,7 +45,7 @@ message EventHandlerStatus {
     repeated artifacts.Artifact eventTypes = 3;
     bool partitioned = 4;
     string alias = 5;
-    repeated TenantScopedEventHandlerStatus tenants = 6;
+    repeated TenantScopedStreamProcessorStatus tenants = 6;
 }
 
 message GetAllResponse {
