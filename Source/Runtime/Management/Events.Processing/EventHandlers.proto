@@ -25,7 +25,7 @@ message ReprocessEventsFromRequest {
 }
 
 message ReprocessEventsFromResponse {
-    protobuf.Failure failure = 1;
+    protobuf.Failure failure = 1; // not set if not failed
 }
 
 message ReprocessAllEventsRequest {
@@ -35,7 +35,25 @@ message ReprocessAllEventsRequest {
 }
 
 message ReprocessAllEventsResponse {
-    protobuf.Failure failure = 1;
+    protobuf.Failure failure = 1; // not set if not failed
+}
+
+message GetAllRequest {
+    // TODO: Do we want another kind of execution context here?
+}
+
+message EventHandlerStatus {
+    protobuf.Uuid scopeId = 1;
+    protobuf.Uuid eventHandlerId = 2;
+    repeated artifacts.Artifact eventTypes = 3;
+    bool partitioned = 4;
+    optional string alias = 5;
+    repeated TenantScopedEventHandlerStatus tenants = 6;
+}
+
+message GetAllResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    repeated EventHandlerStatus eventHandlers = 2;
 }
 
 service EventHandlers {
