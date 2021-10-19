@@ -19,15 +19,16 @@ message UnpartitionedTenantScopedStreamProcessorStatus {
 }
 
 message PartitionedTenantScopedStreamProcessorStatus {
-    map<string, FailingPartition> failingPartitions = 1;
+    repeated FailingPartition failingPartitions = 1;
 }
 
 message FailingPartition {
-    uint64 streamPosition = 1;
-    string failureReason = 2;
-    uint32 retryCount = 3;
-    google.protobuf.Timestamp retryTime = 4;
-    google.protobuf.Timestamp lastFailed = 5;
+    string partitionId = 1;
+    uint64 streamPosition = 2;
+    string failureReason = 3;
+    uint32 retryCount = 4;
+    google.protobuf.Timestamp retryTime = 5;
+    google.protobuf.Timestamp lastFailed = 6;
 }
 
 message TenantScopedStreamProcessorStatus {
