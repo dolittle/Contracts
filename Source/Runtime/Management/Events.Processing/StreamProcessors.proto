@@ -3,6 +3,7 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Uuid.proto";
 import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.events.processing.management;
@@ -30,10 +31,11 @@ message FailingPartition {
 }
 
 message TenantScopedStreamProcessorStatus {
-    uint64 streamPosition = 1;
-    google.protobuf.Timestamp lastSuccessfullyProcessed = 2;
+    protobuf.Uuid tenantId = 1;
+    uint64 streamPosition = 2;
+    google.protobuf.Timestamp lastSuccessfullyProcessed = 3;
     oneof Status {
-        UnpartitionedTenantScopedStreamProcessorStatus unpartitioned = 3;
-        PartitionedTenantScopedStreamProcessorStatus partitioned = 4;
+        UnpartitionedTenantScopedStreamProcessorStatus unpartitioned = 4;
+        PartitionedTenantScopedStreamProcessorStatus partitioned = 5;
     }
 }
