@@ -37,6 +37,7 @@ message ReprocessAllEventsResponse {
 
 message GetAllRequest {
     // TODO: Do we want another kind of execution context here?
+    optional protobuf.Uuid tenantId = 1;
 }
 
 message EventHandlerStatus {
@@ -53,8 +54,21 @@ message GetAllResponse {
     repeated EventHandlerStatus eventHandlers = 2;
 }
 
+message GetOneRequest {
+    // TODO: Do we want another kind of execution context here?
+    protobuf.Uuid scopeId = 1;
+    protobuf.Uuid eventHandlerId = 2;
+    optional protobuf.Uuid tenantId = 3;
+}
+
+message GetOneResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    EventHandlerStatus eventHandlers = 2;
+}
+
 service EventHandlers {
     rpc ReprocessEventsFrom(ReprocessEventsFromRequest) returns(ReprocessEventsFromResponse);
     rpc ReprocessAllEvents(ReprocessAllEventsRequest) returns(ReprocessAllEventsResponse);
     rpc GetAll(GetAllRequest) returns(GetAllResponse);
+    rpc GetOne(GetOneRequest) returns(GetOneResponse);
 }
