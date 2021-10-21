@@ -1,3 +1,18 @@
+# [6.1.0] - 2021-10-21 [PR: #55](https://github.com/dolittle/Contracts/pull/55)
+## Summary
+
+Adds a management surface to Event Handlers that has the capability to reprocess event for Event Handlers and also get information about running Event Handlers. Also adds the possibility to register Event Handlers with named aliases for easy tracking. 
+
+### Added
+
+- Adds optional string 'alias' to event handler registration
+- Adds management service for event handlers with 4 endpoints: `ReprocessEventsFrom`, `ReprocessAllEvents`, `GetAll` and `GetOne`
+
+### Changed
+
+- Updated Grpc and protobuf dependencies
+
+
 # [6.0.0] - 2021-10-13 [PR: #53](https://github.com/dolittle/Contracts/pull/53)
 ## Summary
 
