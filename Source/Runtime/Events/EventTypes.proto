@@ -11,9 +11,13 @@ package dolittle.runtime.Events;
 option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/Events";
 
-message EventTypeRegistrationRequest {
+message EventTypeMapping {
     protobuf.Uuid eventTypeId = 1;
     optional string alias = 2;
+}
+
+message EventTypeRegistrationRequest {
+    repeated EventTypeMapping mappings = 1;
 }
 
 message EventTypeRegistrationResponse {
