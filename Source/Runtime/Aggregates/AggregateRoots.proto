@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Failure.proto";
 
 package dolittle.runtime.aggregates;
@@ -11,19 +11,15 @@ package dolittle.runtime.aggregates;
 option csharp_namespace = "Dolittle.Runtime.Aggregates.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/aggregates";
 
-message AggregateMapping {
-    protobuf.Uuid aggregateRootId = 1;
-    optional string alias = 2;
-}
-
 message AggregateRootRegistrationRequest {
-    repeated AggregateMapping mappings = 1;
+    artifacts.Artifact aggregateRoot = 1;
+    optional string alias = 2;
 }
 
 message AggregateRootRegistrationResponse {
     protobuf.Failure failure = 1;
 }
 
-service EventHandlers {
-    rpc Register(AggregateRootRegistrationRequest) returns(AggregateRootRegistrationResponse);
+service AggregateRoots {
+    rpc Register(AggregateRootRegistrationRequest) returns(AggregateRootsRegistrationResponse);
 }

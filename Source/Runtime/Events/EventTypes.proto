@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Artifacts/Artifact.proto";
 import "Fundamentals/Protobuf/Failure.proto";
 
 package dolittle.runtime.events;
@@ -11,19 +11,15 @@ package dolittle.runtime.events;
 option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/events";
 
-message EventTypeMapping {
-    protobuf.Uuid eventTypeId = 1;
-    optional string alias = 2;
-}
-
 message EventTypeRegistrationRequest {
-    repeated EventTypeMapping mappings = 1;
+    artifacts.Artifact eventType = 1;
+    optional string alias = 2;
 }
 
 message EventTypeRegistrationResponse {
     protobuf.Failure failure = 1;
 }
 
-service EventHandlers {
+service EventTypes {
     rpc Register(EventTypeRegistrationRequest) returns(EventTypeRegistrationResponse);
 }
