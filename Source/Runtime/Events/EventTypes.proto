@@ -6,10 +6,10 @@ syntax = "proto3";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Protobuf/Failure.proto";
 
-package dolittle.runtime.Events;
+package dolittle.runtime.events;
 
 option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
-option go_package = "go.dolittle.io/contracts/runtime/Events";
+option go_package = "go.dolittle.io/contracts/runtime/events";
 
 message EventTypeMapping {
     protobuf.Uuid eventTypeId = 1;
