@@ -16,17 +16,19 @@ option go_package = "go.dolittle.io/contracts/runtime/aggregates/management";
 
 message GetAllRequest {
     // TODO: Do we want another kind of execution context here?
+    optional protobuf.Uuid tenantId = 1;
 }
 
-message EventSource {
-    string eventSourceId = 1;
-    uint64 aggregateRootVersion = 2;
+message TenantScopedEventSource {
+    protobuf.Uuid tenantId = 1;
+    string eventSourceId = 2;
+    uint64 aggregateRootVersion = 3;
 }
 
 message AggregateRoot {
     artifacts.Artifact aggregateRoot = 1;
     string alias = 2;
-    repeated EventSource eventSources = 3;
+    repeated TenantScopedEventSource eventSources = 3;
 }
 
 message GetAllResponse {
@@ -37,6 +39,7 @@ message GetAllResponse {
 message GetOneRequest {
     // TODO: Do we want another kind of execution context here?
     protobuf.Uuid aggregateRootId = 1;
+    optional protobuf.Uuid tenantId = 2;
 }
 
 message GetOneResponse {
@@ -47,6 +50,7 @@ message GetOneResponse {
 message GetEventsRequest {
     // TODO: Do we want another kind of execution context here?
     events.Aggregate aggregate = 1;
+    protobuf.Uuid tenantId = 2;
 }
 
 message GetEventsResponse {
