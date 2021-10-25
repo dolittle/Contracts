@@ -1,0 +1,25 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+
+package dolittle.runtime.Events;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/Events";
+
+message EventTypeRegistrationRequest {
+    protobuf.Uuid eventTypeId = 1;
+    optional string alias = 2;
+}
+
+message EventTypeRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+service EventHandlers {
+    rpc Register(EventTypeRegistrationRequest) returns(EventTypeRegistrationResponse);
+}
