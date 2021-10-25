@@ -15,17 +15,17 @@ option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/events";
 
 message CommitEventsRequest {
-    services.CallRequestContext callContext = 1; 
+    services.CallRequestContext callContext = 1;
     repeated UncommittedEvent events = 2;
 }
 
 message CommitAggregateEventsRequest {
-    services.CallRequestContext callContext = 1; 
+    services.CallRequestContext callContext = 1;
     UncommittedAggregateEvents events = 2;
 }
 
 message FetchForAggregateRequest {
-    services.CallRequestContext callContext = 1; 
+    services.CallRequestContext callContext = 1;
     Aggregate aggregate = 2;
 }
 

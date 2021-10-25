@@ -1,0 +1,61 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Artifacts/Artifact.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Runtime/Events/Aggregate.proto";
+import "Runtime/Events/Committed.proto";
+
+package dolittle.runtime.aggregates.management;
+
+option csharp_namespace = "Dolittle.Runtime.Aggregates.Management.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/aggregates/management";
+
+message GetAllRequest {
+    // TODO: Do we want another kind of execution context here?
+}
+
+message EventSource {
+    string eventSourceId = 1;
+    uint64 aggregateRootVersion = 2;
+}
+
+message AggregateRoot {
+    artifacts.Artifact aggregateRoot = 1;
+    string alias = 2;
+    repeated EventSource eventSources = 3;
+}
+
+message GetAllResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    repeated AggregateRoot aggregateRoots = 2;
+}
+
+message GetOneRequest {
+    // TODO: Do we want another kind of execution context here?
+    protobuf.Uuid aggregateRootId = 1;
+}
+
+message GetOneResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    AggregateRoot aggregateRoot = 2;
+}
+
+message GetEventsRequest {
+    // TODO: Do we want another kind of execution context here?
+    events.Aggregate aggregate = 1;
+}
+
+message GetEventsResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    events.CommittedAggregateEvents events = 2;
+}
+
+service AggregateRoots {
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
+    rpc GetOne(GetOneRequest) returns(GetOneResponse);
+    rpc GetEvents(GetEventsRequest) returns(GetEventsResponse);
+}
