@@ -23,5 +23,5 @@ message AggregateRootAliasRegistrationResponse {
 }
 
 service AggregateRoots {
-    rpc RegisterAlias(AggregateRootRegistrationRequest) returns(AggregateRootRegistrationResponse);
+    rpc RegisterAlias(AggregateRootAliasRegistrationRequest) returns(AggregateRootAliasRegistrationResponse);
 }
