@@ -14,18 +14,18 @@ option csharp_namespace = "Dolittle.Runtime.Embeddings.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/embeddings";
 
 message GetOneRequest {
-    services.CallRequestContext callContext = 1; 
+    services.CallRequestContext callContext = 1;
     protobuf.Uuid embeddingId = 2;
     string key = 3;
 }
 
 message GetKeysRequest {
-    services.CallRequestContext callContext = 1; 
+    services.CallRequestContext callContext = 1;
     protobuf.Uuid embeddingId = 2;
 }
 
 message GetAllRequest {
-    services.CallRequestContext callContext = 1; 
+    services.CallRequestContext callContext = 1;
     protobuf.Uuid embeddingId = 2;
 }
 
