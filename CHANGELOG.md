@@ -1,3 +1,20 @@
+# [6.2.0] - 2021-11-3 [PR: #64](https://github.com/dolittle/Contracts/pull/64)
+## Summary
+
+Registration of Aggregate Roots and Event Types can now be done in order to provide an alias to id mapping
+
+### Added
+
+- Runtime Services:
+    - AggregateRoots.RegisterAlias: Register an alias mapping for an Aggregate Root
+    - EventTypes.Register: Register an EventType with an optional alias
+- Runtime Management Services:
+    - AggregateRoots.GetAll: Gets all registered Aggregate Roots
+    - AggregateRoots.GetOne: Gets information about a specific Aggregate Root
+    - AggregateRoots.GetEvents: Gets committed events for an Aggregate Root Instance
+    - EventTypes.GetAll: Gets all registered Event Types
+
+
 # [6.1.0] - 2021-10-21 [PR: #55](https://github.com/dolittle/Contracts/pull/55)
 ## Summary
 
