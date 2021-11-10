@@ -17,6 +17,7 @@ message GetRequest {
 
 message GetMongoDbResponse {
     string connectionString = 1;
+    string databaseName = 2;
     protobuf.Failure failure = 2; // not set if not failed
 }
 
