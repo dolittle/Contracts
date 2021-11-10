@@ -3,6 +3,9 @@
 
 syntax = "proto3";
 
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/CallContext.proto";
+
 package dolittle.runtime.resources;
 
 option csharp_namespace = "Dolittle.Runtime.Resources.Contracts";
@@ -14,6 +17,7 @@ message GetRequest {
 
 message GetMongoDbResponse {
     string connectionString = 1;
+    protobuf.Failure failure = 2; // not set if not failed
 }
 
 service Resources {
