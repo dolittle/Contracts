@@ -12,7 +12,7 @@ option csharp_namespace = "Dolittle.Runtime.Resources.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/resources";
 
 message GetRequest {
-    services.CallRequestContext callContext = 1; 
+    services.CallRequestContext callContext = 1;
 }
 
 message GetMongoDbResponse {
