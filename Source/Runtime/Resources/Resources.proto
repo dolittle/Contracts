@@ -11,15 +11,15 @@ package dolittle.runtime.resources;
 option csharp_namespace = "Dolittle.Runtime.Resources.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/resources";
 
-message GetRequest {
+message GetMongoDBRequest {
     services.CallRequestContext callContext = 1;
 }
 
-message GetMongoDbResponse {
+message GetMongoDBResponse {
     string connectionString = 1;
     protobuf.Failure failure = 2; // not set if not failed
 }
 
 service Resources {
-    rpc GetMongoDb(GetRequest) returns(GetMongoDbResponse);
+    rpc GetMongoDB(GetMongoDBRequest) returns(GetMongoDBResponse);
 }
