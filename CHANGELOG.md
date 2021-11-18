@@ -1,3 +1,14 @@
+# [6.3.0] - 2021-11-18 [PR: #68](https://github.com/dolittle/Contracts/pull/68)
+## Summary
+
+Adds services to work with tenants and tenant-scoped resources - currently MongoDB is supported - through the Runtime using a Client.
+
+### Added
+
+- Tenants.GetAll: Gets all tenants from the Runtime
+- Resources.GetMongoDB: Gets a connection string for a database for the current tenant from the Runtime
+
+
 # [6.2.0] - 2021-11-3 [PR: #64](https://github.com/dolittle/Contracts/pull/64)
 ## Summary
 
