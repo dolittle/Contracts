@@ -1,0 +1,30 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Protobuf/Uuid.proto";
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/CallContext.proto";
+
+package dolittle.runtime.tenancy;
+
+option csharp_namespace = "Dolittle.Runtime.Tenancy.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/tenancy";
+
+message GetAllRequest {
+    services.CallRequestContext callContext = 1;
+}
+
+message Tenant {
+    protobuf.Uuid id = 1;
+}
+
+message GetAllResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    repeated Tenant tenants = 2;
+}
+
+service Tenants {
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
+}

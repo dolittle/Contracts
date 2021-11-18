@@ -1,0 +1,25 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Fundamentals/Protobuf/Failure.proto";
+import "Fundamentals/Services/CallContext.proto";
+
+package dolittle.runtime.resources;
+
+option csharp_namespace = "Dolittle.Runtime.Resources.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/resources";
+
+message GetRequest {
+    services.CallRequestContext callContext = 1;
+}
+
+message GetMongoDBResponse {
+    string connectionString = 1;
+    protobuf.Failure failure = 2; // not set if not failed
+}
+
+service Resources {
+    rpc GetMongoDB(GetRequest) returns(GetMongoDBResponse);
+}
