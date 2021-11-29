@@ -13,13 +13,19 @@ option csharp_namespace = "Dolittle.Runtime.Handshake.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/handshake";
 
 message HandshakeRequest {
+    string sdk = 1; // Enum?
+    versioning.Version sdkVersion = 2;
+    versioning.Version contractsVersion = 3;
+    versioning.Version headVersion = 4;
+    
 }
 
 message HandshakeResponse {
     protobuf.Failure failure = 1; // not set if not failed
     protobuf.Uuid microserviceId = 2;
-    versioning.Version version = 3;
-    string environment = 4;
+    string environment = 3;
+    versioning.Version runtimeVersion = 4;
+    versioning.Version contractsVersion = 5;
 }
 
 service Handshake {
