@@ -44,6 +44,9 @@ find ./versioned -name '*.proto' | while read PROTOFILE; do
     echo "Generated code Go for $PROTOFILE"
 done
 
+echo "Copying template Go code..."
+cp -Rv template/* generated/
+
 echo "Initializing Go module and resolving dependencies..."
 cd ./generated
 go mod init "go.dolittle.io/contracts/v$MAJOR_VERSION"
