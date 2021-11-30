@@ -4,15 +4,15 @@
         <AssemblyName>Dolittle.Runtime.Contracts</AssemblyName>
         <DolittleProtoProject>../../../Source/Runtime</DolittleProtoProject>
         <DolittleProtoRoot>../../../Source</DolittleProtoRoot>
+        <DolittleProtoKeepFiles>VersionInfo.cs</DolittleProtoKeepFiles>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="../Fundamentals/Fundamentals.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Dolittle.Common" Version="2.*" PrivateAssets="All"/>
-        <PackageReference Include="Dolittle.Protobuf.MSBuild" Version="3.2.0"/>
+        <PackageReference Include="Dolittle.Protobuf.MSBuild" Version="3.3.0"/>
     </ItemGroup>
-    
 </Project>
