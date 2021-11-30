@@ -1,7 +1,7 @@
 package contracts
 
 import (
-	"go.dolittle.io/contracts/v6/versioning"
+	"go.dolittle.io/contracts/versioning"
 )
 
 // GetCurrentVersion returns the current version of the Contracts.

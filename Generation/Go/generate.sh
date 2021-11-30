@@ -45,7 +45,13 @@ find ./versioned -name '*.proto' | while read PROTOFILE; do
 done
 
 echo "Copying template Go code..."
-cp -Rv template/* generated/
+TEMPLATE_DIRECTORY="./template"
+IMPORT_PACKAGE_PATTERN='("go.dolittle.io\/contracts)(\/[^"]*")'
+find "$TEMPLATE_DIRECTORY" -name '*.go' | while read GOFILE; do
+    OUTFILE="./generated/$(realpath --relative-to="$TEMPLATE_DIRECTORY" "$GOFILE")"
+    sed -r "s/$IMPORT_PACKAGE_PATTERN/\1\/v$MAJOR_VERSION\2/g" "./$GOFILE" > "$OUTFILE"
+    echo "Copied template with replaced import for $GOFILE"
+done
 
 echo "Initializing Go module and resolving dependencies..."
 cd ./generated
