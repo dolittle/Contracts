@@ -11,10 +11,10 @@ VersionInfo.prototype.getCurrentVersion = function() {
 
 VersionInfo.getCurrentVersion = function() {
     return new Fundamentals_Versioning_Version_pb.Version()
-        .setMajor(100)
-        .setMinor(200)
-        .setPatch(300)
-        .setPrereleasestring("LOCAL");
+        .setMajor(377)
+        .setMinor(389)
+        .setPatch(368)
+        .setPrereleasestring('PRERELEASE');
 }
 
 exports.VersionInfo = VersionInfo;

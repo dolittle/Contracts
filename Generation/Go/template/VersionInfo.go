@@ -7,9 +7,9 @@ import (
 // GetCurrentVersion returns the current version of the Contracts.
 func GetCurrentVersion() versioning.Version {
 	return versioning.Version{
-		Major:            100,
-		Minor:            200,
-		Patch:            300,
-		PreReleaseString: "LOCAL",
+		Major:            377,
+		Minor:            389,
+		Patch:            368,
+		PreReleaseString: "PRERELEASE",
 	}
 }

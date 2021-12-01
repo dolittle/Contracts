@@ -15,10 +15,10 @@ namespace Dolittle.Contracts
         /// </summary>
         public static Version CurrentVersion { get; } = new Version
         {
-            Major = 100,
-            Minor = 200,
-            Patch = 300,
-            PreReleaseString = "LOCAL",
+            Major = 377,
+            Minor = 389,
+            Patch = 368,
+            PreReleaseString = "PRERELEASE",
         };
     }
 }
