@@ -19,6 +19,7 @@ jobs:
       pr-body: ${{ steps.context.outputs.pr-body }}
       pr-url: ${{ steps.context.outputs.pr-url }}
       version: ${{ steps.increment-version.outputs.next-version }}
+      versioninfo-version: ${{ steps.increment-version.outputs.next-version || '0.0.0-norelease' }}
       release-type: ${{ steps.context.outputs.release-type }}
     steps:
       - uses: actions/checkout@v2
@@ -47,7 +48,7 @@ jobs:
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
-          version: ${{ needs.context.outputs.version }}
+          version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
             Generation/CSharp/Fundamentals/VersionInfo.cs
             Generation/CSharp/Runtime/VersionInfo.cs
@@ -70,7 +71,7 @@ jobs:
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
-          version: ${{ needs.context.outputs.version }}
+          version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
             Generation/JavaScript/Fundamentals/VersionInfo.js
             Generation/JavaScript/Runtime/VersionInfo.js
@@ -97,7 +98,7 @@ jobs:
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
-          version: ${{ needs.context.outputs.version }}
+          version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
             Generation/Go/template/VersionInfo.go
       - name: Generate code
@@ -140,7 +141,7 @@ jobs:
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
-          version: ${{ needs.context.outputs.version }}
+          version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
             Generation/CSharp/Fundamentals/VersionInfo.cs
             Generation/CSharp/Runtime/VersionInfo.cs
@@ -170,7 +171,7 @@ jobs:
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
-          version: ${{ needs.context.outputs.version }}
+          version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
             Generation/JavaScript/Fundamentals/VersionInfo.js
             Generation/JavaScript/Runtime/VersionInfo.js
@@ -223,7 +224,7 @@ jobs:
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
-          version: ${{ needs.context.outputs.version }}
+          version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
             Generation/Go/template/VersionInfo.go
       - name: Generate code
