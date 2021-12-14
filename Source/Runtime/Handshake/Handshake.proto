@@ -21,7 +21,7 @@ message HandshakeRequest {
     versioning.Version contractsVersion = 4;
 
     uint32 attempt = 5;
-    google.protobuf.Duration timeSpent = 3;
+    google.protobuf.Duration timeSpent = 6;
 }
 
 message HandshakeResponse {
