@@ -6,6 +6,7 @@ syntax = "proto3";
 import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Versioning/Version.proto";
+import "google/protobuf/duration.proto";
 
 package dolittle.runtime.handshake;
 
@@ -18,6 +19,9 @@ message HandshakeRequest {
     versioning.Version headVersion = 2;
     versioning.Version sdkVersion = 3;
     versioning.Version contractsVersion = 4;
+
+    uint32 attempt = 5;
+    google.protobuf.Duration timeSpent = 3;
 }
 
 message HandshakeResponse {
