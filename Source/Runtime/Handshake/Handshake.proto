@@ -6,6 +6,7 @@ syntax = "proto3";
 import "Fundamentals/Protobuf/Failure.proto";
 import "Fundamentals/Protobuf/Uuid.proto";
 import "Fundamentals/Versioning/Version.proto";
+import "google/protobuf/duration.proto";
 
 package dolittle.runtime.handshake;
 
@@ -13,19 +14,29 @@ option csharp_namespace = "Dolittle.Runtime.Handshake.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/handshake";
 
 message HandshakeRequest {
-    string sdk = 1; // Enum?
-    versioning.Version sdkVersion = 2;
-    versioning.Version contractsVersion = 3;
-    versioning.Version headVersion = 4;
-    
+    string sdkIdentifier = 1;
+
+    versioning.Version headVersion = 2;
+    versioning.Version sdkVersion = 3;
+    versioning.Version contractsVersion = 4;
+
+    uint32 attempt = 5;
+    google.protobuf.Duration timeSpent = 6;
 }
 
 message HandshakeResponse {
     protobuf.Failure failure = 1; // not set if not failed
-    protobuf.Uuid microserviceId = 2;
-    string environment = 3;
-    versioning.Version runtimeVersion = 4;
-    versioning.Version contractsVersion = 5;
+
+    versioning.Version runtimeVersion = 2;
+    versioning.Version contractsVersion = 3;
+
+    protobuf.Uuid customerId = 4;
+    string customerName = 5;
+    protobuf.Uuid applicationId = 6;
+    string applicationName = 7;
+    protobuf.Uuid microserviceId = 8;
+    string microserviceName = 9;
+    string environmentName = 10;
 }
 
 service Handshake {
