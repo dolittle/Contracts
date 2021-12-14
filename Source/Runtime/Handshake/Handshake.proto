@@ -13,7 +13,7 @@ option csharp_namespace = "Dolittle.Runtime.Handshake.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/handshake";
 
 message HandshakeRequest {
-    string sdk = 1; // Enum?
+    string sdkIdentifier = 1;
     versioning.Version sdkVersion = 2;
     versioning.Version contractsVersion = 3;
     versioning.Version headVersion = 4;
