@@ -1,3 +1,14 @@
+# [5.4.1] - 2021-12-21
+
+## Summary
+
+Updates the version of gRPC of the C# packages from 2.35.0 to 2.41.0
+
+### Changed
+
+- Version of gRPC for C# packages from 2.35.0 to 2.41.0
+
+
 # [5.4.0] - 2021-6-28 [PR: #48](https://github.com/dolittle/Contracts/pull/48)
 ## Summary
 
