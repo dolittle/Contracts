@@ -1,3 +1,16 @@
+# [6.4.0] - 2022-1-20 [PR: #82](https://github.com/dolittle/Contracts/pull/82)
+## Summary
+
+Adds support for the client (SDKs) and Runtime to communicate version info and booting configuration values between each other through an initial handshake. Also added VersionInfo that is baked into the compiled code while building on GitHub to use to determine which version of the contracts is used at runtime.
+
+Note: This PR is a fixed release of #76 that failed to release because pre-release is `""` when releasing the actual version.
+
+### Added
+
+- VersionInfo is baked into the released libraries
+- Handshake method with HandshakeRequest and HandshakeResponse
+
+
 # [6.3.0] - 2021-11-18 [PR: #68](https://github.com/dolittle/Contracts/pull/68)
 ## Summary
 
