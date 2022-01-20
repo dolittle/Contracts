@@ -3,6 +3,8 @@
 
 using Dolittle.Versioning.Contracts;
 
+#pragma warning disable SA1122 // To allow replacing PreReleaseString with "" instead of string.Empty
+
 namespace Dolittle.Runtime.Contracts
 {
     /// <summary>
