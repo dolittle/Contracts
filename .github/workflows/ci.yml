@@ -1,7 +1,7 @@
 name: Contracts CI/CD
 
 env:
-  PRERELEASE_BRANCHES: legolas # Comma separated list of prerelease branch names. 'alpha,rc, ...'
+  PRERELEASE_BRANCHES: gimli # Comma separated list of prerelease branch names. 'alpha,rc, ...'
 
 on:
   push:
@@ -19,6 +19,7 @@ jobs:
       pr-body: ${{ steps.context.outputs.pr-body }}
       pr-url: ${{ steps.context.outputs.pr-url }}
       version: ${{ steps.increment-version.outputs.next-version }}
+      versioninfo-version: ${{ steps.increment-version.outputs.next-version || '0.0.0-norelease' }}
       release-type: ${{ steps.context.outputs.release-type }}
     steps:
       - uses: actions/checkout@v2
@@ -44,6 +45,13 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "3.1.x"
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/CSharp/Fundamentals/VersionInfo.cs
+            Generation/CSharp/Runtime/VersionInfo.cs
       - run: dotnet build -c Release
         working-directory: ./Generation/CSharp
 
@@ -60,6 +68,13 @@ jobs:
       - name: Install dependencies
         working-directory: ./Generation/JavaScript
         run: yarn
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/JavaScript/Fundamentals/VersionInfo.js
+            Generation/JavaScript/Runtime/VersionInfo.js
       - name: Build Fundamentals
         working-directory: ./Generation/JavaScript/Fundamentals
         run: yarn build
@@ -80,6 +95,12 @@ jobs:
         with:
           version: "3.18.1"
       - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/Go/template/VersionInfo.go
       - name: Generate code
         working-directory: ./Generation/Go
         run: ./generate.sh ${{ needs.context.outputs.version }}
@@ -117,6 +138,13 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "3.1.x"
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/CSharp/Fundamentals/VersionInfo.cs
+            Generation/CSharp/Runtime/VersionInfo.cs
       - run: dotnet build
         working-directory: ./Generation/CSharp
       - name: Create packages
@@ -140,6 +168,13 @@ jobs:
       - name: Install dependencies
         working-directory: ./Generation/JavaScript
         run: yarn
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/JavaScript/Fundamentals/VersionInfo.js
+            Generation/JavaScript/Runtime/VersionInfo.js
       - name: Build Fundamentals
         working-directory: ./Generation/JavaScript/Fundamentals
         run: yarn build
@@ -186,6 +221,12 @@ jobs:
         with:
           version: "3.18.1"
       - run: go get google.golang.org/protobuf/cmd/protoc-gen-go google.golang.org/grpc/cmd/protoc-gen-go-grpc
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/Go/template/VersionInfo.go
       - name: Generate code
         working-directory: ./Generation/Go
         run: ./generate.sh ${{ needs.context.outputs.version }}
