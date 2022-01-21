@@ -1,3 +1,17 @@
+# [6.5.0] - 2022-1-21 [PR: #83](https://github.com/dolittle/Contracts/pull/83)
+## Summary
+
+Adds a method on Projection Store to get all projection read models in batches (size determined by Runtime), to alleviate large gRPC messages when the number of read models become large.
+
+### Added
+
+- A server streaming method on Projection Store called `GetAllInBatches` that streams projection states in batches to the client.
+
+### Deprecated
+
+- The `GetAll` method on Projection Store has been deprecated in favour of the new `GetAllInBatches` method.
+
+
 # [6.4.0] - 2022-1-20 [PR: #82](https://github.com/dolittle/Contracts/pull/82)
 ## Summary
 
