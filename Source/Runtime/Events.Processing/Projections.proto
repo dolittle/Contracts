@@ -37,12 +37,28 @@ message ProjectionEventSelector {
     }
 }
 
+message ProjectionCopyToMongoDB {
+    string collection = 1;
+    map<string, BSONType> conversions = 2;
+
+    enum BSONType {
+        DATE = 0;
+        TIMESTAMP = 1;
+        BINARY = 2;
+    }
+}
+
+message ProjectionCopies {
+    ProjectionCopyToMongoDB mongoDB = 1;
+}
+
 message ProjectionRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid projectionId = 3;
     repeated ProjectionEventSelector events = 4;
     string initialState = 5;
+    ProjectionCopies copies = 6;
 }
 
 message ProjectionReplaceResponse {
