@@ -40,11 +40,11 @@ message ProjectionEventSelector {
 message ProjectionCopyToMongoDB {
     string collection = 1;
     map<string, BSONType> conversions = 2;
+    map<string, string> renamings = 3;
 
     enum BSONType {
         DATE = 0;
-        TIMESTAMP = 1;
-        BINARY = 2;
+        GUID = 1;
     }
 }
 
