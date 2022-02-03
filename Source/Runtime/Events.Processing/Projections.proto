@@ -11,6 +11,7 @@ import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events.Processing/StreamEvent.proto";
 import "Runtime/Events.Processing/Processors.proto";
 import "Runtime/Projections/State.proto";
+import "google/protobuf/wrappers.proto";
 
 package dolittle.runtime.events.processing;
 
@@ -39,12 +40,19 @@ message ProjectionEventSelector {
 
 message ProjectionCopyToMongoDB {
     string collection = 1;
-    map<string, BSONType> conversions = 2;
-    map<string, string> renamings = 3;
+    repeated PropertyConversion conversions = 2;
+
+    message PropertyConversion {
+        string propertyName = 1;
+        BSONType convertTo = 2;
+        google.protobuf.StringValue renameTo = 3;
+        repeated PropertyConversion children = 4;
+    }
 
     enum BSONType {
-        DATE = 0;
-        GUID = 1;
+        NONE = 0;
+        DATE = 1;
+        GUID = 2;
     }
 }
 
