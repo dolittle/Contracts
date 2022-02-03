@@ -50,7 +50,7 @@ message ProjectionCopyToMongoDB {
     }
 
     enum BSONType {
-        NONE = 1;
+        NONE = 0;
         DATE = 1;
         GUID = 2;
     }
