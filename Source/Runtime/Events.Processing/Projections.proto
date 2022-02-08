@@ -50,9 +50,17 @@ message ProjectionCopyToMongoDB {
     }
 
     enum BSONType {
-        NONE = 0;
-        DATE = 1;
-        GUID = 2;
+        None = 0;
+
+        DateAsDate = 1;
+        DateAsArray = 2;
+        DateAsDocument = 3;
+        DateAsString = 4;
+        DateAsInt64 = 5;
+
+        GUIDAsStandardBinary = 6;
+        GUIDAsCSharpLegacyBinary = 8;
+        GUIDAsString = 9;
     }
 }
 
