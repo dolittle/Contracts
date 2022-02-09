@@ -11,6 +11,7 @@ import "Fundamentals/Services/Ping.proto";
 import "Runtime/Events.Processing/StreamEvent.proto";
 import "Runtime/Events.Processing/Processors.proto";
 import "Runtime/Projections/State.proto";
+import "google/protobuf/wrappers.proto";
 
 package dolittle.runtime.events.processing;
 
@@ -37,12 +38,43 @@ message ProjectionEventSelector {
     }
 }
 
+message ProjectionCopyToMongoDB {
+    string collection = 1;
+    repeated PropertyConversion conversions = 2;
+
+    message PropertyConversion {
+        string propertyName = 1;
+        BSONType convertTo = 2;
+        google.protobuf.StringValue renameTo = 3;
+        repeated PropertyConversion children = 4;
+    }
+
+    enum BSONType {
+        None = 0;
+
+        DateAsDate = 1;
+        DateAsArray = 2;
+        DateAsDocument = 3;
+        DateAsString = 4;
+        DateAsInt64 = 5;
+
+        GUIDAsStandardBinary = 6;
+        GUIDAsCSharpLegacyBinary = 8;
+        GUIDAsString = 9;
+    }
+}
+
+message ProjectionCopies {
+    ProjectionCopyToMongoDB mongoDB = 1;
+}
+
 message ProjectionRegistrationRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid scopeId = 2;
     protobuf.Uuid projectionId = 3;
     repeated ProjectionEventSelector events = 4;
     string initialState = 5;
+    ProjectionCopies copies = 6;
 }
 
 message ProjectionReplaceResponse {
