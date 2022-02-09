@@ -1,3 +1,14 @@
+# [6.6.0] - 2022-2-9 [PR: #85](https://github.com/dolittle/Contracts/pull/85)
+## Summary
+
+Introduces secondary storage mechanisms for Projection read models, this enables using existing databases as query engines for read models.
+
+### Added
+
+- Copy read model specifications on `ProjectionRegistrationRequest`, to tell the Runtime to make copies of Projection read models to a secondary storage.
+- MongoDB read model copies with BSON conversions and renaming support for converting Projection states (JSON) to BSON documents so that we can mimic how storing read models directly to a MongoDB collection would work from the SDKs.
+
+
 # [6.5.0] - 2022-1-21 [PR: #83](https://github.com/dolittle/Contracts/pull/83)
 ## Summary
 
