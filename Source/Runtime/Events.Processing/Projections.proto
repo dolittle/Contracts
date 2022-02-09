@@ -28,6 +28,12 @@ message PartitionIdKeySelector {
 message EventPropertyKeySelector {
     string propertyName = 1;
 }
+message StaticKeySelector {
+    string staticKey = 1;
+}
+message EventOccurredKeySelector {
+    string format = 1;
+}
 
 message ProjectionEventSelector {
     artifacts.Artifact eventType = 1;
@@ -35,6 +41,8 @@ message ProjectionEventSelector {
         EventSourceIdKeySelector eventSourceKeySelector = 2;
         PartitionIdKeySelector partitionKeySelector = 3;
         EventPropertyKeySelector eventPropertyKeySelector = 4;
+        StaticKeySelector staticKeySelector = 5;
+        EventOccurredKeySelector eventOccurredKeySelector = 6;
     }
 }
 
