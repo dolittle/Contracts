@@ -1,3 +1,14 @@
+# [6.7.0] - 2022-2-10 [PR: #89](https://github.com/dolittle/Contracts/pull/89)
+## Summary
+
+Two new event key selectors for projections; `StaticKey` and `EventOccurredKey`
+
+### Added
+
+- `StaticKeySelector` to `ProjectionEventSelector` oneof
+- `EventOccurredKeySelector` to `ProjectionEventSelector` oneof
+
+
 # [6.6.0] - 2022-2-9 [PR: #85](https://github.com/dolittle/Contracts/pull/85)
 ## Summary
 
