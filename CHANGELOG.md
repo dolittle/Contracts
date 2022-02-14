@@ -1,3 +1,14 @@
+# [6.8.0] - 2022-2-14 [PR: #91](https://github.com/dolittle/Contracts/pull/91)
+## Summary
+
+Adds management service for projections, to list, get and replay registered projections. The get and list endpoints are mostly the same as for event handlers, but the replay endpoint only allows replaying from position 0 - since we don't keep track of intermediate projection states. An optional alias is also introduced on the projection registration request, to simplify human interaction with the Runtime.
+
+### Added
+
+- A Projections mangament service with GetAll, GetOne and Replay methods
+- An optional alias on the projection registration request
+
+
 # [6.7.0] - 2022-2-10 [PR: #89](https://github.com/dolittle/Contracts/pull/89)
 ## Summary
 
