@@ -83,6 +83,7 @@ message ProjectionRegistrationRequest {
     repeated ProjectionEventSelector events = 4;
     string initialState = 5;
     ProjectionCopies copies = 6;
+    optional string alias = 7;
 }
 
 message ProjectionReplaceResponse {
