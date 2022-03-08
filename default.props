@@ -1,0 +1,10 @@
+<Project>
+    <Import Project="versions.props"/>
+    
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IncludeSource>True</IncludeSource>
+        <Protobuf_NoWarnMissingExpected>true</Protobuf_NoWarnMissingExpected>
+        <Protobuf_TouchMissingExpected>true</Protobuf_TouchMissingExpected>
+    </PropertyGroup>
+</Project>
