@@ -1,0 +1,35 @@
+{
+    "name": "@dolittle/protobuf.contracts",
+    "private": "true",
+    "author": "Dolittle",
+    "description": "",
+    "version": "0.0.0",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dolittle-tools/JavaScript.Protobuf.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle-tools/JavaScript.Protobuf/issues"
+    },
+    "homepage": "https://github.com/dolittle-tools/JavaScript.Protobuf#readme",
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "tsc"
+    },
+    "bin": {
+        "dolittle_proto_build": "./dolittle_proto_build"
+    },
+    "dependencies": {
+        "commander": "7.2.0",
+        "execa": "5.0.0",
+        "grpc-tools": "1.11.2",
+        "grpc_tools_node_protoc_ts": "5.3.2"
+    },
+    "devDependencies": {
+        "@tsconfig/node12": "1.0.7",
+        "@types/node": "14.14.37"
+    }
+}

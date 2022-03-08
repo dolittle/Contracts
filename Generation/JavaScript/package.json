@@ -1,11 +1,14 @@
 {
   "private": true,
   "workspaces": [
+    "Build",
     "Fundamentals",
     "Runtime"
   ],
   "devDependencies": {
-    "@dolittle/protobuf.build": "3.2.0",
     "typescript": "^3.8.3"
-  }
+  },
+  "bin": {
+    "dolittle_proto_build": "Build/dolittle_proto_build"
+}
 }
