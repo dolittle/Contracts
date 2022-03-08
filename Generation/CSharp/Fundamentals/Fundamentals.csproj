@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../../default.props"/>
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
         <AssemblyName>Dolittle.Contracts</AssemblyName>
-        <DolittleProtoProject>../../../Source/Fundamentals</DolittleProtoProject>
-        <DolittleProtoRoot>../../../Source</DolittleProtoRoot>
-        <DolittleProtoKeepFiles>VersionInfo.cs</DolittleProtoKeepFiles>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dolittle.Common" Version="2.*" PrivateAssets="All"/>
-        <PackageReference Include="Dolittle.Protobuf.MSBuild" Version="4.0.1"/>
+        <Protobuf Include="../../../Source/Fundamentals/**/*.proto"
+                    ProtoRoot="../../../Source"
+                    OutputDir="%(RecursiveDir)"
+                    GrpcServices="None" />
     </ItemGroup>
 </Project>
