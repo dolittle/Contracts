@@ -1,3 +1,13 @@
+# [6.8.1] - 2022-3-9 [PR: #95](https://github.com/dolittle/Contracts/pull/95)
+## Summary
+
+The contracts are now responsible for their own build tooling giving it a more standard use of the grpc-protobuf tool chains
+
+### Changed
+
+- Removes the dependency on Dolittle.Protobuf packages, moving the grpc-protobuf build tooling over to this repository
+
+
 # [6.8.0] - 2022-2-14 [PR: #91](https://github.com/dolittle/Contracts/pull/91)
 ## Summary
 
