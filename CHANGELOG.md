@@ -1,3 +1,13 @@
+# [6.8.2] - 2022-3-9 [PR: #96](https://github.com/dolittle/Contracts/pull/96)
+## Summary
+
+Upgrade the JavaScript Grpc packages to the latest version
+
+### Changed
+
+- Uses the latest versions of JavaScript Grpc packages
+
+
 # [6.8.1] - 2022-3-9 [PR: #95](https://github.com/dolittle/Contracts/pull/95)
 ## Summary
 
