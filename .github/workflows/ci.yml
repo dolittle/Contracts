@@ -75,6 +75,9 @@ jobs:
           files-to-update: |
             Generation/JavaScript/Fundamentals/VersionInfo.js
             Generation/JavaScript/Runtime/VersionInfo.js
+      - name: Build
+        working-directory: ./Generation/JavaScript/Build
+        run: yarn build
       - name: Build Fundamentals
         working-directory: ./Generation/JavaScript/Fundamentals
         run: yarn build
@@ -175,6 +178,9 @@ jobs:
           files-to-update: |
             Generation/JavaScript/Fundamentals/VersionInfo.js
             Generation/JavaScript/Runtime/VersionInfo.js
+      - name: Build
+        working-directory: ./Generation/JavaScript/Build
+        run: yarn build
       - name: Build Fundamentals
         working-directory: ./Generation/JavaScript/Fundamentals
         run: yarn build

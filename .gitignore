@@ -353,6 +353,8 @@ yarn.lock
 package-json.lock
 *.cs
 *.ts
+!Generation/JavaScript/Build/*.ts
+Generation/JavaScript/Build/Distribution
 
 !Source/**/Artifacts
 
