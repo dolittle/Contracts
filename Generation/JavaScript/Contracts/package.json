@@ -1,6 +1,6 @@
 {
-    "name": "@dolittle/runtime.contracts",
-    "description": "Grpc services for Dolittle Runtime",
+    "name": "@dolittle/contracts",
+    "description": "Grpc contracts for Dolittle Fundamentals",
     "version": "0.0.0",
     "homepage": "https://dolittle.io",
     "author": "Dolittle",
@@ -20,7 +20,7 @@
         "access": "public"
     },
     "scripts": {
-        "build": "dolittle_proto_build grpc-node --skip-empty-files -O. -RFundamentals/:pkg=@dolittle/contracts/: -RRuntime/: -I../../../Source ../../../Source/Runtime",
+        "build": "dolittle_proto_build grpc-node --skip-empty-files -O. -RContracts/: -I../../../Source ../../../Source",
         "prepublish": "yarn build"
     },
     "dependencies": {

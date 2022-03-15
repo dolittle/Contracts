@@ -2,8 +2,7 @@
   "private": true,
   "workspaces": [
     "Build",
-    "Fundamentals",
-    "Runtime"
+    "Contracts"
   ],
   "devDependencies": {
     "typescript": "^3.8.3"
