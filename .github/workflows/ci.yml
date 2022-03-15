@@ -50,8 +50,7 @@ jobs:
         with:
           version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
-            Generation/CSharp/Fundamentals/VersionInfo.cs
-            Generation/CSharp/Runtime/VersionInfo.cs
+            Generation/CSharp/VersionInfo.cs
       - run: dotnet build -c Release
         working-directory: ./Generation/CSharp
 
@@ -73,16 +72,12 @@ jobs:
         with:
           version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
-            Generation/JavaScript/Fundamentals/VersionInfo.js
-            Generation/JavaScript/Runtime/VersionInfo.js
+            Generation/JavaScript/Contracts/VersionInfo.js
       - name: Build
         working-directory: ./Generation/JavaScript/Build
         run: yarn build
-      - name: Build Fundamentals
-        working-directory: ./Generation/JavaScript/Fundamentals
-        run: yarn build
-      - name: Build Runtime
-        working-directory: ./Generation/JavaScript/Runtime
+      - name: Build Contracts
+        working-directory: ./Generation/JavaScript/Contracts
         run: yarn build
 
   golang-build:
@@ -146,8 +141,7 @@ jobs:
         with:
           version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
-            Generation/CSharp/Fundamentals/VersionInfo.cs
-            Generation/CSharp/Runtime/VersionInfo.cs
+            Generation/CSharp/VersionInfo.cs
       - run: dotnet build
         working-directory: ./Generation/CSharp
       - name: Create packages
@@ -176,25 +170,15 @@ jobs:
         with:
           version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
-            Generation/JavaScript/Fundamentals/VersionInfo.js
-            Generation/JavaScript/Runtime/VersionInfo.js
+            Generation/JavaScript/Contracts/VersionInfo.js
       - name: Build
         working-directory: ./Generation/JavaScript/Build
         run: yarn build
-      - name: Build Fundamentals
-        working-directory: ./Generation/JavaScript/Fundamentals
+      - name: Build Contracts
+        working-directory: ./Generation/JavaScript/Contracts
         run: yarn build
-      - name: Update Fundamentals version
-        working-directory: ./Generation/JavaScript/Fundamentals
-        run: npm version ${{ needs.context.outputs.version }}
-      - name: Build Runtime
-        working-directory: ./Generation/JavaScript/Runtime
-        run: yarn build
-      - name: Add Fundamentals as dependency of Runtime
-        working-directory: ./Generation/JavaScript/Runtime
-        run: jq '.dependencies["@dolittle/contracts"] = "${{ needs.context.outputs.version }}"' package.json > package.json.tmp && mv package.json.tmp package.json
-      - name: Update Runtime version
-        working-directory: ./Generation/JavaScript/Runtime
+      - name: Update Contracts version
+        working-directory: ./Generation/JavaScript/Contracts
         run: npm version ${{ needs.context.outputs.version }}
       - name: Extract tag from version
         uses: actions-ecosystem/action-regex-match@v2
@@ -202,13 +186,8 @@ jobs:
         with:
           text: ${{ needs.context.outputs.version }}
           regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
-      - name: Publish Fundamentals
-        working-directory: ./Generation/JavaScript/Fundamentals
-        run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish Runtime
-        working-directory: ./Generation/JavaScript/Runtime
+      - name: Publish Contracts
+        working-directory: ./Generation/JavaScript/Contracts
         run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
