@@ -356,7 +356,7 @@ package-json.lock
 !Generation/JavaScript/Build/*.ts
 Generation/JavaScript/Build/Distribution
 
-!Source/**/Artifacts
+!Source/Artifacts
 
 Generation/JavaScript/Fundamentals/**
 Generation/JavaScript/Runtime/**
@@ -367,3 +367,4 @@ Generation/Go/*
 !Generation/Go/generate.sh
 
 Generation/Artifacts
+!Generation/CSharp/VersionInfo.cs
