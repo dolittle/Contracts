@@ -22,9 +22,8 @@ message Subscription {
     protobuf.Uuid microserviceId = 2;
     protobuf.Uuid tenantId = 3;
     protobuf.Uuid streamId = 4;
-    protobuf.Uuid partitionId = 5;
+    string partitionId = 5;
     protobuf.Uuid scopeId = 6;
-    string partitionIdString = 7;
 }
 
 service Subscriptions {
