@@ -1,0 +1,63 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
+import "Services/ReverseCallContext.proto";
+import "Services/Ping.proto";
+import "Events/Committed.proto";
+import "Events.Processing/Processors.proto";
+import "Events.Processing/PartitionedFilters.proto";
+import "Events.Processing/PublicFilters.proto";
+
+package dolittle.events.processing;
+
+option csharp_namespace = "Dolittle.Events.Processing.Contracts";
+option go_package = "go.dolittle.io/contracts/events/processing";
+
+message FilterRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+message FilterEventRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    events.CommittedEvent event = 2;
+    protobuf.Uuid scopeId = 3;
+    RetryProcessingState retryProcessingState = 4;
+}
+
+message FilterRuntimeToClientMessage {
+    oneof Message {
+        FilterRegistrationResponse registrationResponse = 1;
+        FilterEventRequest filterRequest = 2;
+        services.Ping ping = 3;
+    }
+}
+
+message FilterRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid filterId = 3;
+}
+
+message FilterResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    bool isIncluded = 2;
+    ProcessorFailure failure = 3;
+}
+
+message FilterClientToRuntimeMessage {
+    oneof Message {
+        FilterRegistrationRequest registrationRequest = 1;
+        FilterResponse filterResult = 2;
+        services.Pong pong = 3;
+    }
+}
+
+service Filters {
+    rpc Connect(stream FilterClientToRuntimeMessage) returns(stream FilterRuntimeToClientMessage);
+    rpc ConnectPartitioned(stream PartitionedFilterClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
+    rpc ConnectPublic(stream PublicFilterClientToRuntimeMessage) returns (stream FilterRuntimeToClientMessage);
+}

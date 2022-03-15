@@ -1,0 +1,22 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Protobuf/Uuid.proto";
+import "Security/Claim.proto";
+import "Versioning/Version.proto";
+
+package dolittle.execution;
+
+option csharp_namespace = "Dolittle.Execution.Contracts";
+option go_package = "go.dolittle.io/contracts/execution";
+
+message ExecutionContext {
+    protobuf.Uuid microserviceId = 1;
+    protobuf.Uuid tenantId = 2;
+    versioning.Version version = 3;
+    protobuf.Uuid correlationId = 4;
+    repeated security.Claim claims = 5;
+    string environment = 6;
+}

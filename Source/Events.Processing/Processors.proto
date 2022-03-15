@@ -1,0 +1,68 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
+import "Services/ReverseCallContext.proto";
+import "Services/Ping.proto";
+import "Events.Processing/StreamEvent.proto";
+import "google/protobuf/duration.proto";
+
+package dolittle.events.processing;
+
+option csharp_namespace = "Dolittle.Events.Processing.Contracts";
+option go_package = "go.dolittle.io/contracts/events/processing";
+
+message ProcessorFailure {
+    string reason = 1;
+    bool retry = 2;
+    google.protobuf.Duration retryTimeout = 3;
+}
+
+message RetryProcessingState {
+    string failureReason = 1;
+    uint32 retryCount = 2;
+}
+
+message ProcessorRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid processorId = 3;
+    protobuf.Uuid sourceStreamId = 4;
+}
+
+message ProcessorResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    ProcessorFailure failure = 2; // If not set/empty - no failure
+}
+
+message ProcessorClientToRuntimeMessage {
+    oneof Message {
+        ProcessorRegistrationRequest registrationRequest = 1;
+        ProcessorResponse processingResult = 2;
+        services.Pong pong = 3;
+    }
+}
+message ProcessorRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+message ProcessEventRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    StreamEvent event = 2;
+    RetryProcessingState retryProcessingState = 3;
+}
+
+message ProcessorRuntimeToClientMessage {
+    oneof Message {
+        ProcessorRegistrationResponse registrationResponse = 1;
+        ProcessEventRequest handleRequest = 2;
+        services.Ping ping = 3;
+    }
+}
+
+service Processors {
+    rpc Connect(stream ProcessorClientToRuntimeMessage) returns(stream ProcessorRuntimeToClientMessage);
+}

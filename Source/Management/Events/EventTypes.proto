@@ -1,0 +1,31 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Artifacts/Artifact.proto";
+import "Protobuf/Uuid.proto";
+import "Protobuf/Failure.proto";
+
+package dolittle.events.management;
+
+option csharp_namespace = "Dolittle.Events.Management.Contracts";
+option go_package = "go.dolittle.io/contracts/events/management";
+
+message GetAllRequest {
+    // TODO: Do we want another kind of execution context here?
+}
+
+message EventType {
+    artifacts.Artifact eventType = 1;
+    string alias = 2;
+}
+
+message GetAllResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    repeated EventType eventTypes = 2;
+}
+
+service EventTypes {
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
+}
