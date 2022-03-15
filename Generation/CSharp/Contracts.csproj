@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="../../../default.props"/>
+    <Import Project="../../default.props"/>
     <PropertyGroup>
         <AssemblyName>Dolittle.Contracts</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="../../../Source/Fundamentals/**/*.proto"
-                    ProtoRoot="../../../Source"
+        <Protobuf Include="../../Source/**/*.proto"
+                    ProtoRoot="../../Source"
                     OutputDir="%(RecursiveDir)"
                     GrpcServices="None" />
     </ItemGroup>
