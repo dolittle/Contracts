@@ -11,6 +11,7 @@ import "Fundamentals/Services/ReverseCallContext.proto";
 import "Fundamentals/Services/Ping.proto";
 import "Runtime/EventHorizon/Subscriptions.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 package dolittle.runtime.eventhorizon;
 
@@ -22,7 +23,7 @@ message EventHorizonCommittedEvent {
     uint64 eventLogSequenceNumber = 1; 
     google.protobuf.Timestamp occurred = 2;
     protobuf.Uuid eventSourceIdLegacy = 3 [deprecated = true];
-    string eventSourceId = 11;
+    google.protobuf.StringValue eventSourceId = 11;
     execution.ExecutionContext executionContext = 4;
     artifacts.Artifact eventType = 5;
     bool public = 6;
@@ -42,7 +43,7 @@ message ConsumerSubscriptionRequest {
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
     protobuf.Uuid partitionIdLegacy = 4 [deprecated = true];
-    string partitionId = 6;
+    google.protobuf.StringValue partitionId = 6;
     uint64 streamPosition = 5;
 }
 
