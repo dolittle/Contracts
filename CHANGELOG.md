@@ -1,3 +1,23 @@
+# [7.0.0] - 2022-3-22 [PR: #97](https://github.com/dolittle/Contracts/pull/97)
+## Summary
+
+Un-breaks the event horizon between version v5 and v6 by introducing a new breaking change v7 that uses an API compatible with both versions. We also changed the structure of the source files to get rid of the `Fundamentals` directory, and squashed the two previous packages `contracts` + `runtime.contracts` into a single `contracts` package for the released generated packages.
+
+### Added
+
+- `string partitionId = 6` field on `ConsumerSubscriptionRequest` message
+
+### Changed
+
+- The `EventHorizonCommittedEvent event = 2`field `EventHorizonEvent` message copied from the committed events one, with fields that are backwards compatible 
+- The generated code from the `runtime.contracts` packages are now part of the single `contracts` package.
+
+### Deprecated
+
+- `protobuf.Uuid partitionIdLegacy = 4 [deprecated = true]` field on `ConsumerSubscriptionRequest` for backwards compatibility for v5 of contracts
+- The NuGet Package `Dolittle.Runtime.Contracts`, NPM package `@dolittle/runtime.contracts` will not be published from now on.
+
+
 # [6.8.2] - 2022-3-9 [PR: #96](https://github.com/dolittle/Contracts/pull/96)
 ## Summary
 
