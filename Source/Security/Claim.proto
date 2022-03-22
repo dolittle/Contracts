@@ -10,6 +10,6 @@ option go_package = "go.dolittle.io/contracts/security";
 
 message Claim {
     string key = 1;
-    string value = 2;
+    strong value = 2;
     string valueType = 3;
 }
