@@ -11,6 +11,7 @@ import "Services/ReverseCallContext.proto";
 import "Services/Ping.proto";
 import "EventHorizon/Subscriptions.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 package dolittle.eventhorizon;
 
@@ -21,7 +22,8 @@ option go_package = "go.dolittle.io/contracts/eventhorizon";
 message EventHorizonCommittedEvent {
     uint64 eventLogSequenceNumber = 1; 
     google.protobuf.Timestamp occurred = 2;
-    protobuf.Uuid eventSourceId = 3;
+    protobuf.Uuid eventSourceIdLegacy = 3 [deprecated = true];
+    google.protobuf.StringValue eventSourceId = 11;
     execution.ExecutionContext executionContext = 4;
     artifacts.Artifact eventType = 5;
     bool public = 6;
@@ -29,7 +31,6 @@ message EventHorizonCommittedEvent {
     bool external = 8;
     uint64 externalEventLogSequenceNumber = 9;
     google.protobuf.Timestamp externalEventReceived = 10;
-    string eventSourceIdString = 11;
 }
 
 message EventHorizonEvent {
@@ -41,9 +42,9 @@ message ConsumerSubscriptionRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
-    protobuf.Uuid partitionId = 4;
+    protobuf.Uuid partitionIdLegacy = 4 [deprecated = true];
+    google.protobuf.StringValue partitionId = 6;
     uint64 streamPosition = 5;
-    string partitionIdString = 6;
 }
 
 message ConsumerResponse {
