@@ -353,6 +353,13 @@ yarn.lock
 package-json.lock
 *.cs
 *.ts
+
+# CSharp
+Artifacts/
+Generation/CSharp/**/*.cs
+!Generation/CSharp/Contracts.csproj
+!Generation/CSharp/VersionInfo.cs
+
 !Generation/JavaScript/Build/*.ts
 Generation/JavaScript/Build/Distribution
 
@@ -366,5 +373,3 @@ Generation/JavaScript/Runtime/**
 Generation/Go/*
 !Generation/Go/generate.sh
 
-Generation/Artifacts
-!Generation/CSharp/VersionInfo.cs
