@@ -72,12 +72,9 @@ jobs:
         with:
           version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
-            Generation/JavaScript/Contracts/VersionInfo.js
-      - name: Build
-        working-directory: ./Generation/JavaScript/Build
-        run: yarn build
+            Generation/JavaScript/VersionInfo.js
       - name: Build Contracts
-        working-directory: ./Generation/JavaScript/Contracts
+        working-directory: ./Generation/JavaScript
         run: yarn build
 
   golang-build:
@@ -170,15 +167,12 @@ jobs:
         with:
           version: ${{ needs.context.outputs.versioninfo-version }}
           files-to-update: |
-            Generation/JavaScript/Contracts/VersionInfo.js
-      - name: Build
-        working-directory: ./Generation/JavaScript/Build
-        run: yarn build
+            Generation/JavaScript/VersionInfo.js
       - name: Build Contracts
-        working-directory: ./Generation/JavaScript/Contracts
+        working-directory: ./Generation/JavaScript
         run: yarn build
       - name: Update Contracts version
-        working-directory: ./Generation/JavaScript/Contracts
+        working-directory: ./Generation/JavaScript
         run: npm version ${{ needs.context.outputs.version }}
       - name: Extract tag from version
         uses: actions-ecosystem/action-regex-match@v2
@@ -187,7 +181,7 @@ jobs:
           text: ${{ needs.context.outputs.version }}
           regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
       - name: Publish Contracts
-        working-directory: ./Generation/JavaScript/Contracts
+        working-directory: ./Generation/JavaScript
         run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
