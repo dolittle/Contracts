@@ -55,4 +55,4 @@ cd Generation/Go
 ```
 
 # Issues and Contributing
-To learn how to contribute please read our [contributing](https://dolittle.io/contributing/) guide.
+To learn how to contribute please read our [contributing](https://dolittle.io/contributing/) guide

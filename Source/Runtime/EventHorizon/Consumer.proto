@@ -3,28 +3,47 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Services/ReverseCallContext.proto";
-import "Fundamentals/Services/Ping.proto";
+import "Artifacts/Artifact.proto";
+import "Execution/ExecutionContext.proto";
+import "Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
+import "Services/ReverseCallContext.proto";
+import "Services/Ping.proto";
 import "Runtime/EventHorizon/Subscriptions.proto";
-import "Runtime/Events/Committed.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 package dolittle.runtime.eventhorizon;
 
 option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/eventhorizon";
 
+
+message EventHorizonCommittedEvent {
+    uint64 eventLogSequenceNumber = 1; 
+    google.protobuf.Timestamp occurred = 2;
+    protobuf.Uuid eventSourceIdLegacy = 3 [deprecated = true];
+    google.protobuf.StringValue eventSourceId = 11;
+    execution.ExecutionContext executionContext = 4;
+    artifacts.Artifact eventType = 5;
+    bool public = 6;
+    string content = 7;
+    bool external = 8;
+    uint64 externalEventLogSequenceNumber = 9;
+    google.protobuf.Timestamp externalEventReceived = 10;
+}
+
 message EventHorizonEvent {
     uint64 streamSequenceNumber = 1;
-    events.CommittedEvent event = 2; 
+    EventHorizonCommittedEvent event = 2; 
 }
 
 message ConsumerSubscriptionRequest {
     services.ReverseCallArgumentsContext callContext = 1;
     protobuf.Uuid tenantId = 2;
     protobuf.Uuid streamId = 3;
-    string partitionId = 4;
+    protobuf.Uuid partitionIdLegacy = 4 [deprecated = true];
+    google.protobuf.StringValue partitionId = 6;
     uint64 streamPosition = 5;
 }
 

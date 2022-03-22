@@ -1,8 +1,0 @@
-<Project>
-    <PropertyGroup>
-        <GoogleProtobufVersion>3.18.1</GoogleProtobufVersion>
-        <GoogleProtobufToolsVersion>3.19.4</GoogleProtobufToolsVersion>
-        <GrpcVersion>2.43.0</GrpcVersion>
-        
-    </PropertyGroup>
-</Project>

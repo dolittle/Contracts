@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
+import "Protobuf/Uuid.proto";
 import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.events.processing.management;

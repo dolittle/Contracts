@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Services/CallContext.proto";
+import "Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
+import "Services/CallContext.proto";
 import "Runtime/Projections/State.proto";
 
 package dolittle.runtime.embeddings;

@@ -3,8 +3,8 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
+import "Protobuf/Failure.proto";
 import "Runtime/Events.Processing/Projections.proto";
 import "Runtime/Management/Events.Processing/StreamProcessors.proto";
 

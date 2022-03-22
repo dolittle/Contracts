@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Services/CallContext.proto";
+import "Protobuf/Uuid.proto";
+import "Protobuf/Failure.proto";
+import "Services/CallContext.proto";
 
 package dolittle.runtime.tenancy;
 

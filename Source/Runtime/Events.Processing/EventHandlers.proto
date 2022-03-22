@@ -3,11 +3,11 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Artifacts/Artifact.proto";
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Services/ReverseCallContext.proto";
-import "Fundamentals/Services/Ping.proto";
+import "Artifacts/Artifact.proto";
+import "Protobuf/Uuid.proto";
+import "Protobuf/Failure.proto";
+import "Services/ReverseCallContext.proto";
+import "Services/Ping.proto";
 import "Runtime/Events.Processing/StreamEvent.proto";
 import "Runtime/Events.Processing/Processors.proto";
 

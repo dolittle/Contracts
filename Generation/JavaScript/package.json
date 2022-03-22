@@ -1,14 +1,38 @@
 {
-  "private": true,
-  "workspaces": [
-    "Build",
-    "Fundamentals",
-    "Runtime"
-  ],
-  "devDependencies": {
-    "typescript": "^3.8.3"
-  },
-  "bin": {
-    "dolittle_proto_build": "Build/dolittle_proto_build"
-}
+    "name": "@dolittle/contracts",
+    "description": "Grpc contracts for Dolittle Fundamentals",
+    "version": "0.0.0",
+    "homepage": "https://dolittle.io",
+    "author": "Dolittle",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dolittle-runtime/contracts.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle/home/issues"
+    },
+    "keywords": [
+        "dolittle",
+        "grpc"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "protofiles": "find ../../Source -name '*.proto'",
+        "generate_javascript": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=grpc_js:. --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` -I../../Source $(yarn -s protofiles)",
+        "generate_typescript": "grpc_tools_node_protoc --ts_out=grpc_js:. --plugin=protoc-gen-grpc=`which protoc-gen-ts` -I../../Source $(yarn -s protofiles)",
+        "build": "yarn generate_javascript && yarn generate_typescript",
+        "prepublish": "yarn build"
+    },
+    "dependencies": {
+        "@types/google-protobuf": "3.15.5",
+        "@grpc/grpc-js": "1.5.9",
+        "google-protobuf": "3.19.4"
+    },
+    "devDependencies": {
+        "grpc-tools": "1.11.2",
+        "grpc_tools_node_protoc_ts": "5.3.2"
+    }
 }

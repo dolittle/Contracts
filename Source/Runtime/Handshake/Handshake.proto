@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Versioning/Version.proto";
+import "Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
+import "Versioning/Version.proto";
 import "google/protobuf/duration.proto";
 
 package dolittle.runtime.handshake;
