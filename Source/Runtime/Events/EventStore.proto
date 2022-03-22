@@ -3,8 +3,8 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Services/CallContext.proto";
+import "Protobuf/Failure.proto";
+import "Services/CallContext.proto";
 import "Runtime/Events/Aggregate.proto";
 import "Runtime/Events/Committed.proto";
 import "Runtime/Events/Uncommitted.proto";

@@ -351,19 +351,22 @@ MigrationBackup/
 
 yarn.lock
 package-json.lock
-*.cs
-*.ts
-!Generation/JavaScript/Build/*.ts
-Generation/JavaScript/Build/Distribution
 
-!Source/**/Artifacts
+# CSharp
+Artifacts/
+Generation/CSharp/**/*.cs
+!Generation/CSharp/Contracts.csproj
+!Generation/CSharp/VersionInfo.cs
 
-Generation/JavaScript/Fundamentals/**
-Generation/JavaScript/Runtime/**
-!Generation/JavaScript/**/package.json
-!Generation/JavaScript/**/tsconfig.json
+# JavaScript
+Generation/JavaScript/**/*.js
+Generation/JavaScript/**/*.d.ts
+!Generation/JavaScript/package.json
+!Generation/JavaScript/VersionInfo.d.ts
+!Generation/JavaScript/VersionInfo.js
 
+# Go
 Generation/Go/*
 !Generation/Go/generate.sh
 
-Generation/Artifacts
+!Source/Artifacts

@@ -1,0 +1,17 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Execution/ExecutionContext.proto";
+import "Protobuf/Uuid.proto";
+
+package dolittle.services;
+
+option csharp_namespace = "Dolittle.Services.Contracts";
+option go_package = "go.dolittle.io/contracts/services";
+
+message CallRequestContext {
+    execution.ExecutionContext executionContext = 1;
+    protobuf.Uuid headId = 2;
+}

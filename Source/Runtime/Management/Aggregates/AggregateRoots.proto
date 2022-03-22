@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Artifacts/Artifact.proto";
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Protobuf/Uuid.proto";
+import "Artifacts/Artifact.proto";
+import "Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
 import "Runtime/Events/Aggregate.proto";
 import "Runtime/Events/Committed.proto";
 

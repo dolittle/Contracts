@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Security/Claim.proto";
-import "Fundamentals/Versioning/Version.proto";
+import "Protobuf/Uuid.proto";
+import "Security/Claim.proto";
+import "Versioning/Version.proto";
 
 package dolittle.execution;
 

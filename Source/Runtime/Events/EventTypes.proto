@@ -3,9 +3,9 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Artifacts/Artifact.proto";
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Services/CallContext.proto";
+import "Artifacts/Artifact.proto";
+import "Protobuf/Failure.proto";
+import "Services/CallContext.proto";
 
 package dolittle.runtime.events;
 

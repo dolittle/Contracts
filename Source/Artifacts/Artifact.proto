@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Protobuf/Uuid.proto";
+import "Protobuf/Uuid.proto";
 
 package dolittle.artifacts;
 

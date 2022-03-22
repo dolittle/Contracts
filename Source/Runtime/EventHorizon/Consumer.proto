@@ -3,12 +3,12 @@
 
 syntax = "proto3";
 
-import "Fundamentals/Artifacts/Artifact.proto";
-import "Fundamentals/Execution/ExecutionContext.proto";
-import "Fundamentals/Protobuf/Failure.proto";
-import "Fundamentals/Protobuf/Uuid.proto";
-import "Fundamentals/Services/ReverseCallContext.proto";
-import "Fundamentals/Services/Ping.proto";
+import "Artifacts/Artifact.proto";
+import "Execution/ExecutionContext.proto";
+import "Protobuf/Failure.proto";
+import "Protobuf/Uuid.proto";
+import "Services/ReverseCallContext.proto";
+import "Services/Ping.proto";
 import "Runtime/EventHorizon/Subscriptions.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
