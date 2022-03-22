@@ -1,0 +1,16 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Protobuf/Uuid.proto";
+
+package dolittle.runtime.events;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/events";
+
+message Aggregate {
+    string eventSourceId = 1;
+    protobuf.Uuid aggregateRootId = 2;
+}

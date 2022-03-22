@@ -1,0 +1,74 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Artifacts/Artifact.proto";
+import "Protobuf/Uuid.proto";
+import "Protobuf/Failure.proto";
+import "Runtime/Management/Events.Processing/StreamProcessors.proto";
+
+package dolittle.runtime.events.processing.management;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Processing.Management.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/events/processing/management";
+
+message ReprocessEventsFromRequest {
+    // TODO: Do we want another kind of execution context here?
+    protobuf.Uuid tenantId = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid eventHandlerId = 3;
+    uint64 streamPosition = 4;
+}
+
+message ReprocessEventsFromResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+}
+
+message ReprocessAllEventsRequest {
+    // TODO: Do we want another kind of execution context here?
+    protobuf.Uuid scopeId = 1;
+    protobuf.Uuid eventHandlerId = 2;
+}
+
+message ReprocessAllEventsResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+}
+
+message GetAllRequest {
+    // TODO: Do we want another kind of execution context here?
+    optional protobuf.Uuid tenantId = 1;
+}
+
+message EventHandlerStatus {
+    protobuf.Uuid scopeId = 1;
+    protobuf.Uuid eventHandlerId = 2;
+    repeated artifacts.Artifact eventTypes = 3;
+    bool partitioned = 4;
+    string alias = 5;
+    repeated TenantScopedStreamProcessorStatus tenants = 6;
+}
+
+message GetAllResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    repeated EventHandlerStatus eventHandlers = 2;
+}
+
+message GetOneRequest {
+    // TODO: Do we want another kind of execution context here?
+    protobuf.Uuid scopeId = 1;
+    protobuf.Uuid eventHandlerId = 2;
+    optional protobuf.Uuid tenantId = 3;
+}
+
+message GetOneResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    EventHandlerStatus eventHandlers = 2;
+}
+
+service EventHandlers {
+    rpc ReprocessEventsFrom(ReprocessEventsFromRequest) returns(ReprocessEventsFromResponse);
+    rpc ReprocessAllEvents(ReprocessAllEventsRequest) returns(ReprocessAllEventsResponse);
+    rpc GetAll(GetAllRequest) returns(GetAllResponse);
+    rpc GetOne(GetOneRequest) returns(GetOneResponse);
+}

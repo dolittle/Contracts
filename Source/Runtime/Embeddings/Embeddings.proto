@@ -1,0 +1,121 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Artifacts/Artifact.proto";
+import "Protobuf/Uuid.proto";
+import "Protobuf/Failure.proto";
+import "Services/CallContext.proto";
+import "Services/ReverseCallContext.proto";
+import "Services/Ping.proto";
+import "Runtime/Events/Uncommitted.proto";
+import "Runtime/Events.Processing/Processors.proto";
+import "Runtime/Events.Processing/Projections.proto";
+import "Runtime/Projections/State.proto";
+
+package dolittle.runtime.embeddings;
+
+option csharp_namespace = "Dolittle.Runtime.Embeddings.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/embeddings";
+
+
+message EmbeddingRegistrationRequest {
+    services.ReverseCallArgumentsContext callContext = 1;
+    protobuf.Uuid embeddingId = 2;
+    repeated artifacts.Artifact events = 3;
+    string initialState = 4;
+}
+
+message EmbeddingCompareResponse {
+    repeated events.UncommittedEvent events = 1;
+}
+
+message EmbeddingDeleteResponse {
+    repeated events.UncommittedEvent events = 1;
+}
+
+message EmbeddingResponse {
+    services.ReverseCallResponseContext callContext = 1;
+    oneof Response {
+        EmbeddingCompareResponse compare = 2;
+        EmbeddingDeleteResponse delete = 3;
+        events.processing.ProjectionReplaceResponse projectionReplace = 4;
+        events.processing.ProjectionDeleteResponse projectionDelete = 5;
+    }
+    oneof Failure {
+        events.processing.ProcessorFailure processorFailure = 6;
+        protobuf.Failure failure = 7;
+    }
+}
+
+message EmbeddingClientToRuntimeMessage {
+    oneof Message {
+        EmbeddingRegistrationRequest registrationRequest = 1;
+        EmbeddingResponse handleResult = 2;
+        services.Pong pong = 3;
+    }
+}
+
+message EmbeddingRegistrationResponse {
+    protobuf.Failure failure = 1; // If not set/empty - no failure
+}
+
+message EmbeddingCompareRequest {
+    projections.ProjectionCurrentState projectionState = 1;
+    string entityState = 2;
+}
+
+message EmbeddingDeleteRequest {
+    projections.ProjectionCurrentState projectionState = 1;
+}
+
+message EmbeddingProjectRequest {
+    projections.ProjectionCurrentState currentState = 1;
+    events.UncommittedEvent event = 2;
+}
+
+message EmbeddingRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    oneof Request {
+        EmbeddingCompareRequest compare = 2;
+        EmbeddingDeleteRequest delete = 3;
+        EmbeddingProjectRequest projection = 4;
+    }
+}
+
+message EmbeddingRuntimeToClientMessage {
+    oneof Message {
+        EmbeddingRegistrationResponse registrationResponse = 1;
+        EmbeddingRequest handleRequest = 2;
+        services.Ping ping = 3;
+    }
+}
+
+message UpdateRequest {
+    services.CallRequestContext callContext = 1;
+    protobuf.Uuid embeddingId = 2;
+    string key = 3;
+    string state = 4;
+}
+
+message UpdateResponse {
+    projections.ProjectionCurrentState state = 1;
+    protobuf.Failure failure = 2; // If not set/empty - no failure
+}
+
+message DeleteRequest {
+    services.CallRequestContext callContext = 1;
+    protobuf.Uuid embeddingId = 2;
+    string key = 3;
+}
+
+message DeleteResponse {
+    protobuf.Failure failure = 1; // If not set/empty - no failure
+}
+
+service Embeddings {
+    rpc Connect(stream EmbeddingClientToRuntimeMessage) returns(stream EmbeddingRuntimeToClientMessage);
+    rpc Update(UpdateRequest) returns (UpdateResponse);
+    rpc Delete(DeleteRequest) returns (DeleteResponse);
+}

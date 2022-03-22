@@ -1,0 +1,27 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Artifacts/Artifact.proto";
+import "Protobuf/Failure.proto";
+import "Services/CallContext.proto";
+
+package dolittle.runtime.aggregates;
+
+option csharp_namespace = "Dolittle.Runtime.Aggregates.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/aggregates";
+
+message AggregateRootAliasRegistrationRequest {
+    services.CallRequestContext callContext = 1;
+    artifacts.Artifact aggregateRoot = 2;
+    optional string alias = 3;
+}
+
+message AggregateRootAliasRegistrationResponse {
+    protobuf.Failure failure = 1;
+}
+
+service AggregateRoots {
+    rpc RegisterAlias(AggregateRootAliasRegistrationRequest) returns(AggregateRootAliasRegistrationResponse);
+}

@@ -1,0 +1,52 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Protobuf/Failure.proto";
+import "Services/CallContext.proto";
+import "Runtime/Events/Aggregate.proto";
+import "Runtime/Events/Committed.proto";
+import "Runtime/Events/Uncommitted.proto";
+
+package dolittle.runtime.events;
+
+option csharp_namespace = "Dolittle.Runtime.Events.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/events";
+
+message CommitEventsRequest {
+    services.CallRequestContext callContext = 1;
+    repeated UncommittedEvent events = 2;
+}
+
+message CommitAggregateEventsRequest {
+    services.CallRequestContext callContext = 1;
+    UncommittedAggregateEvents events = 2;
+}
+
+message FetchForAggregateRequest {
+    services.CallRequestContext callContext = 1;
+    Aggregate aggregate = 2;
+}
+
+message CommitEventsResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    repeated CommittedEvent events = 2;
+}
+
+message CommitAggregateEventsResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    CommittedAggregateEvents events = 2;
+}
+
+message FetchForAggregateResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+    CommittedAggregateEvents events = 2;
+}
+
+// Represents the Event Store service
+service EventStore {
+    rpc Commit(CommitEventsRequest) returns(CommitEventsResponse);
+    rpc CommitForAggregate(CommitAggregateEventsRequest) returns(CommitAggregateEventsResponse);
+    rpc FetchForAggregate(FetchForAggregateRequest) returns(FetchForAggregateResponse);
+}

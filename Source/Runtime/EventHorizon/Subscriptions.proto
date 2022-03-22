@@ -1,0 +1,31 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+import "Protobuf/Uuid.proto";
+import "Services/CallContext.proto";
+import "Protobuf/Failure.proto";
+
+package dolittle.runtime.eventhorizon;
+
+option csharp_namespace = "Dolittle.Runtime.EventHorizon.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/eventhorizon";
+
+message SubscriptionResponse {
+    protobuf.Failure failure = 1;
+    protobuf.Uuid consentId = 2;
+}
+
+message Subscription {
+    services.CallRequestContext callContext = 1;
+    protobuf.Uuid microserviceId = 2;
+    protobuf.Uuid tenantId = 3;
+    protobuf.Uuid streamId = 4;
+    string partitionId = 5;
+    protobuf.Uuid scopeId = 6;
+}
+
+service Subscriptions {
+    rpc Subscribe(Subscription) returns(SubscriptionResponse);
+}
