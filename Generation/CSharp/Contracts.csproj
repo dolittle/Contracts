@@ -1,13 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="../../default.props"/>
     <PropertyGroup>
         <AssemblyName>Dolittle.Contracts</AssemblyName>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IncludeSource>True</IncludeSource>
+        <Protobuf_NoWarnMissingExpected>True</Protobuf_NoWarnMissingExpected>
+        <Protobuf_TouchMissingExpected>True</Protobuf_TouchMissingExpected>
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="../../Source/**/*.proto"
-                    ProtoRoot="../../Source"
-                    OutputDir="%(RecursiveDir)"
-                    GrpcServices="None" />
+        <PackageReference Include="Dolittle.Common" Version="2.*" PrivateAssets="All"/>
+        <PackageReference Include="Google.Protobuf" Version="3.18.1" />
+        <PackageReference Include="Google.Protobuf.Tools" Version="3.19.4" PrivateAssets="All"/>
+        <PackageReference Include="Grpc.Tools" Version="2.43.0" PrivateAssets="All"/>
+        <PackageReference Include="Grpc.Core.Api" Version="2.43.0" />
     </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="../../Source/**/*.proto" ProtoRoot="../../Source" OutputDir="%(RecursiveDir)" GrpcServices="Both" />
+    </ItemGroup>
+
+    <Target Name="DeleteSourceFiles" BeforeTargets="BeforeBuild">
+        <ItemGroup>
+            <FilesToDelete Include="**/*.cs" Exclude="VersionInfo.cs"/>
+        </ItemGroup>
+        <Delete Files="@(FilesToDelete)"/>
+    </Target>
 </Project>
