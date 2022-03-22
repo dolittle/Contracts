@@ -21,8 +21,8 @@
     },
     "scripts": {
         "protofiles": "find ../../Source -name '*.proto'",
-        "generate_javascript": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` -I../../Source $(yarn -s protofiles)",
-        "generate_typescript": "grpc_tools_node_protoc --ts_out=. --plugin=protoc-gen-grpc=`which protoc-gen-ts` -I../../Source $(yarn -s protofiles)",
+        "generate_javascript": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=grpc_js:. --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` -I../../Source $(yarn -s protofiles)",
+        "generate_typescript": "grpc_tools_node_protoc --ts_out=grpc_js:. --plugin=protoc-gen-grpc=`which protoc-gen-ts` -I../../Source $(yarn -s protofiles)",
         "build": "yarn generate_javascript && yarn generate_typescript",
         "prepublish": "yarn build"
     },
