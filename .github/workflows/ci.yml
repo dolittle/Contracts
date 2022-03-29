@@ -1,7 +1,7 @@
 name: Contracts CI/CD
 
 env:
-  PRERELEASE_BRANCHES: meriadoc
+  PRERELEASE_BRANCHES: mithrandir
 
 on:
   push:
