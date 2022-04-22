@@ -1,3 +1,13 @@
+# [7.1.0] - 2022-4-22 [PR: #103](https://github.com/dolittle/Contracts/pull/103)
+## Summary
+
+Copies all proto source files to a folder.
+
+### Added
+
+- The .proto source files will now be copied to a folder called `protos`
+
+
 # [7.0.0] - 2022-3-22 [PR: #97](https://github.com/dolittle/Contracts/pull/97)
 ## Summary
 
