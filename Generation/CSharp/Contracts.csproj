@@ -19,6 +19,13 @@
     <ItemGroup>
         <Protobuf Include="../../Source/**/*.proto" ProtoRoot="../../Source" OutputDir="%(RecursiveDir)" GrpcServices="Both" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <Content Include="../../Source/**/*.proto">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <PackagePath>protos</PackagePath>
+        </Content>
+    </ItemGroup>
 
     <Target Name="DeleteSourceFiles" BeforeTargets="BeforeBuild">
         <ItemGroup>
