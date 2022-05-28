@@ -61,10 +61,8 @@ message EventHorizonConsumerToProducerMessage {
 }
 message ConsumerRequest {
     services.ReverseCallRequestContext callContext = 1;
-    oneof Request {
-        EventHorizonEvent event = 2;
-        repeated EventHorizonEvent events = 3;
-    }
+    EventHorizonEvent event = 2; // Can be null
+    repeated EventHorizonEvent events = 3;  // Can be null
 }
 
 message EventHorizonProducerToConsumerMessage {
