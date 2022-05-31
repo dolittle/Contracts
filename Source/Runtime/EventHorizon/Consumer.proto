@@ -45,7 +45,7 @@ message ConsumerSubscriptionRequest {
     protobuf.Uuid partitionIdLegacy = 4 [deprecated = true];
     google.protobuf.StringValue partitionId = 6;
     uint64 streamPosition = 5;
-    bool sendBatches = 6;
+    bool sendBatches = 7;
 }
 
 message ConsumerResponse {
