@@ -1,3 +1,9 @@
+# [7.2.0] - 2022-6-16 [PR: #108](https://github.com/dolittle/Contracts/pull/108)
+## Summary
+
+Allows activities related to events to be traced across services by using correlationId as traceId.
+
+
 # [7.1.0] - 2022-4-22 [PR: #103](https://github.com/dolittle/Contracts/pull/103)
 ## Summary
 
