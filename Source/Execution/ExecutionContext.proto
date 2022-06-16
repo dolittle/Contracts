@@ -19,4 +19,5 @@ message ExecutionContext {
     protobuf.Uuid correlationId = 4;
     repeated security.Claim claims = 5;
     string environment = 6;
+    optional bytes spanId = 7;
 }
