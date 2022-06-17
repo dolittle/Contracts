@@ -37,6 +37,7 @@ message HandshakeResponse {
     protobuf.Uuid microserviceId = 8;
     string microserviceName = 9;
     string environmentName = 10;
+    optional string otlpEndpoint = 11;
 }
 
 service Handshake {
