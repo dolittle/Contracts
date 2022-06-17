@@ -1,3 +1,11 @@
+# [7.3.0] - 2022-6-17 [PR: #109](https://github.com/dolittle/Contracts/pull/109)
+## Summary
+
+### Added
+
+- optional otlp endpoint in handshake response
+
+
 # [7.2.0] - 2022-6-16 [PR: #108](https://github.com/dolittle/Contracts/pull/108)
 ## Summary
 
