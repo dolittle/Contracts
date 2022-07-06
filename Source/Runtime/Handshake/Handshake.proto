@@ -6,6 +6,7 @@ syntax = "proto3";
 import "Protobuf/Failure.proto";
 import "Protobuf/Uuid.proto";
 import "Versioning/Version.proto";
+import "Runtime/Client/BuildResult.proto";
 import "google/protobuf/duration.proto";
 
 package dolittle.runtime.handshake;
@@ -22,7 +23,7 @@ message HandshakeRequest {
 
     uint32 attempt = 5;
     google.protobuf.Duration timeSpent = 6;
-    repeated string buildMessages = 7;
+    repeated client.BuildResult buildResults = 7;
 }
 
 message HandshakeResponse {

@@ -1,0 +1,20 @@
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+syntax = "proto3";
+
+package dolittle.runtime.client;
+
+option csharp_namespace = "Dolittle.Runtime.Client.Contracts";
+option go_package = "go.dolittle.io/contracts/runtime/client";
+
+message BuildResult {
+    string message = 1;
+    
+    enum Type {
+        INFORMATION = 0;
+        FAILURE = 1;
+        ERROR = 2;
+    }
+    Type type = 2;
+}
