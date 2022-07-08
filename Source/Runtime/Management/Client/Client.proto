@@ -15,7 +15,7 @@ message GetBuildResultsRequest {
 
 
 message GetBuildResultsResponse {
-    repeated client.BuildResult buildResults = 1;
+    client.BuildResults buildResults = 1;
 }
 
 service Client {
