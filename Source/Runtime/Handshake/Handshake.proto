@@ -23,7 +23,7 @@ message HandshakeRequest {
 
     uint32 attempt = 5;
     google.protobuf.Duration timeSpent = 6;
-    repeated client.BuildResult buildResults = 7;
+    client.BuildResults buildResults = 7;
 }
 
 message HandshakeResponse {
