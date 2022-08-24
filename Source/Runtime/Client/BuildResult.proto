@@ -35,5 +35,5 @@ message BuildResults {
     repeated ArtifactBuildResult projections = 4;
     repeated ArtifactBuildResult embeddings = 5;
     repeated ArtifactBuildResult filters = 6;
-    repeated BuildResult unknown = 7;
+    repeated BuildResult other = 7;
 }
