@@ -3,6 +3,7 @@
 
 syntax = "proto3";
 
+import "Artifacts/Artifact.proto";
 import "Protobuf/Failure.proto";
 import "Services/CallContext.proto";
 import "Runtime/Events/Aggregate.proto";
@@ -28,6 +29,11 @@ message FetchForAggregateRequest {
     services.CallRequestContext callContext = 1;
     Aggregate aggregate = 2;
 }
+message FetchForAggregateInBatchesRequest {
+    services.CallRequestContext callContext = 1;
+    Aggregate aggregate = 2;
+    repeated artifacts.Artifact eventTypes = 3;
+}
 
 message CommitEventsResponse {
     protobuf.Failure failure = 1; // not set if not failed
@@ -48,5 +54,6 @@ message FetchForAggregateResponse {
 service EventStore {
     rpc Commit(CommitEventsRequest) returns(CommitEventsResponse);
     rpc CommitForAggregate(CommitAggregateEventsRequest) returns(CommitAggregateEventsResponse);
-    rpc FetchForAggregate(FetchForAggregateRequest) returns(FetchForAggregateResponse);
+    rpc FetchForAggregate(FetchForAggregateRequest) returns(FetchForAggregateResponse); // DEPRECATED: This is superseeded by FetchForAggregateInBatches
+    rpc FetchForAggregateInBatches(FetchForAggregateInBatchesRequest) returns (stream FetchForAggregateResponse);
 }
