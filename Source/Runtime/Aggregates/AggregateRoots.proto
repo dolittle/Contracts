@@ -28,12 +28,12 @@ message AggregateRootVersionRequest {
     string eventSourceId = 3;
 }
 
-message AggregateRootAliasRegistrationResponse {
+message AggregateRootVersionResponse {
     protobuf.Failure failure = 1;
     uint64 aggregateRootVersion = 2;
 }
 
 service AggregateRoots {
     rpc RegisterAlias(AggregateRootAliasRegistrationRequest) returns(AggregateRootAliasRegistrationResponse);
-    rpc GetVersion() returns ()
+    rpc GetVersion(AggregateRootVersionRequest) returns(AggregateRootVersionResponse)
 }
