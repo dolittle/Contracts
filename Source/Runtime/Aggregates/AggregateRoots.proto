@@ -35,5 +35,5 @@ message AggregateRootVersionResponse {
 
 service AggregateRoots {
     rpc RegisterAlias(AggregateRootAliasRegistrationRequest) returns(AggregateRootAliasRegistrationResponse);
-    rpc GetVersion(AggregateRootVersionRequest) returns(AggregateRootVersionResponse)
+    rpc GetVersion(AggregateRootVersionRequest) returns(AggregateRootVersionResponse);
 }
