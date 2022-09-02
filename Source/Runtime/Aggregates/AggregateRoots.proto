@@ -22,18 +22,6 @@ message AggregateRootAliasRegistrationResponse {
     protobuf.Failure failure = 1;
 }
 
-message AggregateRootVersionRequest {
-    services.CallRequestContext callContext = 1;
-    artifacts.Artifact aggregateRoot = 2;
-    string eventSourceId = 3;
-}
-
-message AggregateRootVersionResponse {
-    protobuf.Failure failure = 1;
-    uint64 aggregateRootVersion = 2;
-}
-
 service AggregateRoots {
     rpc RegisterAlias(AggregateRootAliasRegistrationRequest) returns(AggregateRootAliasRegistrationResponse);
-    rpc GetVersion(AggregateRootVersionRequest) returns(AggregateRootVersionResponse);
 }
