@@ -34,6 +34,7 @@ message CommittedAggregateEvents {
         artifacts.Artifact eventType = 4;
         bool public = 5;
         string content = 6;
+        uint64 aggregateRootVersion = 7; // The aggregate root version the event was applied to
     }
     string eventSourceId = 1;
     protobuf.Uuid aggregateRootId = 2;
