@@ -37,6 +37,7 @@ message CommittedAggregateEvents {
     }
     string eventSourceId = 1;
     protobuf.Uuid aggregateRootId = 2;
-    uint64 aggregateRootVersion = 3;
+    uint64 aggregateRootVersion = 3 [deprecated = true]; // DEPRECATED Replaced by currentAggregateRootVersion
     repeated CommittedAggregateEvent events = 4;
+    uint64 currentAggregateRootVersion = 5; // Represents the current version of the aggregate root
 }
