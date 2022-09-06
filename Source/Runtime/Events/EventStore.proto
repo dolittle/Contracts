@@ -32,17 +32,16 @@ message FetchForAggregateRequest {
 message FetchForAggregateInBatchesRequest {
     services.CallRequestContext callContext = 1;
     Aggregate aggregate = 2;
-    oneof Request{
+    oneof Request {
         FetchAllEventsForAggregateInBatchesRequest fetchAllEvents = 3;
         FetchEventsForAggregateInBatchesRequest fetchEvents = 4;
-
     }
 }
 message FetchAllEventsForAggregateInBatchesRequest {
 }
 
-message FetchEventsForAggregateInBatchesRequest {@
-    repeated artifacts.Artifact eventTypes = 3;
+message FetchEventsForAggregateInBatchesRequest {
+    repeated artifacts.Artifact eventTypes = 1;
 }
 
 message CommitEventsResponse {
