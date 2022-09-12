@@ -1,7 +1,7 @@
 name: Contracts CI/CD
 
 env:
-  PRERELEASE_BRANCHES: mithrandir
+  PRERELEASE_BRANCHES: treebeard
 
 on:
   push:
