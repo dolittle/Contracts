@@ -1,3 +1,18 @@
+# [7.4.0] - 2022-9-12 [PR: #115](https://github.com/dolittle/Contracts/pull/115)
+## Summary
+
+Adds functionality that enables streaming of `FetchForAggregateResponse` and filtering of aggregate events based on event type. This is to be able to write an aggregate root rehydration implementation in the SDKs that only fetches the events that are relevant for rehydration and also fixes the problem that fetch for aggregate responses could be too large.
+
+### Added
+
+- `aggregateRootVersion` (field 7) on the inner `CommittedAggregateEvent` message in the `CommittedAggregateEvents` message. It represents the aggregate root version that the event was applied to
+- `FetchForAggregateInBatches` method to `EventStore` which takes in a `FetchForAggregateInBatchesRequest` and streams back `FetchForAggregateResponse`
+
+### Deprecated
+
+- `aggregateRootVersion` (field 3) on `CommittedAggregateEvents` it represents the aggregate root version of the last event in the `events` sequence, it is now replaced by `currentAggregateRootVersion` (field 5)  which represents the current aggregate root version of the aggregate regardless of how many events are included in the sequence
+
+
 # [7.3.0] - 2022-6-17 [PR: #109](https://github.com/dolittle/Contracts/pull/109)
 ## Summary
 
