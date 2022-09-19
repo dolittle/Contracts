@@ -19,6 +19,7 @@ message ProcessorFailure {
     string reason = 1;
     bool retry = 2;
     google.protobuf.Duration retryTimeout = 3;
+    StreamEventMetadata eventMetadata = 4; // The metadata of the event that failed
 }
 
 message RetryProcessingState {

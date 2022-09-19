@@ -48,14 +48,25 @@ message HandleEventRequest {
     RetryProcessingState retryProcessingState = 3;
 }
 
+message HandleEventBatchRequest {
+    services.ReverseCallRequestContext callContext = 1;
+    repeated StreamEvent events = 2;
+    RetryProcessingState retryProcessingState = 3;
+}
+
 message EventHandlerRuntimeToClientMessage {
     oneof Message {
         EventHandlerRegistrationResponse registrationResponse = 1;
-        HandleEventRequest handleRequest = 2;
+        HandleEventRequest handleRequest = 2 [deprecated = true]; // Replaced by handleBatchRequest
         services.Ping ping = 3;
+        HandleEventBatchRequest handleBatchRequest = 4;
     }
 }
 
 service EventHandlers {
-    rpc Connect(stream EventHandlerClientToRuntimeMessage) returns(stream EventHandlerRuntimeToClientMessage);
+    rpc Connect(stream EventHandlerClientToRuntimeMessage) returns(stream EventHandlerRuntimeToClientMessage){
+        option deprecated = true;
+    }; // Replaced by ConnectBatched
+    rpc ConnectBatched(stream EventHandlerClientToRuntimeMessage) returns(stream EventHandlerRuntimeToClientMessage);
+
 }
