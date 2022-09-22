@@ -64,9 +64,5 @@ message EventHandlerRuntimeToClientMessage {
 }
 
 service EventHandlers {
-    rpc Connect(stream EventHandlerClientToRuntimeMessage) returns(stream EventHandlerRuntimeToClientMessage){
-        option deprecated = true;
-    }; // Replaced by ConnectBatched
-    rpc ConnectBatched(stream EventHandlerClientToRuntimeMessage) returns(stream EventHandlerRuntimeToClientMessage);
-
+    rpc Connect(stream EventHandlerClientToRuntimeMessage) returns(stream EventHandlerRuntimeToClientMessage);
 }
