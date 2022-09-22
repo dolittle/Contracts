@@ -23,6 +23,7 @@ message EventHandlerRegistrationRequest {
     repeated artifacts.Artifact eventTypes = 4;
     bool partitioned = 5;
     optional string alias = 6;
+    bool batched = 7; // Whether the processor is batched or not
 }
 
 message EventHandlerResponse {
