@@ -23,7 +23,7 @@ message EventHandlerRegistrationRequest {
     repeated artifacts.Artifact eventTypes = 4;
     bool partitioned = 5;
     optional string alias = 6;
-    bool batched = 7; // Whether the processor is batched or not
+    bool batched = 7; // Whether the processor is batched or not. TODO: We could drop this and have a flag in the Runtime that gets turned on for batching when using this version of the contracts or greater
 }
 
 message EventHandlerResponse {
@@ -43,24 +43,18 @@ message EventHandlerRegistrationResponse {
     protobuf.Failure failure = 1;
 }
 
-message HandleEventRequest {
+message HandleEventsRequest {
     services.ReverseCallRequestContext callContext = 1;
-    StreamEvent event = 2;
+    StreamEvent event = 2 [deprecated = true]; // For use with older SDKs that does not support batching
     RetryProcessingState retryProcessingState = 3;
-}
-
-message HandleEventBatchRequest {
-    services.ReverseCallRequestContext callContext = 1;
-    repeated StreamEvent events = 2;
-    RetryProcessingState retryProcessingState = 3;
+    repeated StreamEvent batch = 4; // The batch of events to handle
 }
 
 message EventHandlerRuntimeToClientMessage {
     oneof Message {
         EventHandlerRegistrationResponse registrationResponse = 1;
-        HandleEventRequest handleRequest = 2 [deprecated = true]; // Replaced by handleBatchRequest
+        HandleEventsRequest handleRequest = 2;
         services.Ping ping = 3;
-        HandleEventBatchRequest handleBatchRequest = 4;
     }
 }
 
