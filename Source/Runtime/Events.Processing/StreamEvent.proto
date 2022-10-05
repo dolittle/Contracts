@@ -13,15 +13,7 @@ option go_package = "go.dolittle.io/contracts/runtime/events/processing";
 
 message StreamEvent {
     events.CommittedEvent event = 1;
-    string partitionId = 2 [deprecated = true]; // Replaced by metadata
-    protobuf.Uuid scopeId = 3 [deprecated = true]; // Replaced by metadata
-    bool partitioned = 4 [deprecated = true]; // Replaced by metadata
-    StreamEventMetadata metadata = 5; // The metadata of the stream event
-}
-
-message StreamEventMetadata {
-    string partitionId = 1; // The partition id of the event
-    protobuf.Uuid scopeId = 2; // The scope id of the event
-    bool partitioned = 3; // Whether the stream is partitioned or not
-    uint64 streamPosition = 4; // The stream position of the event
+    string partitionId = 2;
+    protobuf.Uuid scopeId = 3;
+    bool partitioned = 4;
 }
