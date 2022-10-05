@@ -23,11 +23,13 @@ message EventHandlerRegistrationRequest {
     repeated artifacts.Artifact eventTypes = 4;
     bool partitioned = 5;
     optional string alias = 6;
+    bool batched = 7; // Whether the processor is batched or not.
 }
 
 message EventHandlerResponse {
     services.ReverseCallResponseContext callContext = 1;
     ProcessorFailure failure = 2; // If not set/empty - no failure
+    uint32 failedEventBatchPosition = 3; // The zero-indexed batch position of the event in the batch that failed.
 }
 
 message EventHandlerClientToRuntimeMessage {
@@ -42,16 +44,17 @@ message EventHandlerRegistrationResponse {
     protobuf.Failure failure = 1;
 }
 
-message HandleEventRequest {
+message HandleEventsRequest {
     services.ReverseCallRequestContext callContext = 1;
-    StreamEvent event = 2;
+    StreamEvent event = 2 [deprecated = true]; // For use with older SDKs that does not support batching
     RetryProcessingState retryProcessingState = 3;
+    repeated StreamEvent batch = 4; // The batch of events to handle
 }
 
 message EventHandlerRuntimeToClientMessage {
     oneof Message {
         EventHandlerRegistrationResponse registrationResponse = 1;
-        HandleEventRequest handleRequest = 2;
+        HandleEventsRequest handleRequest = 2;
         services.Ping ping = 3;
     }
 }
