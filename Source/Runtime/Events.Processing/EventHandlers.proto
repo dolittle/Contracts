@@ -23,12 +23,13 @@ message EventHandlerRegistrationRequest {
     repeated artifacts.Artifact eventTypes = 4;
     bool partitioned = 5;
     optional string alias = 6;
-    // bool batched = 7; // Whether the processor is batched or not. TODO: We could drop this and have a flag in the Runtime that gets turned on for batching when using this version of the contracts or greater
+    bool batched = 7; // Whether the processor is batched or not.
 }
 
 message EventHandlerResponse {
     services.ReverseCallResponseContext callContext = 1;
     ProcessorFailure failure = 2; // If not set/empty - no failure
+    uint32 failedEventBatchPosition = 3; // The zero-indexed batch position of the event in the batch that failed.
 }
 
 message EventHandlerClientToRuntimeMessage {
