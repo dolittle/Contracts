@@ -97,7 +97,7 @@ jobs:
           files-to-update: |
             Generation/JavaScript.Web/VersionInfo.js
       - name: Build Contracts
-        working-directory: ./Generation.Web/JavaScript
+        working-directory: ./Generation/JavaScript.Web
         run: yarn build
 
   golang-build:
