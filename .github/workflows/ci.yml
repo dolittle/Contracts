@@ -77,6 +77,29 @@ jobs:
         working-directory: ./Generation/JavaScript
         run: yarn build
 
+  java-script-web-build:
+    name: JavaScript.Web Build
+    runs-on: ubuntu-latest
+    needs: context
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies
+        working-directory: ./Generation/JavaScript.Web
+        run: yarn
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/JavaScript.Web/VersionInfo.js
+      - name: Build Contracts
+        working-directory: ./Generation.Web/JavaScript
+        run: yarn build
+
   golang-build:
     name: Go Build
     runs-on: ubuntu-latest
@@ -182,6 +205,46 @@ jobs:
           regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
       - name: Publish Contracts
         working-directory: ./Generation/JavaScript
+        run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+
+
+  java-script-web-release:
+    name: JavaScript.Web Release
+    runs-on: ubuntu-latest
+    needs: [context, release]
+    if: ${{ needs.context.outputs.should-publish == 'true' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies
+        working-directory: ./Generation/JavaScript.Web
+        run: yarn
+      - name: Update VersionInfo
+        uses: dolittle/update-version-info-action@v1
+        with:
+          version: ${{ needs.context.outputs.versioninfo-version }}
+          files-to-update: |
+            Generation/JavaScript.Web/VersionInfo.js
+      - name: Build Contracts
+        working-directory: ./Generation/JavaScript.Web
+        run: yarn build
+      - name: Update Contracts version
+        working-directory: ./Generation/JavaScript.Web
+        run: npm version ${{ needs.context.outputs.version }}
+      - name: Extract tag from version
+        uses: actions-ecosystem/action-regex-match@v2
+        id: tag_regex
+        with:
+          text: ${{ needs.context.outputs.version }}
+          regex: '^\d+\.\d+.\d+-([^.]+)\.\d+$'
+      - name: Publish Contracts
+        working-directory: ./Generation/JavaScript.Web
         run: npm publish --tag ${{ needs.context.outputs.release-type == 'prerelease' && steps.tag_regex.outputs.group1 || 'latest' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
