@@ -365,6 +365,13 @@ Generation/JavaScript/**/*.d.ts
 !Generation/JavaScript/VersionInfo.d.ts
 !Generation/JavaScript/VersionInfo.js
 
+# JavaScript.Web
+Generation/JavaScript.Web/**/*.js
+Generation/JavaScript.Web/**/*.d.ts
+!Generation/JavaScript.Web/package.json
+!Generation/JavaScript.Web/VersionInfo.d.ts
+!Generation/JavaScript.Web/VersionInfo.js
+
 # Go
 Generation/Go/*
 !Generation/Go/generate.sh
