@@ -1,0 +1,38 @@
+{
+    "name": "@dolittle/contracts.web",
+    "description": "Grpc-Web contracts for Dolittle Fundamentals",
+    "version": "0.0.0",
+    "homepage": "https://dolittle.io",
+    "author": "Dolittle",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dolittle-runtime/contracts.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dolittle/home/issues"
+    },
+    "keywords": [
+        "dolittle",
+        "grpc"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "protofiles": "find ../../Source -name '*.proto'",
+        "generate": "grpc_tools_node_protoc --js_out=import_style=commonjs:. --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:. --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` -I../../Source $(yarn -s protofiles)",
+        "keep_only_management_services": "find . -name '*_grpc_web_pb.*' -and -not -path './Runtime/Management/*' -delete",
+        "build": "yarn generate && yarn keep_only_management_services",
+        "prepublish": "yarn build"
+    },
+    "dependencies": {
+        "@types/google-protobuf": "3.15.5",
+        "grpc-web": "1.4.1",
+        "google-protobuf": "3.19.4"
+    },
+    "devDependencies": {
+        "grpc-tools": "1.11.2",
+        "protoc-gen-grpc-web": "1.4.0"
+    }
+}

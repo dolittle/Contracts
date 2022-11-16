@@ -11,12 +11,10 @@
 ---
 
 <p align="center">
+    <a href="https://www.nuget.org/packages/Dolittle.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Contracts&logo=nuget" alt="Latest NuGet package"></a>
     <a href="https://www.npmjs.com/package/@dolittle/contracts"><img src="https://img.shields.io/npm/v/@dolittle/contracts?label=@dolittle/contracts&logo=npm" alt="Latest NPM package"></a>
-    <a href="https://www.npmjs.com/package/@dolittle/runtime.contracts"><img src="https://img.shields.io/npm/v/@dolittle/runtime.contracts?label=@dolittle/runtime.contracts&logo=npm" alt="Latest NPM package"></a>
-</p>
-<p align="center">
-    <a href="https://www.nuget.org/packages/Dolittle.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Contracts&logo=nuget" alt="Latest Nuget package"></a>
-    <a href="https://www.nuget.org/packages/Dolittle.Runtime.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Runtime.Contracts&logo=nuget" alt="Latest Nuget package"></a>
+    <a href="https://www.npmjs.com/package/@dolittle/contracts.web"><img src="https://img.shields.io/npm/v/@dolittle/contracts?label=@dolittle/contracts.web&logo=npm" alt="Latest NPM package"></a>
+    <a href="https://pkg.go.dev/go.dolittle.io/contracts"><img src="https://img.shields.io/github/v/tag/dolittle/Go.Contracts?label=go.dolittle.io/contracts&logo=go&sort=semver" alt="Latest Go package"></a>
 </p>
 
 Dolittle is a decentralized, distributed, event-driven microservice platform built to harness the power of events.
@@ -29,10 +27,12 @@ The Runtime contracts are maintained independently from its runtime implementati
 
 # Packages released from this repository
 
-|            | Contracts                                                                                                                                                                                     | Runtime.Contracts                                                                                                                                                                                                |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| JavaScript | <a href="https://www.npmjs.com/package/@dolittle/contracts"><img src="https://img.shields.io/npm/v/@dolittle/contracts?label=@dolittle/contracts&logo=npm" alt="Latest NPM package"></a>      | <a href="https://www.npmjs.com/package/@dolittle/runtime.contracts"><img src="https://img.shields.io/npm/v/@dolittle/runtime.contracts?label=@dolittle/runtime.contracts&logo=npm" alt="Latest NPM package"></a> |
-| C#         | <a href="https://www.nuget.org/packages/Dolittle.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Contracts&logo=nuget" alt="Latest Nuget package"></a> | <a href="https://www.nuget.org/packages/Dolittle.Runtime.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Runtime.Contracts&logo=nuget" alt="Latest Nuget package"></a>    |
+| Platform                  | Contracts                                                                                                                                                                                                  |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DotNet                    | <a href="https://www.nuget.org/packages/Dolittle.Contracts/"><img src="https://img.shields.io/nuget/v/Dolittle.Contracts?label=Dolittle.Contracts&logo=nuget" alt="Latest NuGet package"></a>              |
+| JavaScript (for Node)     | <a href="https://www.npmjs.com/package/@dolittle/contracts"><img src="https://img.shields.io/npm/v/@dolittle/contracts?label=@dolittle/contracts&logo=npm" alt="Latest NPM package"></a>                   |
+| JavaScript (for browsers) | <a href="https://www.npmjs.com/package/@dolittle/contracts.web"><img src="https://img.shields.io/npm/v/@dolittle/contracts?label=@dolittle/contracts.web&logo=npm" alt="Latest NPM package"></a>           |
+| Go                        | <a href="https://pkg.go.dev/go.dolittle.io/contracts"><img src="https://img.shields.io/github/v/tag/dolittle/Go.Contracts?label=go.dolittle.io/contracts&logo=go&sort=semver" alt="Latest Go package"></a> |
 
 # Build
 C#:
@@ -44,6 +44,13 @@ dotnet build
 JavaScript (requires Node.JS>=14):
 ```shell
 cd Generation/JavaScript
+yarn
+yarn build
+```
+
+JavaScript.Web (requires Node.JS>=14):
+```shell
+cd Generation/JavaScript.Web
 yarn
 yarn build
 ```

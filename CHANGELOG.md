@@ -1,3 +1,13 @@
+# [7.4.1] - 2022-10-26 [PR: #130](https://github.com/dolittle/Contracts/pull/130)
+## Summary
+
+Adds support for gRPC-web by publishing a new `@dolittle/contracts.web` package. This package contains (for now) only the `Management` services.
+
+### Added
+
+- `@dolittle/contracts.web` package with generated gRPC-web code.
+
+
 # [7.4.0] - 2022-9-12 [PR: #115](https://github.com/dolittle/Contracts/pull/115)
 ## Summary
 
