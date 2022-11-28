@@ -1,3 +1,14 @@
+# [7.5.0] - 2022-11-28 [PR: #131](https://github.com/dolittle/Contracts/pull/131)
+## Summary
+
+Adds build results in the Handshake request and a management API for getting build results.
+
+### Added
+
+- buildResults field on the handshake request
+- Management service for getting build results
+
+
 # [7.4.1] - 2022-10-26 [PR: #130](https://github.com/dolittle/Contracts/pull/130)
 ## Summary
 
