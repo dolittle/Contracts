@@ -17,5 +17,5 @@ message GetConfigurationYamlResponse {
 }
 
 service Configuration {
-    rpc GetConfigurationYaml(GetConfigurationStringRequest) returns(GetConfigurationYamlResponse);
+    rpc GetConfigurationYaml(GetConfigurationYamlRequest) returns(GetConfigurationYamlResponse);
 }
