@@ -12,6 +12,10 @@ option go_package = "go.dolittle.io/contracts/runtime/configuration/management";
 message GetConfigurationYamlRequest {
 }
 
+message GetConfigurationYamlResponse {
+    string value = 1;
+}
+
 service Configuration {
     rpc GetConfigurationYaml(GetConfigurationStringRequest) returns(string);
 }
