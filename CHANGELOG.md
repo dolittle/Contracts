@@ -1,3 +1,12 @@
+# [7.6.0] - 2023-1-31 [PR: #133](https://github.com/dolittle/Contracts/pull/133)
+## Summary
+
+
+### Added
+
+- Adds a management api for getting the current Runtime configuration as a yaml string
+
+
 # [7.5.0] - 2022-11-28 [PR: #131](https://github.com/dolittle/Contracts/pull/131)
 ## Summary
 
