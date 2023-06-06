@@ -19,7 +19,7 @@ import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Dolittle.Runtime.Events.Processing.Contracts";
 option go_package = "go.dolittle.io/contracts/runtime/events/processing";
 
-/// Determines where to start processing from if the event handler has no state
+// Determines where to start processing from if the event handler has no state
 message StartFrom{
   oneof Selected {
     Position position = 1;
