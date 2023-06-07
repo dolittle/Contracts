@@ -7,6 +7,7 @@ import "Artifacts/Artifact.proto";
 import "Protobuf/Uuid.proto";
 import "Protobuf/Failure.proto";
 import "Runtime/Management/Events.Processing/StreamProcessors.proto";
+import "google/protobuf/timestamp.proto";
 
 package dolittle.runtime.events.processing.management;
 
@@ -22,6 +23,18 @@ message ReprocessEventsFromRequest {
 }
 
 message ReprocessEventsFromResponse {
+    protobuf.Failure failure = 1; // not set if not failed
+}
+
+message ReprocessEventsFromTimestampRequest {
+    // Tenant is optional here, allowing to update multiple tenants at once if not specified
+    optional protobuf.Uuid tenantId = 1;
+    protobuf.Uuid scopeId = 2;
+    protobuf.Uuid eventHandlerId = 3;
+    uint64 streamPosition = 4;
+}
+
+message ReprocessEventsFromTimestampResponse {
     protobuf.Failure failure = 1; // not set if not failed
 }
 
@@ -68,6 +81,7 @@ message GetOneResponse {
 
 service EventHandlers {
     rpc ReprocessEventsFrom(ReprocessEventsFromRequest) returns(ReprocessEventsFromResponse);
+    rpc ReprocessEventsFromTimestamp(ReprocessEventsFromTimestampRequest) returns(ReprocessEventsFromTimestampResponse);
     rpc ReprocessAllEvents(ReprocessAllEventsRequest) returns(ReprocessAllEventsResponse);
     rpc GetAll(GetAllRequest) returns(GetAllResponse);
     rpc GetOne(GetOneRequest) returns(GetOneResponse);
