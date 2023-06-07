@@ -1,3 +1,12 @@
+# [7.7.0] - 2023-6-7 [PR: #134](https://github.com/dolittle/Contracts/pull/134)
+## Summary
+
+- Added ability to set event handler start position when no state exists.
+- Added ability to set stop timestamp to allow event handlers to be phased out
+- Added ability to reprocess from a specific timestamp
+- Added concurrency parameter for event handlers
+
+
 # [7.6.0] - 2023-1-31 [PR: #133](https://github.com/dolittle/Contracts/pull/133)
 ## Summary
 
