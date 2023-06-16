@@ -1,3 +1,13 @@
+# [7.8.0] - 2023-6-16 [PR: #135](https://github.com/dolittle/Contracts/pull/135)
+## Summary
+
+Adds ability to perform graceful terminations of event handlers with a custom grace period
+
+### Added
+- InitiateDisconnect
+- DisconnectCompleted
+
+
 # [7.7.0] - 2023-6-7 [PR: #134](https://github.com/dolittle/Contracts/pull/134)
 ## Summary
 
