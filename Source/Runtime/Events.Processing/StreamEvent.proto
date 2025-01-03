@@ -16,4 +16,5 @@ message StreamEvent {
     string partitionId = 2;
     protobuf.Uuid scopeId = 3;
     bool partitioned = 4;
+    uint64 streamPosition = 5;
 }
