@@ -42,9 +42,9 @@ jobs:
     needs: context
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "3.1.x"
+          dotnet-version: "9.x"
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
@@ -153,9 +153,9 @@ jobs:
     if: ${{ needs.context.outputs.should-publish == 'true' }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "3.1.x"
+          dotnet-version: "9.x"
       - name: Update VersionInfo
         uses: dolittle/update-version-info-action@v1
         with:
