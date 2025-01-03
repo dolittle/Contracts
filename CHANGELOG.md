@@ -1,3 +1,11 @@
+# [7.8.1] - 2025-1-3 [PR: #137](https://github.com/dolittle/Contracts/pull/137)
+## Summary
+Adds stream position to events being processed, allowing consumers to reason over processed event offset.
+
+### Added
+- `StreamEvent.streamPosition`
+
+
 # [7.8.0] - 2023-6-16 [PR: #135](https://github.com/dolittle/Contracts/pull/135)
 ## Summary
 
