@@ -6,6 +6,7 @@
         <Protobuf_NoWarnMissingExpected>True</Protobuf_NoWarnMissingExpected>
         <Protobuf_TouchMissingExpected>True</Protobuf_TouchMissingExpected>
         <DocumentationFile>bin/$(Configuration)/$(TargetFramework)/$(AssemblyName).xml</DocumentationFile>
+        <InvariantGlobalization>true</InvariantGlobalization>
     </PropertyGroup>
 
     <ItemGroup>
